@@ -1,0 +1,28 @@
+{
+  "items": [
+    {
+      "name": "PlayStation 5",
+      "keywords": ["playstation 5", "ps5"],
+      "max_price_clp": 399990,
+      "category": "consolas"
+    },
+    {
+      "name": "Nintendo Switch OLED",
+      "keywords": ["nintendo switch oled", "switch oled", "nintendo switch modelo oled"],
+      "max_price_clp": 249990,
+      "category": "consolas"
+    },
+    {
+      "name": "MacBook Air M2",
+      "keywords": ["macbook air m2"],
+      "max_price_clp": 699990,
+      "category": "notebooks"
+    },
+    {
+      "name": "iPhone 15",
+      "keywords": ["iphone 15"],
+      "max_price_clp": 599990,
+      "category": "celulares"
+    }
+  ]
+}

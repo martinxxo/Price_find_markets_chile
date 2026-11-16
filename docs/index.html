@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es-CL" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ChileDeals Radar — Glitches y Ofertas Flash en Vivo</title>
+  <meta
+    name="description"
+    content="Radar gratuito de errores de precio (glitches), ofertas flash reales y alertas VIP en tiendas oficiales de Chile."
+  />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="brand">
+        <div class="brand-badge" aria-hidden="true">📡</div>
+        <div>
+          <h1>ChileDeals Radar</h1>
+          <p class="subtitle">Glitches, Ofertas Flash y Lista VIP · Tiendas Oficiales de Chile</p>
+        </div>
+      </div>
+
+      <div class="topbar-actions">
+        <div class="status-pill" id="radar-status">
+          <span class="pulse-dot" aria-hidden="true"></span>
+          <span id="last-updated-text">Cargando radar...</span>
+        </div>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Cambiar tema">
+          🌙 / ☀️
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="stats-grid" aria-label="Resumen del radar">
+      <article class="stat-card">
+        <span class="stat-label">Productos Monitoreados</span>
+        <strong class="stat-value" id="stat-monitored">0</strong>
+        <span class="stat-hint">Solo vendedores oficiales 1P</span>
+      </article>
+      <article class="stat-card stat-glitch">
+        <span class="stat-label">🚨 Posibles Glitches</span>
+        <strong class="stat-value" id="stat-glitches">0</strong>
+        <span class="stat-hint">Caída ≥ 50% o piso roto</span>
+      </article>
+      <article class="stat-card stat-flash">
+        <span class="stat-label">⚡ Ofertas Flash</span>
+        <strong class="stat-value" id="stat-flash">0</strong>
+        <span class="stat-hint">Caída real ≥ 25%</span>
+      </article>
+      <article class="stat-card stat-vip">
+        <span class="stat-label">⭐ Lista VIP</span>
+        <strong class="stat-value" id="stat-vip">0</strong>
+        <span class="stat-hint">Bajo tu precio meta</span>
+      </article>
+    </section>
+
+    <section class="controls-panel" aria-label="Filtros de búsqueda">
+      <div class="type-pills" role="group" aria-label="Filtrar por tipo de alerta">
+        <button type="button" class="pill active" data-type="ALL">Todos</button>
+        <button type="button" class="pill pill-glitch" data-type="GLITCH">🚨 Solo Glitches</button>
+        <button type="button" class="pill pill-flash" data-type="FLASH">⚡ Ofertas Flash</button>
+        <button type="button" class="pill pill-vip" data-type="VIP">⭐ Lista VIP</button>
+      </div>
+
+      <div class="filters-row">
+        <div class="input-group search-group">
+          <label for="search-input">Buscar producto o marca</label>
+          <input
+            type="search"
+            id="search-input"
+            placeholder="Ej: PS5, iPhone, Lenovo, OLED..."
+            autocomplete="off"
+          />
+        </div>
+
+        <div class="input-group">
+          <label for="store-select">Tienda Oficial</label>
+          <select id="store-select">
+            <option value="ALL">Todas las tiendas</option>
+            <option value="Falabella">Falabella</option>
+            <option value="Paris">Paris</option>
+            <option value="Ripley">Ripley</option>
+            <option value="MercadoLibre">MercadoLibre</option>
+          </select>
+        </div>
+
+        <div class="input-group">
+          <label for="category-select">Categoría</label>
+          <select id="category-select">
+            <option value="ALL">Todas las categorías</option>
+            <option value="notebooks">Notebooks</option>
+            <option value="celulares">Celulares</option>
+            <option value="consolas">Consolas</option>
+            <option value="tv">Smart TV</option>
+            <option value="audio">Audio</option>
+            <option value="componentes">Componentes</option>
+          </select>
+        </div>
+
+        <div class="input-group">
+          <label for="sort-select">Ordenar por</label>
+          <select id="sort-select">
+            <option value="drop_desc">Mayor % bajada real</option>
+            <option value="savings_desc">Mayor ahorro en $</option>
+            <option value="price_asc">Menor precio</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <section class="results-meta">
+      <p id="results-count">Mostrando 0 ofertas</p>
+      <p class="mode-badge" id="feed-mode-badge"></p>
+    </section>
+
+    <section id="deals-grid" class="deals-grid" aria-live="polite"></section>
+
+    <section id="empty-state" class="empty-state hidden">
+      <div class="empty-icon">🔍</div>
+      <h2>No hay ofertas que coincidan con esos filtros</h2>
+      <p>Prueba quitando algún filtro o limpiando el buscador para ver todas las alertas activas.</p>
+      <button type="button" id="reset-filters-btn" class="btn-secondary">Restablecer filtros</button>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>
+        Alojado gratis en GitHub Pages · Datos actualizados automáticamente desde
+        <code>docs/data/deals.json</code> sin costos de dominio ni servidor.
+      </p>
+    </div>
+  </footer>
+
+  <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

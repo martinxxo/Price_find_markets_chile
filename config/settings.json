@@ -1,0 +1,24 @@
+{
+  "thresholds": {
+    "flash_drop_pct": 25.0,
+    "glitch_drop_pct": 50.0,
+    "first_seen_glitch_discount_pct": 65.0,
+    "re_notify_extra_drop_pct": 5.0
+  },
+  "category_floor_prices_clp": {
+    "notebooks": 130000,
+    "celulares": 65000,
+    "consolas": 160000,
+    "tv": 95000,
+    "audio": 35000,
+    "componentes": 60000
+  },
+  "stores_enabled": [
+    "mercadolibre",
+    "falabella",
+    "paris",
+    "ripley"
+  ],
+  "official_seller_only": true,
+  "public_web_url": "https://martinxxo.github.io/deals/"
+}

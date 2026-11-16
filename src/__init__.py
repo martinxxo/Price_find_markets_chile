@@ -1,0 +1,1 @@
+"""ChileDeals Radar package."""

@@ -1,0 +1,297 @@
+"""SQLite persistence for historical prices and active deals."""
+
+from __future__ import annotations
+
+import sqlite3
+from pathlib import Path
+from typing import Any, Optional
+
+from src.models import DealAlert, ProductSnapshot, utc_now_iso
+
+
+class PriceStorage:
+    """Stores product price history and currently active deal alerts in SQLite."""
+
+    def __init__(self, db_path: str | Path = "data/prices.db") -> None:
+        self.db_path = Path(db_path)
+        self.db_path.parent.mkdir(parents=True, exist_ok=True)
+        self.conn = sqlite3.connect(str(self.db_path))
+        self.conn.row_factory = sqlite3.Row
+        self._init_schema()
+
+    def _init_schema(self) -> None:
+        with self.conn:
+            self.conn.execute(
+                """
+                CREATE TABLE IF NOT EXISTS products (
+                    sku TEXT PRIMARY KEY,
+                    store TEXT NOT NULL,
+                    title TEXT NOT NULL,
+                    brand TEXT NOT NULL,
+                    category TEXT NOT NULL,
+                    last_price INTEGER NOT NULL,
+                    card_price INTEGER,
+                    normal_price INTEGER,
+                    min_price INTEGER NOT NULL,
+                    max_price INTEGER NOT NULL,
+                    avg_price REAL NOT NULL,
+                    observations_count INTEGER NOT NULL DEFAULT 1,
+                    last_notified_price INTEGER,
+                    last_notified_at TEXT,
+                    url TEXT NOT NULL,
+                    image_url TEXT DEFAULT '',
+                    updated_at TEXT NOT NULL
+                )
+                """
+            )
+            self.conn.execute(
+                """
+                CREATE TABLE IF NOT EXISTS active_deals (
+                    sku TEXT PRIMARY KEY,
+                    store TEXT NOT NULL,
+                    title TEXT NOT NULL,
+                    brand TEXT NOT NULL,
+                    category TEXT NOT NULL,
+                    alert_type TEXT NOT NULL,
+                    effective_price INTEGER NOT NULL,
+                    current_price INTEGER NOT NULL,
+                    card_price INTEGER,
+                    normal_price INTEGER,
+                    payment_type TEXT NOT NULL,
+                    previous_real_price INTEGER NOT NULL,
+                    min_historical_price INTEGER NOT NULL,
+                    real_drop_pct REAL NOT NULL,
+                    store_discount_pct REAL NOT NULL,
+                    savings_clp INTEGER NOT NULL,
+                    reason TEXT NOT NULL,
+                    seller_name TEXT NOT NULL,
+                    url TEXT NOT NULL,
+                    image_url TEXT DEFAULT '',
+                    detected_at TEXT NOT NULL,
+                    updated_at TEXT NOT NULL
+                )
+                """
+            )
+
+    def close(self) -> None:
+        """Close the SQLite connection cleanly."""
+        self.conn.close()
+
+    def __enter__(self) -> "PriceStorage":
+        return self
+
+    def __exit__(self, exc_type: Any, exc: Any, tb: Any) -> None:
+        self.close()
+
+    def get_product(self, sku: str) -> Optional[dict[str, Any]]:
+        """Fetch historical price record for a SKU, or None if unseen."""
+        row = self.conn.execute(
+            "SELECT * FROM products WHERE sku = ?",
+            (sku,),
+        ).fetchone()
+        return dict(row) if row else None
+
+    def upsert_product(self, snapshot: ProductSnapshot) -> None:
+        """Insert or update historical price statistics for a product snapshot."""
+        price = snapshot.effective_price
+        existing = self.get_product(snapshot.sku)
+        now = snapshot.timestamp or utc_now_iso()
+
+        with self.conn:
+            if existing is None:
+                self.conn.execute(
+                    """
+                    INSERT INTO products (
+                        sku, store, title, brand, category,
+                        last_price, card_price, normal_price,
+                        min_price, max_price, avg_price, observations_count,
+                        last_notified_price, last_notified_at,
+                        url, image_url, updated_at
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, NULL, NULL, ?, ?, ?)
+                    """,
+                    (
+                        snapshot.sku,
+                        snapshot.store,
+                        snapshot.title,
+                        snapshot.brand,
+                        snapshot.category,
+                        price,
+                        snapshot.card_price,
+                        snapshot.normal_price,
+                        price,
+                        price,
+                        float(price),
+                        snapshot.url,
+                        snapshot.image_url,
+                        now,
+                    ),
+                )
+            else:
+                count = int(existing["observations_count"])
+                new_count = count + 1
+                new_avg = ((float(existing["avg_price"]) * count) + price) / new_count
+                new_min = min(int(existing["min_price"]), price)
+                new_max = max(int(existing["max_price"]), price)
+                self.conn.execute(
+                    """
+                    UPDATE products
+                    SET store = ?,
+                        title = ?,
+                        brand = ?,
+                        category = ?,
+                        last_price = ?,
+                        card_price = ?,
+                        normal_price = ?,
+                        min_price = ?,
+                        max_price = ?,
+                        avg_price = ?,
+                        observations_count = ?,
+                        url = ?,
+                        image_url = ?,
+                        updated_at = ?
+                    WHERE sku = ?
+                    """,
+                    (
+                        snapshot.store,
+                        snapshot.title,
+                        snapshot.brand,
+                        snapshot.category,
+                        price,
+                        snapshot.card_price,
+                        snapshot.normal_price,
+                        new_min,
+                        new_max,
+                        round(new_avg, 2),
+                        new_count,
+                        snapshot.url,
+                        snapshot.image_url,
+                        now,
+                        snapshot.sku,
+                    ),
+                )
+
+    def mark_notified(self, sku: str, notified_price: int, notified_at: Optional[str] = None) -> None:
+        """Record the last notified price and timestamp for anti-spam throttling."""
+        ts = notified_at or utc_now_iso()
+        with self.conn:
+            self.conn.execute(
+                """
+                UPDATE products
+                SET last_notified_price = ?,
+                    last_notified_at = ?
+                WHERE sku = ?
+                """,
+                (int(notified_price), ts, sku),
+            )
+
+    def upsert_active_deal(self, alert: DealAlert) -> None:
+        """Insert or update an active deal for the web dashboard feed."""
+        s = alert.snapshot
+        now = utc_now_iso()
+        with self.conn:
+            self.conn.execute(
+                """
+                INSERT INTO active_deals (
+                    sku, store, title, brand, category, alert_type,
+                    effective_price, current_price, card_price, normal_price,
+                    payment_type, previous_real_price, min_historical_price,
+                    real_drop_pct, store_discount_pct, savings_clp,
+                    reason, seller_name, url, image_url, detected_at, updated_at
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ON CONFLICT(sku) DO UPDATE SET
+                    store = excluded.store,
+                    title = excluded.title,
+                    brand = excluded.brand,
+                    category = excluded.category,
+                    alert_type = excluded.alert_type,
+                    effective_price = excluded.effective_price,
+                    current_price = excluded.current_price,
+                    card_price = excluded.card_price,
+                    normal_price = excluded.normal_price,
+                    payment_type = excluded.payment_type,
+                    previous_real_price = excluded.previous_real_price,
+                    min_historical_price = excluded.min_historical_price,
+                    real_drop_pct = excluded.real_drop_pct,
+                    store_discount_pct = excluded.store_discount_pct,
+                    savings_clp = excluded.savings_clp,
+                    reason = excluded.reason,
+                    seller_name = excluded.seller_name,
+                    url = excluded.url,
+                    image_url = excluded.image_url,
+                    updated_at = excluded.updated_at
+                """,
+                (
+                    s.sku,
+                    s.store,
+                    s.title,
+                    s.brand,
+                    s.category,
+                    alert.alert_type,
+                    s.effective_price,
+                    s.current_price,
+                    s.card_price,
+                    s.normal_price,
+                    s.payment_type,
+                    alert.previous_real_price,
+                    alert.min_historical_price,
+                    alert.real_drop_pct,
+                    alert.store_discount_pct,
+                    alert.savings_clp,
+                    alert.reason,
+                    s.seller_name,
+                    s.url,
+                    s.image_url,
+                    alert.detected_at,
+                    now,
+                ),
+            )
+
+    def remove_active_deal(self, sku: str) -> None:
+        """Remove a deal that is no longer discounted or out of stock."""
+        with self.conn:
+            self.conn.execute("DELETE FROM active_deals WHERE sku = ?", (sku,))
+
+    def get_active_deals(self) -> list[dict[str, Any]]:
+        """Return all active deals sorted by urgency (GLITCH > VIP > FLASH) and drop %."""
+        rows = self.conn.execute(
+            """
+            SELECT * FROM active_deals
+            ORDER BY
+                CASE alert_type
+                    WHEN 'GLITCH' THEN 1
+                    WHEN 'VIP' THEN 2
+                    WHEN 'FLASH' THEN 3
+                    ELSE 4
+                END ASC,
+                real_drop_pct DESC,
+                savings_clp DESC
+            """
+        ).fetchall()
+        return [dict(r) for r in rows]
+
+    def get_stats(self) -> dict[str, Any]:
+        """Compute summary counters for monitored products and active deals."""
+        total_products = int(
+            self.conn.execute("SELECT COUNT(*) FROM products").fetchone()[0]
+        )
+        type_rows = self.conn.execute(
+            "SELECT alert_type, COUNT(*) AS cnt FROM active_deals GROUP BY alert_type"
+        ).fetchall()
+        store_rows = self.conn.execute(
+            "SELECT store, COUNT(*) AS cnt FROM active_deals GROUP BY store"
+        ).fetchall()
+
+        counts_by_type = {"GLITCH": 0, "VIP": 0, "FLASH": 0}
+        for row in type_rows:
+            counts_by_type[str(row["alert_type"])] = int(row["cnt"])
+
+        counts_by_store: dict[str, int] = {}
+        for row in store_rows:
+            counts_by_store[str(row["store"])] = int(row["cnt"])
+
+        return {
+            "total_monitored_products": total_products,
+            "total_active_deals": sum(counts_by_type.values()),
+            "counts_by_type": counts_by_type,
+            "counts_by_store": counts_by_store,
+        }
