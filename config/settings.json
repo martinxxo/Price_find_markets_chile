@@ -11,14 +11,24 @@
     "consolas": 160000,
     "tv": 95000,
     "audio": 35000,
-    "componentes": 60000
+    "componentes": 60000,
+    "electrodomesticos": 25000,
+    "ropa_hombre": 8000,
+    "comida": 5000,
+    "perfumes_hombre": 15000
   },
   "stores_enabled": [
     "mercadolibre",
     "falabella",
     "paris",
-    "ripley"
+    "ripley",
+    "tienda_travel"
   ],
+  "tienda_travel": {
+    "dolares_premio_clp_rate": 992.5,
+    "min_discount_pct_for_dp_alert": 20.0,
+    "min_high_canje_pct": 50
+  },
   "official_seller_only": true,
   "public_web_url": "https://martinxxo.github.io/Price_find_markets_chile/"
 }

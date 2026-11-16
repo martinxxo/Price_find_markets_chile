@@ -79,6 +79,7 @@
     statGlitches: document.getElementById("stat-glitches"),
     statFlash: document.getElementById("stat-flash"),
     statVip: document.getElementById("stat-vip"),
+    statDp: document.getElementById("stat-dp"),
     searchInput: document.getElementById("search-input"),
     storeSelect: document.getElementById("store-select"),
     categorySelect: document.getElementById("category-select"),
@@ -124,6 +125,7 @@
   function getUrgencyLabel(type) {
     if (type === "GLITCH") return "🚨 POSIBLE ERROR DE PRECIO";
     if (type === "VIP") return "⭐ META VIP";
+    if (type === "DOLARES_PREMIO") return "✈️ DÓLARES PREMIO";
     return "⚡ OFERTA FLASH";
   }
 
@@ -202,6 +204,11 @@
                 ${hasNormal ? `<span>Precio normal tienda: <span class="strike">${formatClp(deal.normal_price)}</span></span>` : ""}
                 <span>Ahorro estimado: <strong>${formatClp(deal.savings_clp)}</strong></span>
               </div>
+              ${Number(deal.dolares_premio_pct || 0) > 0 ? `
+                <div class="dp-highlight">
+                  ✈️ Canje hasta ${Number(deal.dolares_premio_pct)}% DP (~${Number(deal.dolares_premio_amount || 0).toFixed(2)} DP + ${formatClp(deal.copay_clp)})
+                </div>
+              ` : ""}
             </div>
 
             <p class="deal-reason">${reason}</p>
@@ -233,6 +240,9 @@
     els.statGlitches.textContent = Number(counts.GLITCH || 0).toLocaleString("es-CL");
     els.statFlash.textContent = Number(counts.FLASH || 0).toLocaleString("es-CL");
     els.statVip.textContent = Number(counts.VIP || 0).toLocaleString("es-CL");
+    if (els.statDp) {
+      els.statDp.textContent = Number(counts.DOLARES_PREMIO || 0).toLocaleString("es-CL");
+    }
     els.lastUpdated.textContent = formatRelativeTime(feed.generated_at);
     els.modeBadge.textContent = feed.mode === "scan" ? "Modo: Escaneo Real" : `Modo: ${feed.mode || "Demo"}`;
 

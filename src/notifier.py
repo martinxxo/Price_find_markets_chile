@@ -28,6 +28,7 @@ def build_telegram_html(alert: DealAlert) -> str:
         "GLITCH": "🚨 <b>POSIBLE ERROR DE PRECIO (GLITCH)</b>",
         "VIP": "⭐ <b>ALERTA LISTA VIP</b>",
         "FLASH": "⚡ <b>OFERTA FLASH REAL</b>",
+        "DOLARES_PREMIO": "✈️ <b>OFERTA DÓLARES PREMIO (TIENDA TRAVEL)</b>",
     }
     header = badge_map.get(alert.alert_type, "🔥 <b>OFERTA DETECTADA</b>")
     title_safe = html.escape(s.title)
@@ -48,6 +49,11 @@ def build_telegram_html(alert: DealAlert) -> str:
     ]
     if s.normal_price and s.normal_price > alert.previous_real_price:
         lines.append(f"🏷️ Precio normal tienda: {format_clp(s.normal_price)}")
+    if s.dolares_premio_pct > 0:
+        lines.append(
+            f"✈️ <b>Dólares Premio:</b> hasta {s.dolares_premio_pct}% "
+            f"(~{s.dolares_premio_amount:.2f} DP + {format_clp(s.copay_clp)})"
+        )
     lines.extend(
         [
             f"💥 Caída real: <b>-{alert.real_drop_pct:.1f}%</b> (ahorras {format_clp(alert.savings_clp)})",

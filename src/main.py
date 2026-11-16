@@ -17,6 +17,7 @@ from src.scrapers.falabella import fetch_falabella_products
 from src.scrapers.mercadolibre import fetch_mercadolibre_products
 from src.scrapers.paris import fetch_paris_products
 from src.scrapers.ripley import fetch_ripley_products
+from src.scrapers.tienda_travel import fetch_tienda_travel_products
 from src.storage import PriceStorage
 from src.web_exporter import export_web_feed
 
@@ -31,6 +32,7 @@ SCRAPER_REGISTRY: dict[str, Callable[[], list[ProductSnapshot]]] = {
     "falabella": fetch_falabella_products,
     "paris": fetch_paris_products,
     "ripley": fetch_ripley_products,
+    "tienda_travel": fetch_tienda_travel_products,
 }
 
 
@@ -118,6 +120,11 @@ def run_live_scan(
     notifier: AlertNotifier,
 ) -> list[DealAlert]:
     """Fetch snapshots from all enabled Chilean stores and process them."""
+    # Ensure synthetic demo entries never leak into live production feeds
+    with storage.conn:
+        storage.conn.execute("DELETE FROM products WHERE sku LIKE '%-DEMO-%'")
+        storage.conn.execute("DELETE FROM active_deals WHERE sku LIKE '%-DEMO-%'")
+
     all_snapshots: list[ProductSnapshot] = []
     for store_key in settings.get("stores_enabled", []):
         fetcher = SCRAPER_REGISTRY.get(store_key.lower())

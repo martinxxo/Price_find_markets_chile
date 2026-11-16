@@ -18,6 +18,7 @@ from src.scrapers.falabella import fetch_falabella_products
 from src.scrapers.mercadolibre import fetch_mercadolibre_products
 from src.scrapers.paris import fetch_paris_products
 from src.scrapers.ripley import fetch_ripley_products
+from src.scrapers.tienda_travel import fetch_tienda_travel_products
 from src.storage import PriceStorage
 from src.web_exporter import export_web_feed
 
@@ -321,6 +322,54 @@ class TestScraperParsingAndResilience(unittest.TestCase):
             rip_items = fetch_ripley_products()
             self.assertEqual(len(rip_items), 1)
             self.assertEqual(rip_items[0].effective_price, 429990)
+
+    def test_tienda_travel_dolares_premio_detection_and_parser(self) -> None:
+        assembler_payload = {
+            "results": {
+                "records": [
+                    {
+                        "attributes": {
+                            "product.repositoryId": ["SKU150522"],
+                            "product.displayName": ["Smartphone Xiaomi Redmi 17"],
+                            "product.route": ["/smartphones/redmi-17/SKU150522"],
+                            "product.primaryFullImageURL": ["/img/redmi17.jpg"],
+                        },
+                        "records": [
+                            {
+                                "attributes": {
+                                    "sku.listPrice": ["299990.000000"],
+                                    "sku.salePrice": ["219990.000000"],
+                                }
+                            }
+                        ],
+                    }
+                ]
+            }
+        }
+        batch_payload = {
+            "items": [
+                {"id": "SKU150522", "x_tasaDeCanje": "40", "brand": "Xiaomi"}
+            ]
+        }
+
+        def fake_fetch(url, params=None, headers=None, timeout=18):
+            if "assembler" in url:
+                return assembler_payload
+            return batch_payload
+
+        with patch("src.scrapers.tienda_travel.fetch_json", side_effect=fake_fetch):
+            tt_items = fetch_tienda_travel_products(limit_per_category=5)
+            self.assertEqual(len(tt_items), 1)
+            item = tt_items[0]
+            self.assertEqual(item.sku, "TT-SKU150522")
+            self.assertEqual(item.dolares_premio_pct, 40)
+            self.assertGreater(item.dolares_premio_amount, 0)
+
+            settings = load_settings()
+            detector = DealDetector(settings=settings, watchlist=[])
+            alert = detector.evaluate(item, None)
+            self.assertIsNotNone(alert)
+            self.assertEqual(alert.alert_type, "DOLARES_PREMIO")
 
 
 if __name__ == "__main__":

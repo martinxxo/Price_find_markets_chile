@@ -214,6 +214,26 @@ class DealDetector:
                     f"Marca oficial ({snapshot.brand}) con {store_discount_pct:.1f}% bajo precio normal"
                 )
 
+        # Rule 4: Tienda Travel Dólares Premio special redemption deals
+        if alert_type is None and snapshot.dolares_premio_pct > 0:
+            tt_cfg = self.settings.get("tienda_travel", {})
+            min_dp_discount = float(tt_cfg.get("min_discount_pct_for_dp_alert", 20.0))
+            min_high_canje = int(tt_cfg.get("min_high_canje_pct", 50))
+            best_drop = max(real_drop_pct, store_discount_pct)
+
+            if best_drop >= min_dp_discount or (
+                snapshot.dolares_premio_pct >= min_high_canje and best_drop >= 10.0
+            ):
+                alert_type = "DOLARES_PREMIO"
+                if best_drop > real_drop_pct and normal_price > effective:
+                    real_drop_pct = best_drop
+                    previous_real_price = normal_price
+                    savings_clp = normal_price - effective
+                reason = (
+                    f"Canje Dólares Premio (hasta {snapshot.dolares_premio_pct}% DP: "
+                    f"~{snapshot.dolares_premio_amount:.2f} DP + ${snapshot.copay_clp:,})".replace(",", ".")
+                )
+
         if alert_type is None:
             return None
 

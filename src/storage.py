@@ -67,11 +67,27 @@ class PriceStorage:
                     seller_name TEXT NOT NULL,
                     url TEXT NOT NULL,
                     image_url TEXT DEFAULT '',
+                    dolares_premio_pct INTEGER DEFAULT 0,
+                    dolares_premio_amount REAL DEFAULT 0.0,
+                    copay_clp INTEGER DEFAULT 0,
                     detected_at TEXT NOT NULL,
                     updated_at TEXT NOT NULL
                 )
                 """
             )
+            existing_cols = {
+                row["name"]
+                for row in self.conn.execute("PRAGMA table_info(active_deals)").fetchall()
+            }
+            for col_name, col_def in (
+                ("dolares_premio_pct", "INTEGER DEFAULT 0"),
+                ("dolares_premio_amount", "REAL DEFAULT 0.0"),
+                ("copay_clp", "INTEGER DEFAULT 0"),
+            ):
+                if col_name not in existing_cols:
+                    self.conn.execute(
+                        f"ALTER TABLE active_deals ADD COLUMN {col_name} {col_def}"
+                    )
 
     def close(self) -> None:
         """Close the SQLite connection cleanly."""
@@ -196,8 +212,10 @@ class PriceStorage:
                     effective_price, current_price, card_price, normal_price,
                     payment_type, previous_real_price, min_historical_price,
                     real_drop_pct, store_discount_pct, savings_clp,
-                    reason, seller_name, url, image_url, detected_at, updated_at
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    reason, seller_name, url, image_url,
+                    dolares_premio_pct, dolares_premio_amount, copay_clp,
+                    detected_at, updated_at
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 ON CONFLICT(sku) DO UPDATE SET
                     store = excluded.store,
                     title = excluded.title,
@@ -218,6 +236,9 @@ class PriceStorage:
                     seller_name = excluded.seller_name,
                     url = excluded.url,
                     image_url = excluded.image_url,
+                    dolares_premio_pct = excluded.dolares_premio_pct,
+                    dolares_premio_amount = excluded.dolares_premio_amount,
+                    copay_clp = excluded.copay_clp,
                     updated_at = excluded.updated_at
                 """,
                 (
@@ -241,6 +262,9 @@ class PriceStorage:
                     s.seller_name,
                     s.url,
                     s.image_url,
+                    s.dolares_premio_pct,
+                    s.dolares_premio_amount,
+                    s.copay_clp,
                     alert.detected_at,
                     now,
                 ),
@@ -261,9 +285,11 @@ class PriceStorage:
                     WHEN 'GLITCH' THEN 1
                     WHEN 'VIP' THEN 2
                     WHEN 'FLASH' THEN 3
-                    ELSE 4
+                    WHEN 'DOLARES_PREMIO' THEN 4
+                    ELSE 5
                 END ASC,
                 real_drop_pct DESC,
+                dolares_premio_pct DESC,
                 savings_clp DESC
             """
         ).fetchall()
@@ -281,7 +307,7 @@ class PriceStorage:
             "SELECT store, COUNT(*) AS cnt FROM active_deals GROUP BY store"
         ).fetchall()
 
-        counts_by_type = {"GLITCH": 0, "VIP": 0, "FLASH": 0}
+        counts_by_type = {"GLITCH": 0, "VIP": 0, "FLASH": 0, "DOLARES_PREMIO": 0}
         for row in type_rows:
             counts_by_type[str(row["alert_type"])] = int(row["cnt"])
 

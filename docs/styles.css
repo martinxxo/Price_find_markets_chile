@@ -13,6 +13,8 @@
   --flash-bg: rgba(245, 158, 11, 0.14);
   --vip: #a855f7;
   --vip-bg: rgba(168, 85, 247, 0.14);
+  --dp: #06b6d4;
+  --dp-bg: rgba(6, 182, 212, 0.14);
   --success: #22c55e;
   --shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
 }
@@ -152,7 +154,7 @@ main {
 
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 14px;
   margin-bottom: 20px;
 }
@@ -171,6 +173,7 @@ main {
 .stat-glitch { border-top: 3px solid var(--glitch); }
 .stat-flash { border-top: 3px solid var(--flash); }
 .stat-vip { border-top: 3px solid var(--vip); }
+.stat-dp { border-top: 3px solid var(--dp); }
 
 .stat-label {
   font-size: 0.82rem;
@@ -242,6 +245,12 @@ main {
 .pill-vip.active {
   background: var(--vip);
   border-color: var(--vip);
+}
+
+.pill-dp.active {
+  background: var(--dp);
+  border-color: var(--dp);
+  color: #082f49;
 }
 
 .filters-row {
@@ -325,6 +334,7 @@ main {
 .deal-card.type-GLITCH { border-left: 4px solid var(--glitch); }
 .deal-card.type-FLASH { border-left: 4px solid var(--flash); }
 .deal-card.type-VIP { border-left: 4px solid var(--vip); }
+.deal-card.type-DOLARES_PREMIO { border-left: 4px solid var(--dp); }
 
 .card-top {
   display: flex;
@@ -355,6 +365,21 @@ main {
 .badge-VIP {
   background: var(--vip-bg);
   color: var(--vip);
+}
+
+.badge-DOLARES_PREMIO {
+  background: var(--dp-bg);
+  color: var(--dp);
+}
+
+.dp-highlight {
+  margin-top: 8px;
+  padding: 7px 10px;
+  border-radius: 8px;
+  background: var(--dp-bg);
+  color: var(--dp);
+  font-size: 0.8rem;
+  font-weight: 700;
 }
 
 .store-tag {

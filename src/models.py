@@ -30,6 +30,9 @@ class ProductSnapshot:
     url: str
     image_url: str = ""
     timestamp: str = field(default_factory=utc_now_iso)
+    dolares_premio_pct: int = 0
+    dolares_premio_amount: float = 0.0
+    copay_clp: int = 0
 
     @property
     def effective_price(self) -> int:

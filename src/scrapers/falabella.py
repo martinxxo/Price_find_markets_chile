@@ -1,21 +1,31 @@
-"""Falabella Chile 1P official catalog connector."""
+"""Falabella Chile 1P official catalog connector (via __NEXT_DATA__ SSR)."""
 
 from __future__ import annotations
 
+import json
+import logging
+import re
 from typing import Any, Optional
 
+import requests
+
 from src.models import ProductSnapshot
-from src.scrapers.http_client import fetch_json, parse_clp_price
+from src.scrapers.http_client import DEFAULT_HEADERS, DEFAULT_TIMEOUT, parse_clp_price
 
-FALABELLA_LISTING_URL = "https://www.falabella.com/s/browse/v1/listing/cl"
+logger = logging.getLogger(__name__)
 
-CATEGORY_MAP = {
-    "notebooks": "cat70057",
-    "celulares": "cat2018",
-    "consolas": "cat3101",
-    "tv": "cat1012",
-    "audio": "cat1640001",
+CATEGORY_URLS = {
+    "notebooks": "https://www.falabella.com/falabella-cl/category/cat70057/Notebooks",
+    "celulares": "https://www.falabella.com/falabella-cl/category/cat2018/Celulares-y-Telefonos",
+    "consolas": "https://www.falabella.com/falabella-cl/category/cat3101/Consolas",
+    "tv": "https://www.falabella.com/falabella-cl/category/cat1012/TV-y-Video",
+    "audio": "https://www.falabella.com/falabella-cl/category/cat1640001/Audio",
 }
+
+_NEXT_DATA_RE = re.compile(
+    r'<script id="__NEXT_DATA__" type="application/json">(.*?)</script>',
+    re.DOTALL,
+)
 
 
 def _extract_prices(price_entries: list[dict[str, Any]]) -> tuple[Optional[int], Optional[int], Optional[int]]:
@@ -46,23 +56,41 @@ def _extract_prices(price_entries: list[dict[str, Any]]) -> tuple[Optional[int],
     return current_price, card_price, normal_price
 
 
+def fetch_json(url: str, page: int = 1) -> Optional[dict[str, Any]]:
+    """Fetch a Falabella category page and extract its embedded __NEXT_DATA__ results."""
+    headers = dict(DEFAULT_HEADERS)
+    headers["Accept"] = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+    try:
+        req_params = {"page": page} if page > 1 else None
+        resp = requests.get(
+            url,
+            params=req_params,
+            headers=headers,
+            timeout=DEFAULT_TIMEOUT + 8,
+        )
+        if resp.status_code in (403, 429, 503):
+            logger.warning("Falabella returned HTTP %s for %s", resp.status_code, url)
+            return None
+        resp.raise_for_status()
+        match = _NEXT_DATA_RE.search(resp.text)
+        if not match:
+            return None
+        parsed = json.loads(match.group(1))
+        results = ((parsed.get("props") or {}).get("pageProps") or {}).get("results") or []
+        return {"data": {"results": results}}
+    except (requests.RequestException, ValueError) as exc:
+        logger.warning("Failed fetching Falabella %s: %s", url, exc)
+        return None
+
+
 def fetch_falabella_products(pages_per_category: int = 1) -> list[ProductSnapshot]:
     """Fetch 1P official Falabella Chile technology listings."""
     snapshots: list[ProductSnapshot] = []
     seen_skus: set[str] = set()
 
-    for category_name, category_id in CATEGORY_MAP.items():
+    for category_name, category_url in CATEGORY_URLS.items():
         for page in range(1, pages_per_category + 1):
-            data = fetch_json(
-                FALABELLA_LISTING_URL,
-                params={
-                    "categoryId": category_id,
-                    "page": page,
-                    "zone": "13",
-                    "sortBy": "derived.price.event,asc",
-                },
-                headers={"Referer": "https://www.falabella.com/falabella-cl"},
-            )
+            data = fetch_json(category_url, page=page)
             if not isinstance(data, dict):
                 break
 
@@ -81,7 +109,10 @@ def fetch_falabella_products(pages_per_category: int = 1) -> list[ProductSnapsho
 
                 seller_id = str(item.get("sellerId") or "").strip().upper()
                 seller_name = str(item.get("sellerName") or seller_id or "").strip()
-                is_official = seller_id == "FALABELLA" or seller_name.lower() == "falabella"
+                is_official = (
+                    seller_id in ("FALABELLA", "FALABELLA_CHILE")
+                    or seller_name.lower() == "falabella"
+                )
                 if not is_official:
                     continue
 
@@ -94,7 +125,11 @@ def fetch_falabella_products(pages_per_category: int = 1) -> list[ProductSnapsho
                     url = f"https://www.falabella.com{url}"
                 media = item.get("mediaUrls") or []
                 image_url = str(media[0]) if isinstance(media, list) and media else ""
+                availability = item.get("availability") or {}
                 out_of_stock = bool(item.get("isOutOfStock", False))
+                if isinstance(availability, dict) and availability.get("internationalShipping") is None:
+                    # Check explicit out-of-stock flags if present
+                    pass
 
                 snapshots.append(
                     ProductSnapshot(
