@@ -221,35 +221,40 @@ class TestScraperParsingAndResilience(unittest.TestCase):
         sample_payload = {
             "results": [
                 {
-                    "id": "MLC123",
-                    "title": "Apple iPhone 15 128GB",
-                    "price": 699990,
-                    "original_price": 899990,
-                    "condition": "new",
-                    "official_store_id": 99,
-                    "official_store_name": "Apple",
-                    "available_quantity": 5,
-                    "permalink": "https://articulo.mercadolibre.cl/MLC123",
-                    "thumbnail": "http://http2.mlstatic.com/img.jpg",
-                    "attributes": [{"id": "BRAND", "value_name": "Apple"}],
+                    "id": 12345,
+                    "sku": "MLC123",
+                    "name": "Apple iPhone 15 128GB",
+                    "condition": "https://schema.org/NewCondition",
+                    "external_url": "https://articulo.mercadolibre.cl/MLC123",
+                    "picture_urls": ["https://http2.mlstatic.com/img.jpg"],
+                    "active_registry": {
+                        "is_available": True,
+                        "normal_price": "899990.00",
+                        "offer_price": "699990.00",
+                    },
                 },
                 {
-                    "id": "MLC999",
-                    "title": "iPhone 15 Vendedor Particular",
-                    "price": 100000,
-                    "condition": "new",
-                    "official_store_id": None,
+                    "id": 99999,
+                    "sku": "MLC999",
+                    "name": "iPhone 15 Reacondicionado",
+                    "condition": "https://schema.org/RefurbishedCondition",
+                    "active_registry": {
+                        "is_available": True,
+                        "normal_price": "500000.00",
+                        "offer_price": "300000.00",
+                    },
                 },
             ]
         }
-        with patch("src.scrapers.mercadolibre.fetch_json", return_value=sample_payload):
+        with patch("src.scrapers.solotodo_client.fetch_json", return_value=sample_payload):
             items = fetch_mercadolibre_products(limit_per_category=10)
             self.assertEqual(len(items), 1)
             self.assertEqual(items[0].sku, "MLC-MLC123")
+            self.assertEqual(items[0].brand, "Apple")
             self.assertTrue(items[0].is_official_seller)
-            self.assertTrue(items[0].image_url.startswith("https://"))
+            self.assertEqual(items[0].effective_price, 699990)
 
-        with patch("src.scrapers.mercadolibre.fetch_json", return_value=None):
+        with patch("src.scrapers.solotodo_client.fetch_json", return_value=None):
             self.assertEqual(fetch_mercadolibre_products(), [])
 
     def test_retail_parsers_handle_1p_and_errors(self) -> None:
@@ -260,7 +265,7 @@ class TestScraperParsingAndResilience(unittest.TestCase):
                         "skuId": "17001",
                         "displayName": "Notebook Asus VivoBook",
                         "brand": "ASUS",
-                        "sellerId": "FALABELLA",
+                        "sellerId": "FALABELLA_CHILE",
                         "sellerName": "Falabella",
                         "url": "/falabella-cl/product/17001",
                         "isOutOfStock": False,
@@ -290,38 +295,65 @@ class TestScraperParsingAndResilience(unittest.TestCase):
                 {
                     "sku": "P555",
                     "name": "Smart TV LG 55",
-                    "brand": "LG",
-                    "sellerName": "Paris",
-                    "isMarketplace": False,
-                    "inStock": True,
-                    "url": "tv-lg.html",
-                    "prices": {"offerPrice": 399990, "cardPrice": 379990, "normalPrice": 699990},
+                    "condition": "https://schema.org/NewCondition",
+                    "external_url": "https://www.paris.cl/tv-lg.html",
+                    "active_registry": {
+                        "is_available": True,
+                        "normal_price": "699990.00",
+                        "offer_price": "379990.00",
+                    },
                 }
             ]
         }
-        with patch("src.scrapers.paris.fetch_json", return_value=paris_payload):
+        with patch("src.scrapers.solotodo_client.fetch_json", return_value=paris_payload):
             par_items = fetch_paris_products()
             self.assertEqual(len(par_items), 1)
             self.assertEqual(par_items[0].effective_price, 379990)
 
         ripley_payload = {
-            "products": [
+            "results": [
                 {
-                    "partNumber": "20003999",
-                    "name": "Consola PS5",
-                    "brand": "Sony",
-                    "sellerName": "Ripley",
-                    "isMarketplaceProduct": False,
-                    "isOutOfStock": False,
-                    "url": "/p/ps5",
-                    "prices": {"offerPrice": 449990, "cardPrice": 429990, "listPrice": 599990},
+                    "sku": "20003999",
+                    "name": "Consola Sony PS5",
+                    "condition": "https://schema.org/NewCondition",
+                    "external_url": "https://simple.ripley.cl/p/ps5",
+                    "active_registry": {
+                        "is_available": True,
+                        "normal_price": "599990.00",
+                        "offer_price": "429990.00",
+                    },
                 }
             ]
         }
-        with patch("src.scrapers.ripley.fetch_json", return_value=ripley_payload):
+        with patch("src.scrapers.solotodo_client.fetch_json", return_value=ripley_payload):
             rip_items = fetch_ripley_products()
             self.assertEqual(len(rip_items), 1)
             self.assertEqual(rip_items[0].effective_price, 429990)
+
+    def test_persistent_brand_flash_deal_stays_active_without_spam(self) -> None:
+        notifier = DummyNotifier()
+        with tempfile.TemporaryDirectory() as tmp:
+            db_path = Path(tmp) / "persist.db"
+            settings = load_settings()
+            detector = DealDetector(settings=settings, watchlist=[])
+            with PriceStorage(db_path) as storage:
+                deal = make_snapshot(
+                    sku="FAL-PERSIST-1",
+                    brand="Samsung",
+                    category="celulares",
+                    current_price=629990,
+                    normal_price=1069990,
+                )
+                alerts1 = process_snapshots([deal], storage, detector, notifier)
+                self.assertEqual(len(alerts1), 1)
+                self.assertEqual(len(notifier.sent_skus), 1)
+
+                # Second scan at exact same discounted price -> stays active in web, NO duplicate Telegram
+                alerts2 = process_snapshots([deal], storage, detector, notifier)
+                self.assertEqual(len(alerts2), 1)
+                self.assertFalse(alerts2[0].should_notify)
+                self.assertEqual(len(notifier.sent_skus), 1)
+                self.assertEqual(len(storage.get_active_deals()), 1)
 
     def test_tienda_travel_dolares_premio_detection_and_parser(self) -> None:
         assembler_payload = {

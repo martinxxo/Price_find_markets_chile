@@ -51,7 +51,7 @@ def fetch_json(
 
 
 def parse_clp_price(raw_value: Any) -> Optional[int]:
-    """Parse Chilean peso strings or numeric values (e.g. '$ 199.990', 199990) to int."""
+    """Parse Chilean peso strings or numeric values (e.g. '$ 199.990', '699990.00', 199990) to int."""
     if raw_value is None or isinstance(raw_value, bool):
         return None
     if isinstance(raw_value, (int, float)):
@@ -60,6 +60,10 @@ def parse_clp_price(raw_value: Any) -> Optional[int]:
     text = str(raw_value).strip()
     if not text:
         return None
+    # Handle API decimal strings like "699990.00" or "8990.50" (not Chilean thousands "199.990")
+    if re.fullmatch(r"\d+\.\d{1,2}", text):
+        val = int(round(float(text)))
+        return val if val > 0 else None
     digits = re.sub(r"[^\d]", "", text)
     if not digits:
         return None

@@ -140,9 +140,18 @@ class DealDetector:
             last_price = int(previous_record["last_price"])
             avg_price = float(previous_record["avg_price"])
             min_hist = min(int(previous_record["min_price"]), effective)
+            max_hist = int(previous_record["max_price"])
             reference_price = max(last_price, int(round(avg_price)))
             real_drop_pct = self._calc_drop_pct(reference_price, effective)
-            previous_real_price = last_price if last_price > effective else int(round(avg_price))
+            drop_vs_max = self._calc_drop_pct(max_hist, effective)
+            if drop_vs_max > real_drop_pct:
+                reference_price = max_hist
+                real_drop_pct = drop_vs_max
+            previous_real_price = (
+                last_price
+                if last_price > effective
+                else (max_hist if max_hist > effective else int(round(avg_price)))
+            )
             savings_clp = max(0, reference_price - effective)
 
             if real_drop_pct >= glitch_drop_pct:
@@ -205,11 +214,14 @@ class DealDetector:
                     f"Oferta Flash real: bajó {real_drop_pct:.1f}% frente a su precio histórico"
                 )
             elif (
-                previous_record is None
-                and store_discount_pct >= 40.0
+                store_discount_pct >= 40.0
                 and self._is_recognized_brand(snapshot.brand)
             ):
                 alert_type = "FLASH"
+                if normal_price > effective and store_discount_pct > real_drop_pct:
+                    real_drop_pct = store_discount_pct
+                    previous_real_price = normal_price
+                    savings_clp = normal_price - effective
                 reason = (
                     f"Marca oficial ({snapshot.brand}) con {store_discount_pct:.1f}% bajo precio normal"
                 )
