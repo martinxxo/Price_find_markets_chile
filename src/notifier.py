@@ -95,20 +95,42 @@ class AlertNotifier:
             if self.public_web_url.startswith("http"):
                 buttons[0].append({"text": "🌐 Ver Radar Web", "url": self.public_web_url})
 
-            payload = {
-                "chat_id": self.telegram_chat_id,
-                "text": message_html,
-                "parse_mode": "HTML",
-                "disable_web_page_preview": False,
-                "reply_markup": {"inline_keyboard": buttons},
-            }
-            url = f"https://api.telegram.org/bot{self.telegram_token}/sendMessage"
-            try:
-                resp = requests.post(url, json=payload, timeout=12)
-                resp.raise_for_status()
-                sent_any = True
-            except requests.RequestException as exc:
-                logger.warning("Failed sending Telegram message for %s: %s", alert.snapshot.sku, exc)
+            image_url = (alert.snapshot.image_url or "").strip()
+            if image_url.startswith("http"):
+                photo_url = f"https://api.telegram.org/bot{self.telegram_token}/sendPhoto"
+                photo_payload = {
+                    "chat_id": self.telegram_chat_id,
+                    "photo": image_url,
+                    "caption": message_html[:1024],
+                    "parse_mode": "HTML",
+                    "reply_markup": {"inline_keyboard": buttons},
+                }
+                try:
+                    resp = requests.post(photo_url, json=photo_payload, timeout=12)
+                    resp.raise_for_status()
+                    sent_any = True
+                except requests.RequestException as exc:
+                    logger.warning(
+                        "sendPhoto failed for %s (%s); falling back to sendMessage.",
+                        alert.snapshot.sku,
+                        exc,
+                    )
+
+            if not sent_any:
+                payload = {
+                    "chat_id": self.telegram_chat_id,
+                    "text": message_html,
+                    "parse_mode": "HTML",
+                    "disable_web_page_preview": False,
+                    "reply_markup": {"inline_keyboard": buttons},
+                }
+                url = f"https://api.telegram.org/bot{self.telegram_token}/sendMessage"
+                try:
+                    resp = requests.post(url, json=payload, timeout=12)
+                    resp.raise_for_status()
+                    sent_any = True
+                except requests.RequestException as exc:
+                    logger.warning("Failed sending Telegram message for %s: %s", alert.snapshot.sku, exc)
         else:
             print("-" * 60)
             print(f"[PREVIEW TELEGRAM - {alert.alert_type}] {alert.snapshot.title}")

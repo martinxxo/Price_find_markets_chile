@@ -12,7 +12,7 @@ from src.config_loader import load_settings, load_watchlist
 from src.detector import DealDetector
 from src.filters import is_valid_official_tech_product
 from src.main import process_snapshots, run_demo
-from src.models import ProductSnapshot
+from src.models import DealAlert, ProductSnapshot
 from src.notifier import AlertNotifier
 from src.scrapers.falabella import fetch_falabella_products
 from src.scrapers.mercadolibre import fetch_mercadolibre_products
@@ -402,6 +402,51 @@ class TestScraperParsingAndResilience(unittest.TestCase):
             alert = detector.evaluate(item, None)
             self.assertIsNotNone(alert)
             self.assertEqual(alert.alert_type, "DOLARES_PREMIO")
+
+    def test_notifier_uses_send_photo_and_falls_back_to_send_message(self) -> None:
+        import requests as req_lib
+
+        snap = make_snapshot(image_url="https://media.falabella.com/falabellaCL/123/public")
+        alert = DealAlert(
+            snapshot=snap,
+            alert_type="FLASH",
+            previous_real_price=600000,
+            min_historical_price=500000,
+            real_drop_pct=30.0,
+            store_discount_pct=30.0,
+            savings_clp=100000,
+            reason="Test photo",
+        )
+        notifier = AlertNotifier(telegram_token="tok", telegram_chat_id="123")
+
+        class OkResp:
+            def raise_for_status(self) -> None:
+                return None
+
+        called_urls: list[str] = []
+
+        def ok_post(url, json=None, timeout=12):
+            called_urls.append(url)
+            return OkResp()
+
+        with patch("src.notifier.requests.post", side_effect=ok_post):
+            self.assertTrue(notifier.send_alert(alert))
+            self.assertEqual(len(called_urls), 1)
+            self.assertTrue(called_urls[0].endswith("/sendPhoto"))
+
+        called_urls.clear()
+
+        def fallback_post(url, json=None, timeout=12):
+            called_urls.append(url)
+            if url.endswith("/sendPhoto"):
+                raise req_lib.RequestException("bad image")
+            return OkResp()
+
+        with patch("src.notifier.requests.post", side_effect=fallback_post):
+            self.assertTrue(notifier.send_alert(alert))
+            self.assertEqual(len(called_urls), 2)
+            self.assertTrue(called_urls[0].endswith("/sendPhoto"))
+            self.assertTrue(called_urls[1].endswith("/sendMessage"))
 
 
 if __name__ == "__main__":

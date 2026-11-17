@@ -176,6 +176,7 @@
         const category = escapeHtml(deal.category);
         const reason = escapeHtml(deal.reason);
         const url = escapeHtml(deal.url || "#");
+        const imageUrl = escapeHtml(deal.image_url || "");
         const dropPct = Number(deal.real_drop_pct || 0).toFixed(1);
         const hasNormal = deal.normal_price && deal.normal_price > deal.previous_real_price;
 
@@ -186,6 +187,11 @@
                 <span class="urgency-badge badge-${type}">${getUrgencyLabel(deal.alert_type)}</span>
                 <span class="store-tag">${store}</span>
               </div>
+              ${imageUrl.startsWith("http") ? `
+                <div class="deal-image-wrap">
+                  <img class="deal-image" src="${imageUrl}" alt="${title}" loading="lazy" onerror="this.parentElement.style.display='none'" />
+                </div>
+              ` : ""}
               <h2 class="deal-title" style="margin-top: 10px;">${title}</h2>
               <div class="deal-meta-tags" style="margin-top: 8px;">
                 <span class="meta-chip">${getPaymentBadge(deal.payment_type)}</span>
