@@ -13,14 +13,20 @@ logger = logging.getLogger(__name__)
 
 SOLOTODO_ENTITIES_URL = "https://publicapi.solotodo.com/entities/"
 
-SOLOTODO_CATEGORY_MAP = {
-    "notebooks": 1,
-    "celulares": 6,
-    "consolas": 33,
-    "tv": 11,
-    "audio": 50,
-    "componentes": 2,
-}
+SOLOTODO_CATEGORIES = [
+    ("notebooks", 1),
+    ("celulares", 6),
+    ("consolas", 33),
+    ("tv", 11),
+    ("audio", 50),        # Audífonos y Headsets
+    ("audio", 25),        # Equipos de audio y parlantes
+    ("componentes", 4),   # Monitores
+    ("componentes", 40),  # Mouse
+    ("componentes", 41),  # Teclados
+    ("componentes", 2),   # Tarjetas de video
+    ("camaras", 615),     # Cámaras
+    ("cafe", 219),        # Cafeteras
+]
 
 
 def infer_brand_from_title(title: str, fallback: str = "Marca") -> str:
@@ -43,7 +49,7 @@ def fetch_solotodo_store_products(
     snapshots: list[ProductSnapshot] = []
     seen_skus: set[str] = set()
 
-    for category_name, category_id in SOLOTODO_CATEGORY_MAP.items():
+    for category_name, category_id in SOLOTODO_CATEGORIES:
         params: list[tuple[str, Any]] = [("stores", sid) for sid in store_ids]
         params.extend(
             [

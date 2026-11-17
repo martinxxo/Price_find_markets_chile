@@ -1,10 +1,42 @@
 {
   "thresholds": {
     "flash_drop_pct": 25.0,
+    "priority_flash_drop_pct": 20.0,
+    "priority_first_seen_flash_discount_pct": 30.0,
     "glitch_drop_pct": 50.0,
     "first_seen_glitch_discount_pct": 65.0,
     "re_notify_extra_drop_pct": 5.0
   },
+  "glitch_only_categories": [
+    "tv"
+  ],
+  "priority_categories": [
+    "notebooks",
+    "audio",
+    "componentes",
+    "camaras",
+    "cafe"
+  ],
+  "priority_keywords": [
+    "parlante",
+    "soundbar",
+    "audifono",
+    "earbuds",
+    "tocadiscos",
+    "tornamesa",
+    "camara",
+    "gopro",
+    "notebook",
+    "macbook",
+    "monitor",
+    "teclado",
+    "mouse",
+    "periferico",
+    "cafetera",
+    "espresso",
+    "molinillo",
+    "cafe"
+  ],
   "category_floor_prices_clp": {
     "notebooks": 130000,
     "celulares": 65000,
@@ -12,6 +44,8 @@
     "tv": 95000,
     "audio": 35000,
     "componentes": 60000,
+    "camaras": 40000,
+    "cafe": 6000,
     "electrodomesticos": 25000,
     "ropa_hombre": 8000,
     "comida": 5000,

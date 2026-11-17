@@ -20,6 +20,8 @@ CATEGORY_URLS = {
     "consolas": "https://www.falabella.com/falabella-cl/category/cat3101/Consolas",
     "tv": "https://www.falabella.com/falabella-cl/category/cat1012/TV-y-Video",
     "audio": "https://www.falabella.com/falabella-cl/category/cat1640001/Audio",
+    "componentes": "https://www.falabella.com/falabella-cl/category/cat2062/Monitores",
+    "camaras": "https://www.falabella.com/falabella-cl/category/cat2023/Camaras",
 }
 
 _NEXT_DATA_RE = re.compile(

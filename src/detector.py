@@ -75,6 +75,21 @@ class DealDetector:
         self.thresholds = settings["thresholds"]
         self.floors = settings.get("category_floor_prices_clp", {})
         self.watchlist = watchlist or []
+        self.glitch_only_categories = {
+            str(c).lower().strip() for c in settings.get("glitch_only_categories", [])
+        }
+        self.priority_categories = {
+            str(c).lower().strip() for c in settings.get("priority_categories", [])
+        }
+        self.priority_keywords = [
+            _normalize_text(str(k)) for k in settings.get("priority_keywords", []) if str(k).strip()
+        ]
+
+    def _is_priority_product(self, snapshot: ProductSnapshot) -> bool:
+        if snapshot.category.lower().strip() in self.priority_categories:
+            return True
+        clean_title = _normalize_text(snapshot.title)
+        return any(kw in clean_title for kw in self.priority_keywords)
 
     def _match_watchlist(self, snapshot: ProductSnapshot) -> Optional[dict[str, Any]]:
         clean_title = _normalize_text(snapshot.title)
@@ -192,7 +207,24 @@ class DealDetector:
                     f"con {store_discount_pct:.1f}% bajo precio normal".replace(",", ".")
                 )
 
-        # Rule 2: VIP watchlist check (if not already a GLITCH)
+        # Rule 2: VIP watchlist check (if not already a GLITCH and not glitch-only category)
+        category_key = snapshot.category.lower().strip()
+        if category_key in self.glitch_only_categories:
+            if alert_type is None:
+                return None
+            return DealAlert(
+                snapshot=snapshot,
+                alert_type=alert_type,
+                previous_real_price=previous_real_price,
+                min_historical_price=min_hist,
+                real_drop_pct=real_drop_pct,
+                store_discount_pct=store_discount_pct,
+                savings_clp=savings_clp,
+                reason=reason,
+                detected_at=utc_now_iso(),
+                should_notify=self._should_notify(previous_record, effective),
+            )
+
         vip_match = self._match_watchlist(snapshot)
         if alert_type is None and vip_match is not None and effective <= int(vip_match["max_price_clp"]):
             alert_type = "VIP"
@@ -206,24 +238,38 @@ class DealDetector:
                 f"${max_target:,}".replace(",", ".")
             )
 
-        # Rule 3: Flash deal check
+        # Rule 3: Flash deal check (higher sensitivity for priority categories/keywords)
+        is_priority = self._is_priority_product(snapshot)
+        eff_flash_drop = (
+            float(self.thresholds.get("priority_flash_drop_pct", flash_drop_pct))
+            if is_priority
+            else flash_drop_pct
+        )
+        eff_first_seen_flash = (
+            float(self.thresholds.get("priority_first_seen_flash_discount_pct", 40.0))
+            if is_priority
+            else 40.0
+        )
+
         if alert_type is None:
-            if previous_record is not None and real_drop_pct >= flash_drop_pct:
+            if previous_record is not None and real_drop_pct >= eff_flash_drop:
                 alert_type = "FLASH"
+                prefix = "Oferta Flash prioritaria" if is_priority else "Oferta Flash real"
                 reason = (
-                    f"Oferta Flash real: bajó {real_drop_pct:.1f}% frente a su precio histórico"
+                    f"{prefix}: bajó {real_drop_pct:.1f}% frente a su precio histórico"
                 )
             elif (
-                store_discount_pct >= 40.0
-                and self._is_recognized_brand(snapshot.brand)
+                store_discount_pct >= eff_first_seen_flash
+                and (self._is_recognized_brand(snapshot.brand) or is_priority)
             ):
                 alert_type = "FLASH"
                 if normal_price > effective and store_discount_pct > real_drop_pct:
                     real_drop_pct = store_discount_pct
                     previous_real_price = normal_price
                     savings_clp = normal_price - effective
+                tag = f"Prioritario ({snapshot.brand})" if is_priority else f"Marca oficial ({snapshot.brand})"
                 reason = (
-                    f"Marca oficial ({snapshot.brand}) con {store_discount_pct:.1f}% bajo precio normal"
+                    f"{tag} con {store_discount_pct:.1f}% bajo precio normal"
                 )
 
         # Rule 4: Tienda Travel Dólares Premio special redemption deals

@@ -57,6 +57,17 @@ CATEGORY_DIMENSIONS = [
     ("perfumes_hombre", "2572226493"),
 ]
 
+# Priority keyword searches with Dólares Premio active
+KEYWORD_QUERIES = [
+    ("notebooks", "notebook"),
+    ("cafe", "cafetera"),
+    ("cafe", "cafe"),
+    ("audio", "tocadiscos"),
+    ("audio", "parlante"),
+    ("camaras", "camara"),
+    ("componentes", "monitor"),
+]
+
 DEFAULT_DP_CLP_RATE = 992.5
 
 
@@ -125,6 +136,34 @@ def fetch_tienda_travel_products(
             },
             headers=TIENDA_TRAVEL_HEADERS,
             timeout=18,
+        )
+        if not isinstance(data, dict):
+            continue
+
+        records = ((data.get("results") or {}).get("records")) or []
+        for rec in records:
+            parent_attrs = rec.get("attributes") or {}
+            child_list = rec.get("records") or []
+            child_attrs = (child_list[0].get("attributes") or {}) if child_list else {}
+
+            prod_id = _first_attr(parent_attrs, "product.repositoryId")
+            if not prod_id or prod_id in seen_ids:
+                continue
+            seen_ids.add(prod_id)
+            raw_entries.append((category_name, parent_attrs, child_attrs))
+
+    for category_name, keyword in KEYWORD_QUERIES:
+        data = fetch_json(
+            TIENDA_TRAVEL_ASSEMBLER_URL,
+            params={
+                "Ntt": keyword,
+                "Nf": "product.x_tasaDeCanje|GT 0",
+                "Nr": "AND(sku.availabilityStatus:INSTOCK,OR(product.x_accessFromTienda:agentAndStore,product.x_accessFromTienda:store))",
+                "Nrpp": min(limit_per_category, 25),
+                "No": 0,
+            },
+            headers=TIENDA_TRAVEL_HEADERS,
+            timeout=25,
         )
         if not isinstance(data, dict):
             continue

@@ -448,6 +448,54 @@ class TestScraperParsingAndResilience(unittest.TestCase):
             self.assertTrue(called_urls[0].endswith("/sendPhoto"))
             self.assertTrue(called_urls[1].endswith("/sendMessage"))
 
+    def test_tv_is_glitch_only_and_priority_items_have_lower_flash_threshold(self) -> None:
+        settings = load_settings()
+        detector = DealDetector(settings=settings, watchlist=[])
+
+        # TV with 45% normal discount should NOT trigger FLASH
+        tv_flash = make_snapshot(
+            sku="FAL-TV-FLASH",
+            title='Smart TV Samsung 55" 4K',
+            brand="Samsung",
+            category="tv",
+            current_price=550000,
+            normal_price=1000000,
+        )
+        self.assertIsNone(detector.evaluate(tv_flash, None))
+
+        # TV with GLITCH (>= 50% historical drop) SHOULD trigger GLITCH
+        tv_glitch = make_snapshot(
+            sku="FAL-TV-GLITCH",
+            title='Smart TV LG 55" OLED',
+            brand="LG",
+            category="tv",
+            current_price=350000,
+            normal_price=1200000,
+        )
+        prev_tv = {
+            "last_price": 1000000,
+            "avg_price": 1000000.0,
+            "min_price": 1000000,
+            "max_price": 1000000,
+            "last_notified_price": None,
+        }
+        glitch_alert = detector.evaluate(tv_glitch, prev_tv)
+        self.assertIsNotNone(glitch_alert)
+        self.assertEqual(glitch_alert.alert_type, "GLITCH")
+
+        # Priority item (tocadiscos / audio) with 32% discount triggers FLASH
+        turntable = make_snapshot(
+            sku="TT-AUDIO-1",
+            title="Tocadiscos Audio-Technica AT-LP60X",
+            brand="Audio-Technica",
+            category="audio",
+            current_price=135000,
+            normal_price=199990,
+        )
+        tt_alert = detector.evaluate(turntable, None)
+        self.assertIsNotNone(tt_alert)
+        self.assertEqual(tt_alert.alert_type, "FLASH")
+
 
 if __name__ == "__main__":
     unittest.main()

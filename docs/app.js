@@ -80,6 +80,9 @@
     statFlash: document.getElementById("stat-flash"),
     statVip: document.getElementById("stat-vip"),
     statDp: document.getElementById("stat-dp"),
+    glitchBanner: document.getElementById("glitch-banner"),
+    glitchBannerTitle: document.getElementById("glitch-banner-title"),
+    glitchBannerBtn: document.getElementById("glitch-banner-btn"),
     searchInput: document.getElementById("search-input"),
     storeSelect: document.getElementById("store-select"),
     categorySelect: document.getElementById("category-select"),
@@ -249,6 +252,16 @@
     if (els.statDp) {
       els.statDp.textContent = Number(counts.DOLARES_PREMIO || 0).toLocaleString("es-CL");
     }
+    if (els.glitchBanner) {
+      const glitchCount = Number(counts.GLITCH || 0);
+      if (glitchCount > 0) {
+        els.glitchBannerTitle.textContent =
+          `🚨 ${glitchCount} ERROR${glitchCount > 1 ? "ES" : ""} DE PRECIO DETECTADO${glitchCount > 1 ? "S" : ""} EN VIVO`;
+        els.glitchBanner.classList.remove("hidden");
+      } else {
+        els.glitchBanner.classList.add("hidden");
+      }
+    }
     els.lastUpdated.textContent = formatRelativeTime(feed.generated_at);
     els.modeBadge.textContent = feed.mode === "scan" ? "Modo: Escaneo Real" : `Modo: ${feed.mode || "Demo"}`;
 
@@ -311,6 +324,16 @@
       });
       renderDeals();
     });
+
+    if (els.glitchBannerBtn) {
+      els.glitchBannerBtn.addEventListener("click", () => {
+        state.type = "GLITCH";
+        document.querySelectorAll(".type-pills .pill").forEach((b) => {
+          b.classList.toggle("active", b.dataset.type === "GLITCH");
+        });
+        renderDeals();
+      });
+    }
 
     els.grid.addEventListener("click", async (e) => {
       const btn = e.target.closest(".share-btn");

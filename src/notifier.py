@@ -25,7 +25,11 @@ def build_telegram_html(alert: DealAlert) -> str:
     """Build an escaped HTML message for Telegram Bot API."""
     s = alert.snapshot
     badge_map = {
-        "GLITCH": "🚨 <b>POSIBLE ERROR DE PRECIO (GLITCH)</b>",
+        "GLITCH": (
+            "🚨🚨🚨 <b>ERROR DE PRECIO DETECTADO</b> 🚨🚨🚨\n"
+            "⚡ <b>ALERTA CRÍTICA — REVISAR STOCK YA</b>\n"
+            "━━━━━━━━━━━━━━━━━━━━"
+        ),
         "VIP": "⭐ <b>ALERTA LISTA VIP</b>",
         "FLASH": "⚡ <b>OFERTA FLASH REAL</b>",
         "DOLARES_PREMIO": "✈️ <b>OFERTA DÓLARES PREMIO (TIENDA TRAVEL)</b>",
@@ -54,13 +58,16 @@ def build_telegram_html(alert: DealAlert) -> str:
             f"✈️ <b>Dólares Premio:</b> hasta {s.dolares_premio_pct}% "
             f"(~{s.dolares_premio_amount:.2f} DP + {format_clp(s.copay_clp)})"
         )
+    drop_label = "💥 AHORRO BRUTAL" if alert.alert_type == "GLITCH" else "💥 Caída real"
     lines.extend(
         [
-            f"💥 Caída real: <b>-{alert.real_drop_pct:.1f}%</b> (ahorras {format_clp(alert.savings_clp)})",
+            f"{drop_label}: <b>-{alert.real_drop_pct:.1f}%</b> (ahorras {format_clp(alert.savings_clp)})",
             f"ℹ️ <i>{reason_safe}</i>",
             f"🆔 SKU: <code>{html.escape(s.sku)}</code>",
         ]
     )
+    if alert.alert_type == "GLITCH":
+        lines.append("━━━━━━━━━━━━━━━━━━━━")
     return "\n".join(lines)
 
 
@@ -91,7 +98,12 @@ class AlertNotifier:
         sent_any = False
 
         if self.telegram_configured:
-            buttons = [[{"text": "🛒 Ir a la Oferta", "url": alert.snapshot.url}]]
+            cta_text = (
+                "🚨 COMPRAR YA (GLITCH)"
+                if alert.alert_type == "GLITCH"
+                else "🛒 Ir a la Oferta"
+            )
+            buttons = [[{"text": cta_text, "url": alert.snapshot.url}]]
             if self.public_web_url.startswith("http"):
                 buttons[0].append({"text": "🌐 Ver Radar Web", "url": self.public_web_url})
 
