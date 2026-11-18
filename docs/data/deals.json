@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-11-18T11:10:31.993455+00:00",
+  "generated_at": "2026-11-18T11:15:43.347228+00:00",
   "mode": "scan",
-  "total_monitored_products": 3589,
+  "total_monitored_products": 3590,
   "total_active_deals": 234,
   "counts_by_type": {
     "GLITCH": 0,
@@ -65,7 +65,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/80874891/asus-tuf-gaming-f16-fx607-intel-core-5-nvidia-rtx-3050-16gb-ram-512gb-ssd-16-fhd-144hz",
       "image_url": "https://media.falabella.com/falabellaCL/80874891_01/public",
       "detected_at": "2026-11-17T14:24:06.013845+00:00",
-      "updated_at": "2026-11-18T11:10:30.930127+00:00",
+      "updated_at": "2026-11-18T11:15:43.064978+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -92,7 +92,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/80835902/vivobook-15-x1504va-e84208w-x1504-c5-16gb-512gb-ssd-15p-fhd-asus",
       "image_url": "https://media.falabella.com/falabellaCL/80835902_01/public",
       "detected_at": "2026-11-17T14:24:05.932475+00:00",
-      "updated_at": "2026-11-18T11:10:30.901850+00:00",
+      "updated_at": "2026-11-18T11:15:43.054528+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -119,7 +119,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/80835901/vivobook-go-15-e1504fa-bq5429w-e1504-amd-r5-16gb-512gb-ssd-15p-f-asus",
       "image_url": "https://media.falabella.com/falabellaCL/80835901_01/public",
       "detected_at": "2026-11-17T14:24:05.974118+00:00",
-      "updated_at": "2026-11-18T11:10:30.916988+00:00",
+      "updated_at": "2026-11-18T11:15:43.061016+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -173,7 +173,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/80808900/asus-vivobook-go-15-e1504-amd-ryzen-5-8gb-ram-512gb-ssd-pantalla-full-hd-15-6",
       "image_url": "https://media.falabella.com/falabellaCL/80808900_01/public",
       "detected_at": "2026-11-17T14:24:05.948493+00:00",
-      "updated_at": "2026-11-18T11:10:30.907635+00:00",
+      "updated_at": "2026-11-18T11:15:43.057002+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -200,7 +200,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/80709744/notebook-vivobook-15-x1504-intel-core-5-8gb-ram-512gb-ssd-15-fhd-60hz",
       "image_url": "https://media.falabella.com/falabellaCL/80709744_01/public",
       "detected_at": "2026-11-17T14:24:05.888834+00:00",
-      "updated_at": "2026-11-18T11:10:30.887972+00:00",
+      "updated_at": "2026-11-18T11:15:43.049418+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -254,7 +254,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/80874892/asus-tuf-gaming-a15-fa506-amd-ryzen-7-nvidia-rtx-3050-16gb-ram-512gb-ssd-15-6-fhd-144hz",
       "image_url": "https://media.falabella.com/falabellaCL/80874892_01/public",
       "detected_at": "2026-11-17T14:24:05.915834+00:00",
-      "updated_at": "2026-11-18T11:10:30.897096+00:00",
+      "updated_at": "2026-11-18T11:15:43.052957+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -281,7 +281,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/80808899/asus-tuf-gaming-fx607-intel-core-i5-16gb-ram-512gb-ssd-nvidia-geforce-rtx-5050",
       "image_url": "https://media.falabella.com/falabellaCL/80808899_01/public",
       "detected_at": "2026-11-17T14:24:05.999783+00:00",
-      "updated_at": "2026-11-18T11:10:30.926472+00:00",
+      "updated_at": "2026-11-18T11:15:43.062941+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -308,7 +308,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/17535913/notebook-asus-vivobook-s16-amd-ryzen-9-16gb-ram-512gb-ssd-16-wuxga-144hz",
       "image_url": "https://media.falabella.com/falabellaCL/17535913_01/public",
       "detected_at": "2026-11-17T14:24:05.882603+00:00",
-      "updated_at": "2026-11-18T11:10:30.885645+00:00",
+      "updated_at": "2026-11-18T11:15:43.048667+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -335,7 +335,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/17703317/celular-motorola-edge-70-12512gb",
       "image_url": "https://media.falabella.com/falabellaCL/17703317_1/public",
       "detected_at": "2026-11-17T14:24:06.152704+00:00",
-      "updated_at": "2026-11-18T11:10:30.982066+00:00",
+      "updated_at": "2026-11-18T11:15:43.081560+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -389,7 +389,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/80835904/zenbook-14-oled-ux3405ca-su1479w-core-u7-16gb-1tb-ssd-14p-asus",
       "image_url": "https://media.falabella.com/falabellaCL/80835904_01/public",
       "detected_at": "2026-11-17T14:24:05.991123+00:00",
-      "updated_at": "2026-11-18T11:10:30.921809+00:00",
+      "updated_at": "2026-11-18T11:15:43.060266+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -605,7 +605,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/prod129935274/Celular-Samsung-Galaxy-S25-256GB",
       "image_url": "https://media.falabella.com/falabellaCL/17354674_1/public",
       "detected_at": "2026-11-17T14:24:06.072127+00:00",
-      "updated_at": "2026-11-18T11:10:30.957172+00:00",
+      "updated_at": "2026-11-18T11:15:43.072850+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -686,7 +686,7 @@
       "url": "https://www.mercadolibre.cl/p/MLC80174135?pdp_filters=official_store:all",
       "image_url": "https://http2.mlstatic.com/D_NQ_NP_979719-MLA117061992842_102026-F.jpg",
       "detected_at": "2026-11-18T04:55:43.139799+00:00",
-      "updated_at": "2026-11-18T11:10:30.239674+00:00",
+      "updated_at": "2026-11-18T11:15:42.865882+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -767,7 +767,7 @@
       "url": "https://www.mercadolibre.cl/up/MLCU71859295?pdp_filters=official_store%3Aall",
       "image_url": "https://http2.mlstatic.com/D_Q_NP_2X_603104-MLC116748306188_092026-E--cafetera-nespresso-vertuo-pop.webp",
       "detected_at": "2026-11-18T04:55:43.533789+00:00",
-      "updated_at": "2026-11-18T11:10:30.824787+00:00",
+      "updated_at": "2026-11-18T11:15:43.031162+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
