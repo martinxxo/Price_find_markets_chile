@@ -1,16 +1,17 @@
 {
-  "generated_at": "2026-11-18T03:30:39.962504+00:00",
+  "generated_at": "2026-11-18T03:36:21.172956+00:00",
   "mode": "scan",
-  "total_monitored_products": 2684,
-  "total_active_deals": 230,
+  "total_monitored_products": 2904,
+  "total_active_deals": 231,
   "counts_by_type": {
     "GLITCH": 0,
     "VIP": 0,
-    "FLASH": 46,
+    "FLASH": 47,
     "DOLARES_PREMIO": 184
   },
   "counts_by_store": {
     "Falabella": 12,
+    "MercadoLibre": 1,
     "Ripley": 3,
     "Tienda Travel": 215
   },
@@ -64,7 +65,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/80874891/asus-tuf-gaming-f16-fx607-intel-core-5-nvidia-rtx-3050-16gb-ram-512gb-ssd-16-fhd-144hz",
       "image_url": "https://media.falabella.com/falabellaCL/80874891_01/public",
       "detected_at": "2026-11-17T14:24:06.013845+00:00",
-      "updated_at": "2026-11-18T03:30:39.371584+00:00",
+      "updated_at": "2026-11-18T03:36:20.673757+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -91,7 +92,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/80835902/vivobook-15-x1504va-e84208w-x1504-c5-16gb-512gb-ssd-15p-fhd-asus",
       "image_url": "https://media.falabella.com/falabellaCL/80835902_01/public",
       "detected_at": "2026-11-17T14:24:05.932475+00:00",
-      "updated_at": "2026-11-18T03:30:39.354010+00:00",
+      "updated_at": "2026-11-18T03:36:20.656717+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -118,7 +119,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/80835901/vivobook-go-15-e1504fa-bq5429w-e1504-amd-r5-16gb-512gb-ssd-15p-f-asus",
       "image_url": "https://media.falabella.com/falabellaCL/80835901_01/public",
       "detected_at": "2026-11-17T14:24:05.974118+00:00",
-      "updated_at": "2026-11-18T03:30:39.363528+00:00",
+      "updated_at": "2026-11-18T03:36:20.666072+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -172,7 +173,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/80808900/asus-vivobook-go-15-e1504-amd-ryzen-5-8gb-ram-512gb-ssd-pantalla-full-hd-15-6",
       "image_url": "https://media.falabella.com/falabellaCL/80808900_01/public",
       "detected_at": "2026-11-17T14:24:05.948493+00:00",
-      "updated_at": "2026-11-18T03:30:39.357741+00:00",
+      "updated_at": "2026-11-18T03:36:20.660238+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -199,7 +200,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/80709744/notebook-vivobook-15-x1504-intel-core-5-8gb-ram-512gb-ssd-15-fhd-60hz",
       "image_url": "https://media.falabella.com/falabellaCL/80709744_01/public",
       "detected_at": "2026-11-17T14:24:05.888834+00:00",
-      "updated_at": "2026-11-18T03:30:39.329756+00:00",
+      "updated_at": "2026-11-18T03:36:20.648993+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -253,7 +254,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/80874892/asus-tuf-gaming-a15-fa506-amd-ryzen-7-nvidia-rtx-3050-16gb-ram-512gb-ssd-15-6-fhd-144hz",
       "image_url": "https://media.falabella.com/falabellaCL/80874892_01/public",
       "detected_at": "2026-11-17T14:24:05.915834+00:00",
-      "updated_at": "2026-11-18T03:30:39.331251+00:00",
+      "updated_at": "2026-11-18T03:36:20.644611+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -280,7 +281,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/80808899/asus-tuf-gaming-fx607-intel-core-i5-16gb-ram-512gb-ssd-nvidia-geforce-rtx-5050",
       "image_url": "https://media.falabella.com/falabellaCL/80808899_01/public",
       "detected_at": "2026-11-17T14:24:05.999783+00:00",
-      "updated_at": "2026-11-18T03:30:39.369418+00:00",
+      "updated_at": "2026-11-18T03:36:20.671732+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -307,7 +308,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/17535913/notebook-asus-vivobook-s16-amd-ryzen-9-16gb-ram-512gb-ssd-16-wuxga-144hz",
       "image_url": "https://media.falabella.com/falabellaCL/17535913_01/public",
       "detected_at": "2026-11-17T14:24:05.882603+00:00",
-      "updated_at": "2026-11-18T03:30:39.328112+00:00",
+      "updated_at": "2026-11-18T03:36:20.647610+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -334,7 +335,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/17703317/celular-motorola-edge-70-12512gb",
       "image_url": "https://media.falabella.com/falabellaCL/17703317_1/public",
       "detected_at": "2026-11-17T14:24:06.152704+00:00",
-      "updated_at": "2026-11-18T03:30:39.403067+00:00",
+      "updated_at": "2026-11-18T03:36:20.704015+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -388,7 +389,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/80835904/zenbook-14-oled-ux3405ca-su1479w-core-u7-16gb-1tb-ssd-14p-asus",
       "image_url": "https://media.falabella.com/falabellaCL/80835904_01/public",
       "detected_at": "2026-11-17T14:24:05.991123+00:00",
-      "updated_at": "2026-11-18T03:30:39.366263+00:00",
+      "updated_at": "2026-11-18T03:36:20.668974+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -604,7 +605,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/prod129935274/Celular-Samsung-Galaxy-S25-256GB",
       "image_url": "https://media.falabella.com/falabellaCL/17354674_1/public",
       "detected_at": "2026-11-17T14:24:06.072127+00:00",
-      "updated_at": "2026-11-18T03:30:39.386522+00:00",
+      "updated_at": "2026-11-18T03:36:20.687708+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1253,6 +1254,33 @@
       "image_url": "https://rimage.ripley.cl/home.ripley/Attachment/WOP/1/2000412073010/full_image-2000412073010",
       "detected_at": "2026-11-17T19:11:07.436241+00:00",
       "updated_at": "2026-11-18T00:50:29.884221+00:00",
+      "dolares_premio_pct": 0,
+      "dolares_premio_amount": 0.0,
+      "copay_clp": 0
+    },
+    {
+      "sku": "MLC-MLC80266576",
+      "store": "MercadoLibre",
+      "title": "Notebook HP ZBook X G2i Intel Core Ultra 9 32GB RAM 1TB SSD RTX PRO 1000 8GB 16\" Windows 11 Pro",
+      "brand": "HP",
+      "category": "notebooks",
+      "alert_type": "FLASH",
+      "effective_price": 4379990,
+      "current_price": 4379990,
+      "card_price": null,
+      "normal_price": 4379990,
+      "payment_type": "Todo Medio de Pago",
+      "previous_real_price": 5599990,
+      "min_historical_price": 4379990,
+      "real_drop_pct": 21.8,
+      "store_discount_pct": 0.0,
+      "savings_clp": 1220000,
+      "reason": "Oferta Flash prioritaria: bajó 21.8% frente a su precio histórico",
+      "seller_name": "MercadoLibre Tienda Oficial",
+      "url": "https://www.mercadolibre.cl/p/MLC80266576?pdp_filters=official_store:all",
+      "image_url": "https://http2.mlstatic.com/D_NQ_NP_752177-MLA117250767328_102026-F.jpg",
+      "detected_at": "2026-11-18T03:36:19.192136+00:00",
+      "updated_at": "2026-11-18T03:36:19.192821+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
