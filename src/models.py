@@ -36,22 +36,12 @@ class ProductSnapshot:
 
     @property
     def effective_price(self) -> int:
-        """Return the lowest available purchase price (card price if cheaper)."""
-        if self.card_price is not None and self.card_price > 0:
-            if self.current_price <= 0:
-                return int(self.card_price)
-            return int(min(self.current_price, self.card_price))
+        """Return the lowest Todo Medio de Pago purchase price (store card prices excluded)."""
         return int(self.current_price)
 
     @property
     def payment_type(self) -> str:
-        """Return whether the best price requires the store credit card."""
-        if (
-            self.card_price is not None
-            and self.card_price > 0
-            and (self.current_price <= 0 or self.card_price < self.current_price)
-        ):
-            return "Tarjeta Tienda"
+        """Return payment method label (store card offers are excluded)."""
         return "Todo Medio de Pago"
 
 

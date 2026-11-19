@@ -31,31 +31,31 @@ _NEXT_DATA_RE = re.compile(
 
 
 def _extract_prices(price_entries: list[dict[str, Any]]) -> tuple[Optional[int], Optional[int], Optional[int]]:
+    """Extract Todo Medio de Pago prices only (explicitly ignores CMR store card price)."""
     current_price: Optional[int] = None
-    card_price: Optional[int] = None
     normal_price: Optional[int] = None
 
     for entry in price_entries or []:
         p_type = str(entry.get("type", "")).lower()
+        if "cmr" in p_type or "card" in p_type:
+            continue
         raw_list = entry.get("price") or []
         raw_val = raw_list[0] if isinstance(raw_list, list) and raw_list else entry.get("price")
         parsed = parse_clp_price(raw_val)
         if not parsed:
             continue
 
-        if "cmr" in p_type or "card" in p_type:
-            card_price = parsed
-        elif "normal" in p_type or "regular" in p_type:
+        if "normal" in p_type or "regular" in p_type:
             normal_price = parsed
         elif "event" in p_type or "internet" in p_type or "offer" in p_type:
             if current_price is None or parsed < current_price:
                 current_price = parsed
 
     if current_price is None:
-        current_price = normal_price or card_price
+        current_price = normal_price
     if normal_price is None:
         normal_price = current_price
-    return current_price, card_price, normal_price
+    return current_price, None, normal_price
 
 
 def fetch_json(url: str, page: int = 1) -> Optional[dict[str, Any]]:

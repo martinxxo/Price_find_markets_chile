@@ -44,6 +44,7 @@ def fetch_solotodo_store_products(
     sku_prefix: str,
     seller_name: str,
     page_size: int = 50,
+    use_offer_price: bool = False,
 ) -> list[ProductSnapshot]:
     """Fetch in-stock, new, visible 1P products for specific SoloTodo store IDs."""
     snapshots: list[ProductSnapshot] = []
@@ -84,11 +85,16 @@ def fetch_solotodo_store_products(
 
             normal_price = parse_clp_price(registry.get("normal_price"))
             offer_price = parse_clp_price(registry.get("offer_price"))
-            current_price = normal_price or offer_price
+            # For retail chains (Paris/Ripley/Falabella), SoloTodo's offer_price is store-card-only.
+            # Only use offer_price when explicitly allowed (e.g., MercadoLibre without retail cards).
+            if use_offer_price and offer_price:
+                current_price = min(offer_price, normal_price) if normal_price else offer_price
+            else:
+                current_price = normal_price or offer_price
             if not current_price:
                 continue
 
-            card_price = offer_price if (offer_price and offer_price < current_price) else None
+            card_price = None
             title = str(item.get("name") or "").strip()
             if not title:
                 continue

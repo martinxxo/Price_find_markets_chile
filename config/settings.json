@@ -56,6 +56,7 @@
     "falabella",
     "paris",
     "ripley",
+    "knasta",
     "tienda_travel"
   ],
   "tienda_travel": {
@@ -64,5 +65,8 @@
     "min_high_canje_pct": 50
   },
   "official_seller_only": true,
+  "exclude_store_card_prices": true,
+  "cross_reference_enabled": true,
+  "max_live_cross_refs_per_scan": 25,
   "public_web_url": "https://martinxxo.github.io/Price_find_markets_chile/"
 }

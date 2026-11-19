@@ -18,4 +18,5 @@ def fetch_mercadolibre_products(limit_per_category: int = 50) -> list[ProductSna
         sku_prefix="MLC",
         seller_name="MercadoLibre Tienda Oficial",
         page_size=limit_per_category,
+        use_offer_price=True,
     )

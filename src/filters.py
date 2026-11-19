@@ -47,6 +47,12 @@ BLOCKED_KEYWORDS = (
     "repuesto",
     "repuestos",
     "control remoto",
+    "solo con cmr",
+    "exclusivo cmr",
+    "solo tarjeta",
+    "exclusivo tarjeta",
+    "con tarjeta cencosud",
+    "con tarjeta ripley",
 )
 
 _BLOCKED_PATTERN = re.compile(

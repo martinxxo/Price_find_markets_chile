@@ -265,6 +265,16 @@
     els.lastUpdated.textContent = formatRelativeTime(feed.generated_at);
     els.modeBadge.textContent = feed.mode === "scan" ? "Modo: Escaneo Real" : `Modo: ${feed.mode || "Demo"}`;
 
+    if (els.storeSelect) {
+      const prevStore = state.store;
+      const storeNames = Array.from(new Set(state.deals.map((d) => d.store).filter(Boolean))).sort();
+      const optionsHtml = ['<option value="ALL">Todas las tiendas</option>']
+        .concat(storeNames.map((s) => `<option value="${escapeHtml(s)}">${escapeHtml(s)}</option>`));
+      els.storeSelect.innerHTML = optionsHtml.join("");
+      els.storeSelect.value = storeNames.includes(prevStore) ? prevStore : "ALL";
+      state.store = els.storeSelect.value;
+    }
+
     renderDeals();
   }
 

@@ -5,15 +5,17 @@ from __future__ import annotations
 import argparse
 import logging
 from pathlib import Path
-from typing import Callable, Iterable
+from typing import Callable, Iterable, Optional
 
 from src.config_loader import load_settings, load_watchlist
 from src.detector import DealDetector
 from src.filters import is_valid_official_tech_product
 from src.models import DealAlert, ProductSnapshot
 from src.notifier import AlertNotifier
+from src.price_reference import CrossStoreReferenceEngine
 from src.scrapers.demo_data import get_demo_pass_one, get_demo_pass_two
 from src.scrapers.falabella import fetch_falabella_products
+from src.scrapers.knasta import fetch_knasta_products
 from src.scrapers.mercadolibre import fetch_mercadolibre_products
 from src.scrapers.paris import fetch_paris_products
 from src.scrapers.ripley import fetch_ripley_products
@@ -32,6 +34,7 @@ SCRAPER_REGISTRY: dict[str, Callable[[], list[ProductSnapshot]]] = {
     "falabella": fetch_falabella_products,
     "paris": fetch_paris_products,
     "ripley": fetch_ripley_products,
+    "knasta": fetch_knasta_products,
     "tienda_travel": fetch_tienda_travel_products,
 }
 
@@ -42,6 +45,7 @@ def process_snapshots(
     detector: DealDetector,
     notifier: AlertNotifier,
     official_seller_only: bool = True,
+    reference_engine: Optional[CrossStoreReferenceEngine] = None,
 ) -> list[DealAlert]:
     """Filter, evaluate, persist, and notify a batch of product snapshots."""
     alerts: list[DealAlert] = []
@@ -55,7 +59,12 @@ def process_snapshots(
 
         processed += 1
         prev = storage.get_product(snapshot.sku)
-        alert = detector.evaluate(snapshot, prev)
+        market_ref = (
+            reference_engine.get_reference_price(snapshot, is_unseen=(prev is None))
+            if reference_engine is not None
+            else None
+        )
+        alert = detector.evaluate(snapshot, prev, market_reference=market_ref)
 
         storage.upsert_product(snapshot)
 
@@ -120,10 +129,12 @@ def run_live_scan(
     notifier: AlertNotifier,
 ) -> list[DealAlert]:
     """Fetch snapshots from all enabled Chilean stores and process them."""
-    # Ensure synthetic demo entries never leak into live production feeds
+    # Ensure synthetic demo entries and store-card-only offers never stay in live production feeds
     with storage.conn:
         storage.conn.execute("DELETE FROM products WHERE sku LIKE '%-DEMO-%'")
         storage.conn.execute("DELETE FROM active_deals WHERE sku LIKE '%-DEMO-%'")
+        if settings.get("exclude_store_card_prices", True):
+            storage.conn.execute("DELETE FROM active_deals WHERE payment_type = 'Tarjeta Tienda'")
 
     all_snapshots: list[ProductSnapshot] = []
     for store_key in settings.get("stores_enabled", []):
@@ -138,12 +149,21 @@ def run_live_scan(
         except Exception as exc:  # pragma: no cover - defensive guard per store
             logger.warning("Unexpected error scanning store '%s': %s", store_key, exc)
 
+    ref_engine = None
+    if settings.get("cross_reference_enabled", True):
+        ref_engine = CrossStoreReferenceEngine(
+            storage=storage,
+            live_snapshots=all_snapshots,
+            max_live_lookups=int(settings.get("max_live_cross_refs_per_scan", 25)),
+        )
+
     return process_snapshots(
         all_snapshots,
         storage=storage,
         detector=detector,
         notifier=notifier,
         official_seller_only=settings.get("official_seller_only", True),
+        reference_engine=ref_engine,
     )
 
 

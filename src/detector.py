@@ -134,8 +134,9 @@ class DealDetector:
         self,
         snapshot: ProductSnapshot,
         previous_record: Optional[dict[str, Any]],
+        market_reference: Optional[tuple[int, str]] = None,
     ) -> Optional[DealAlert]:
-        """Return a DealAlert if snapshot triggers GLITCH, VIP, or FLASH rules."""
+        """Return a DealAlert if snapshot triggers GLITCH, VIP, FLASH, or cross-store deals."""
         effective = snapshot.effective_price
         if effective <= 0:
             return None
@@ -207,6 +208,24 @@ class DealDetector:
                     f"con {store_discount_pct:.1f}% bajo precio normal".replace(",", ".")
                 )
 
+        # Cross-store market reference check for GLITCH (catches unseen/unmarked glitches)
+        market_drop_pct = 0.0
+        market_ref_price = 0
+        market_ref_source = ""
+        if market_reference is not None:
+            market_ref_price, market_ref_source = market_reference
+            if market_ref_price > effective:
+                market_drop_pct = self._calc_drop_pct(market_ref_price, effective)
+                if alert_type is None and market_drop_pct >= glitch_drop_pct:
+                    alert_type = "GLITCH"
+                    previous_real_price = market_ref_price
+                    real_drop_pct = market_drop_pct
+                    savings_clp = market_ref_price - effective
+                    reason = (
+                        f"Cotejo mercado ({market_ref_source}): -{market_drop_pct:.1f}% "
+                        f"bajo referencia (${market_ref_price:,})".replace(",", ".")
+                    )
+
         # Rule 2: VIP watchlist check (if not already a GLITCH and not glitch-only category)
         category_key = snapshot.category.lower().strip()
         if category_key in self.glitch_only_categories:
@@ -270,6 +289,20 @@ class DealDetector:
                 tag = f"Prioritario ({snapshot.brand})" if is_priority else f"Marca oficial ({snapshot.brand})"
                 reason = (
                     f"{tag} con {store_discount_pct:.1f}% bajo precio normal"
+                )
+            elif market_ref_price > effective and market_drop_pct >= eff_flash_drop:
+                alert_type = "FLASH"
+                previous_real_price = market_ref_price
+                real_drop_pct = market_drop_pct
+                savings_clp = market_ref_price - effective
+                dp_note = (
+                    f" + hasta {snapshot.dolares_premio_pct}% Dólares Premio"
+                    if snapshot.dolares_premio_pct > 0
+                    else ""
+                )
+                reason = (
+                    f"Cotejo mercado ({market_ref_source}): -{market_drop_pct:.1f}% "
+                    f"bajo referencia (${market_ref_price:,}){dp_note}".replace(",", ".")
                 )
 
         # Rule 4: Tienda Travel Dólares Premio special redemption deals

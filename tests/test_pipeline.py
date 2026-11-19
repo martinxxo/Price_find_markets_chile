@@ -14,7 +14,9 @@ from src.filters import is_valid_official_tech_product
 from src.main import process_snapshots, run_demo
 from src.models import DealAlert, ProductSnapshot
 from src.notifier import AlertNotifier
+from src.price_reference import CrossStoreReferenceEngine
 from src.scrapers.falabella import fetch_falabella_products
+from src.scrapers.knasta import fetch_knasta_products
 from src.scrapers.mercadolibre import fetch_mercadolibre_products
 from src.scrapers.paris import fetch_paris_products
 from src.scrapers.ripley import fetch_ripley_products
@@ -93,7 +95,8 @@ class TestDetectorAndStorage(unittest.TestCase):
             self.assertIsNotNone(alert)
             self.assertEqual(alert.alert_type, "GLITCH")
             self.assertGreaterEqual(alert.real_drop_pct, 50.0)
-            self.assertEqual(dropped.payment_type, "Tarjeta Tienda")
+            self.assertEqual(dropped.payment_type, "Todo Medio de Pago")
+            self.assertEqual(dropped.effective_price, 240000)
 
     def test_glitch_detection_by_category_floor_first_seen(self) -> None:
         with PriceStorage(self.db_path) as storage:
@@ -288,7 +291,8 @@ class TestScraperParsingAndResilience(unittest.TestCase):
         with patch("src.scrapers.falabella.fetch_json", return_value=fal_payload):
             fal_items = fetch_falabella_products()
             self.assertEqual(len(fal_items), 1)
-            self.assertEqual(fal_items[0].effective_price, 299990)
+            # Ignores cmrPrice (299.990) and uses internetPrice Todo Medio de Pago (329.990)
+            self.assertEqual(fal_items[0].effective_price, 329990)
 
         paris_payload = {
             "results": [
@@ -308,7 +312,8 @@ class TestScraperParsingAndResilience(unittest.TestCase):
         with patch("src.scrapers.solotodo_client.fetch_json", return_value=paris_payload):
             par_items = fetch_paris_products()
             self.assertEqual(len(par_items), 1)
-            self.assertEqual(par_items[0].effective_price, 379990)
+            # Uses normal_price Todo Medio de Pago instead of store-card offer_price
+            self.assertEqual(par_items[0].effective_price, 699990)
 
         ripley_payload = {
             "results": [
@@ -328,7 +333,7 @@ class TestScraperParsingAndResilience(unittest.TestCase):
         with patch("src.scrapers.solotodo_client.fetch_json", return_value=ripley_payload):
             rip_items = fetch_ripley_products()
             self.assertEqual(len(rip_items), 1)
-            self.assertEqual(rip_items[0].effective_price, 429990)
+            self.assertEqual(rip_items[0].effective_price, 599990)
 
     def test_persistent_brand_flash_deal_stays_active_without_spam(self) -> None:
         notifier = DummyNotifier()
@@ -495,6 +500,139 @@ class TestScraperParsingAndResilience(unittest.TestCase):
         tt_alert = detector.evaluate(turntable, None)
         self.assertIsNotNone(tt_alert)
         self.assertEqual(tt_alert.alert_type, "FLASH")
+
+    def test_knasta_excludes_card_only_and_cross_reference_catches_unseen_glitch(self) -> None:
+        knasta_payload = {
+            "products": [
+                {
+                    "product_id": "KN1",
+                    "retail": "paris",
+                    "title": "Cafetera Espresso Dedica EC685",
+                    "brand": "DeLonghi",
+                    "url": "https://www.paris.cl/ec685",
+                    "image": "https://img.example/ec685.jpg",
+                    "current_price": 209990,
+                    "price_internet": 249990,
+                    "price_card": 209990,
+                    "descriptive": {"habitual_price": 299990},
+                },
+                {
+                    "product_id": "KN2",
+                    "retail": "ripley",
+                    "title": "Notebook HP Exclusivo Tarjeta",
+                    "brand": "HP",
+                    "url": "https://simple.ripley.cl/hp",
+                    "current_price": 399990,
+                    "price_internet": None,
+                    "price_card": 399990,
+                    "descriptive": {"habitual_price": 599990},
+                },
+            ]
+        }
+        with patch("src.scrapers.knasta.fetch_knasta_page", return_value=knasta_payload):
+            kn_items = fetch_knasta_products()
+            self.assertEqual(len(kn_items), 1)
+            self.assertEqual(kn_items[0].effective_price, 249990)
+            self.assertEqual(kn_items[0].normal_price, 299990)
+
+        # Unseen Tienda Travel product with NO store discount, matched against other store in index
+        with tempfile.TemporaryDirectory() as tmp:
+            db_path = Path(tmp) / "xref.db"
+            settings = load_settings()
+            detector = DealDetector(settings=settings, watchlist=[])
+            with PriceStorage(db_path) as storage:
+                market_item = make_snapshot(
+                    sku="PAR-LP60X",
+                    store="Paris",
+                    title="Tocadiscos Audio-Technica AT-LP60X Negro",
+                    brand="Audio-Technica",
+                    category="audio",
+                    current_price=199990,
+                    normal_price=199990,
+                )
+                unseen_tt_item = make_snapshot(
+                    sku="TT-LP60X-NEW",
+                    store="Tienda Travel",
+                    title="Tocadiscos Audio-Technica AT-LP60X",
+                    brand="Audio-Technica",
+                    category="audio",
+                    current_price=89990,
+                    normal_price=89990,
+                    dolares_premio_pct=40,
+                    dolares_premio_amount=36.27,
+                    copay_clp=53994,
+                )
+                ref_engine = CrossStoreReferenceEngine(
+                    storage=storage,
+                    live_snapshots=[market_item, unseen_tt_item],
+                    max_live_lookups=0,
+                )
+                ref = ref_engine.get_reference_price(unseen_tt_item, is_unseen=True)
+                self.assertIsNotNone(ref)
+                self.assertEqual(ref[0], 199990)
+
+                alert = detector.evaluate(unseen_tt_item, None, market_reference=ref)
+                self.assertIsNotNone(alert)
+                self.assertEqual(alert.alert_type, "GLITCH")
+                self.assertGreaterEqual(alert.real_drop_pct, 50.0)
+
+                # Negative tests: must NOT cross-match different categories, capacities, or panel tiers
+                headset = make_snapshot(
+                    sku="MLC-HEADSET",
+                    store="MercadoLibre",
+                    title="Auriculares Onikuma K19 Gaming Headset Ps4 PC Gamer",
+                    brand="Marca",
+                    category="audio",
+                    current_price=16990,
+                )
+                wheel = make_snapshot(
+                    sku="FAL-WHEEL",
+                    store="Falabella",
+                    title="Volante RS50 System PS4 PS5 PC",
+                    brand="Marca",
+                    category="componentes",
+                    current_price=799990,
+                )
+                tv_nano = make_snapshot(
+                    sku="MLC-NANO55",
+                    store="MercadoLibre",
+                    title="Smart Tv LG 55 Nano Uhd Ai 4k",
+                    brand="LG",
+                    category="tv",
+                    current_price=299990,
+                )
+                tv_oled = make_snapshot(
+                    sku="PAR-OLED55",
+                    store="Paris",
+                    title="Smart TV LG 55 OLED Evo AI 4K",
+                    brand="LG",
+                    category="tv",
+                    current_price=1259990,
+                )
+                phone_128 = make_snapshot(
+                    sku="MLC-A57-128",
+                    store="MercadoLibre",
+                    title="Samsung Galaxy A57 128GB 8GB",
+                    brand="Samsung",
+                    category="celulares",
+                    current_price=299990,
+                )
+                phone_256 = make_snapshot(
+                    sku="FAL-A57-256",
+                    store="Falabella",
+                    title="Samsung Galaxy A57 256GB",
+                    brand="Samsung",
+                    category="celulares",
+                    current_price=499990,
+                )
+                neg_engine = CrossStoreReferenceEngine(
+                    storage=storage,
+                    live_snapshots=[headset, wheel, tv_nano, tv_oled, phone_128, phone_256],
+                    max_live_lookups=0,
+                )
+                self.assertIsNone(neg_engine.get_reference_price(headset, is_unseen=True))
+                self.assertIsNone(neg_engine.get_reference_price(tv_nano, is_unseen=True))
+                self.assertIsNone(neg_engine.get_reference_price(phone_128, is_unseen=True))
 
 
 if __name__ == "__main__":

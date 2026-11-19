@@ -88,6 +88,17 @@ class PriceStorage:
                     self.conn.execute(
                         f"ALTER TABLE active_deals ADD COLUMN {col_name} {col_def}"
                     )
+            self.conn.execute(
+                """
+                CREATE TABLE IF NOT EXISTS reference_prices (
+                    query_key TEXT PRIMARY KEY,
+                    ref_price INTEGER NOT NULL,
+                    source TEXT NOT NULL,
+                    matched_title TEXT NOT NULL,
+                    updated_at TEXT NOT NULL
+                )
+                """
+            )
 
     def close(self) -> None:
         """Close the SQLite connection cleanly."""
@@ -274,6 +285,44 @@ class PriceStorage:
         """Remove a deal that is no longer discounted or out of stock."""
         with self.conn:
             self.conn.execute("DELETE FROM active_deals WHERE sku = ?", (sku,))
+
+    def get_reference_price(self, query_key: str) -> Optional[dict[str, Any]]:
+        """Fetch a cached cross-store market reference price."""
+        row = self.conn.execute(
+            "SELECT * FROM reference_prices WHERE query_key = ?",
+            (query_key,),
+        ).fetchone()
+        return dict(row) if row else None
+
+    def upsert_reference_price(
+        self,
+        query_key: str,
+        ref_price: int,
+        source: str,
+        matched_title: str,
+    ) -> None:
+        """Cache a cross-store market reference price in SQLite."""
+        now = utc_now_iso()
+        with self.conn:
+            self.conn.execute(
+                """
+                INSERT INTO reference_prices (query_key, ref_price, source, matched_title, updated_at)
+                VALUES (?, ?, ?, ?, ?)
+                ON CONFLICT(query_key) DO UPDATE SET
+                    ref_price = excluded.ref_price,
+                    source = excluded.source,
+                    matched_title = excluded.matched_title,
+                    updated_at = excluded.updated_at
+                """,
+                (query_key, int(ref_price), source, matched_title, now),
+            )
+
+    def get_all_products_brief(self) -> list[dict[str, Any]]:
+        """Return lightweight product rows for building the cross-store reference index."""
+        rows = self.conn.execute(
+            "SELECT sku, store, title, brand, category, last_price, max_price FROM products"
+        ).fetchall()
+        return [dict(r) for r in rows]
 
     def get_active_deals(self) -> list[dict[str, Any]]:
         """Return all active deals sorted by urgency (GLITCH > VIP > FLASH) and drop %."""
