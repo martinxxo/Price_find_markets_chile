@@ -47,6 +47,8 @@ BLOCKED_KEYWORDS = (
     "repuesto",
     "repuestos",
     "control remoto",
+    "aguja",
+    "agujas",
     "solo con cmr",
     "exclusivo cmr",
     "solo tarjeta",

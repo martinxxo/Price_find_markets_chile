@@ -71,12 +71,27 @@ def process_snapshots(
         if alert is not None:
             storage.upsert_active_deal(alert)
             alerts.append(alert)
-            if alert.should_notify:
+            extra_drop = float(detector.thresholds.get("re_notify_extra_drop_pct", 15.0))
+            if alert.should_notify and storage.should_notify_signature(
+                snapshot.store,
+                snapshot.title,
+                snapshot.effective_price,
+                alert.alert_type,
+                extra_drop_pct=extra_drop,
+            ):
                 sent = notifier.send_alert(alert)
                 if sent:
                     storage.mark_notified(
                         snapshot.sku,
                         snapshot.effective_price,
+                        alert.detected_at,
+                    )
+                    storage.mark_signature_notified(
+                        snapshot.store,
+                        snapshot.title,
+                        snapshot.sku,
+                        snapshot.effective_price,
+                        alert.alert_type,
                         alert.detected_at,
                     )
         else:

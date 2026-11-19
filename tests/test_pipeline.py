@@ -186,8 +186,8 @@ class TestDetectorAndStorage(unittest.TestCase):
             self.assertFalse(alerts3[0].should_notify)
             self.assertEqual(len(notifier.sent_skus), 1)
 
-            # Significant extra drop (>= 5% vs last notified 300k) -> re-notifies
-            s4 = make_snapshot(sku="FAL-SPAM-1", current_price=270000, normal_price=550000)
+            # Significant extra drop (>= 15% vs last notified 300k) -> re-notifies
+            s4 = make_snapshot(sku="FAL-SPAM-1", current_price=250000, normal_price=550000)
             alerts4 = process_snapshots([s4], storage, self.detector, notifier)
             self.assertEqual(len(alerts4), 1)
             self.assertTrue(alerts4[0].should_notify)
@@ -198,6 +198,47 @@ class TestDetectorAndStorage(unittest.TestCase):
             alerts5 = process_snapshots([s5], storage, self.detector, notifier)
             self.assertEqual(len(alerts5), 0)
             self.assertEqual(len(storage.get_active_deals()), 0)
+
+    def test_signature_dedup_prevents_duplicate_telegram_for_color_variants_or_skus(self) -> None:
+        notifier = DummyNotifier()
+        with PriceStorage(self.db_path) as storage:
+            v1 = make_snapshot(
+                sku="MLC-WFC710N-BLK",
+                store="MercadoLibre",
+                title="Audífonos Bluetooth Sony WF-C710N Negro",
+                brand="Sony",
+                category="audio",
+                current_price=59990,
+                normal_price=99990,
+            )
+            v2_diff_sku_same_price = make_snapshot(
+                sku="MLC-WFC710N-BLU",
+                store="MercadoLibre",
+                title="Audífonos Bluetooth Sony WF-C710N Azul",
+                brand="Sony",
+                category="audio",
+                current_price=57990,
+                normal_price=99990,
+            )
+            v3_much_cheaper = make_snapshot(
+                sku="KN-MERCADOLIBRE-WFC710N",
+                store="MercadoLibre",
+                title="Audífonos Bluetooth Sony WF-C710N Blanco",
+                brand="Sony",
+                category="audio",
+                current_price=45000,
+                normal_price=99990,
+            )
+            process_snapshots([v1], storage, self.detector, notifier)
+            self.assertEqual(len(notifier.sent_skus), 1)
+
+            # Different SKU + color, <15% cheaper -> NOT sent again to Telegram
+            process_snapshots([v2_diff_sku_same_price], storage, self.detector, notifier)
+            self.assertEqual(len(notifier.sent_skus), 1)
+
+            # >=15% cheaper (59.990 -> 45.000 = -25%) -> DOES notify
+            process_snapshots([v3_much_cheaper], storage, self.detector, notifier)
+            self.assertEqual(len(notifier.sent_skus), 2)
 
     def test_demo_end_to_end_and_web_exporter(self) -> None:
         notifier = DummyNotifier()

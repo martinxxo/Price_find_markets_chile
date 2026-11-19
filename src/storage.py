@@ -2,11 +2,28 @@
 
 from __future__ import annotations
 
+import re
 import sqlite3
+import unicodedata
 from pathlib import Path
 from typing import Any, Optional
 
 from src.models import DealAlert, ProductSnapshot, utc_now_iso
+
+_COLOR_WORDS = {
+    "negro", "negra", "blanco", "blanca", "azul", "gris", "plata", "silver",
+    "black", "white", "blue", "gray", "grey", "rojo", "roja", "verde",
+    "dorado", "rosado", "rosa", "celeste", "morado", "violeta",
+}
+
+
+def make_product_signature(store: str, title: str) -> str:
+    """Build a normalized deduplication key across color variants and duplicate SKUs."""
+    decomposed = unicodedata.normalize("NFKD", title or "")
+    clean = "".join(ch for ch in decomposed if not unicodedata.combining(ch)).lower()
+    clean = re.sub(r"[^a-z0-9\s]", " ", clean)
+    tokens = [t for t in clean.split() if t not in _COLOR_WORDS]
+    return f"{(store or '').strip().lower()}::{' '.join(tokens)}"
 
 
 class PriceStorage:
@@ -99,6 +116,43 @@ class PriceStorage:
                 )
                 """
             )
+            self.conn.execute(
+                """
+                CREATE TABLE IF NOT EXISTS notified_signatures (
+                    product_key TEXT PRIMARY KEY,
+                    last_notified_price INTEGER NOT NULL,
+                    last_notified_at TEXT NOT NULL,
+                    last_alert_type TEXT NOT NULL,
+                    last_sku TEXT NOT NULL
+                )
+                """
+            )
+            sig_count = self.conn.execute("SELECT COUNT(*) FROM notified_signatures").fetchone()[0]
+            if sig_count == 0:
+                prev_notified = self.conn.execute(
+                    """
+                    SELECT sku, store, title, last_notified_price, last_notified_at
+                    FROM products
+                    WHERE last_notified_price IS NOT NULL AND last_notified_price > 0
+                    """
+                ).fetchall()
+                for row in prev_notified:
+                    p_key = make_product_signature(str(row["store"]), str(row["title"]))
+                    self.conn.execute(
+                        """
+                        INSERT INTO notified_signatures (
+                            product_key, last_notified_price, last_notified_at, last_alert_type, last_sku
+                        ) VALUES (?, ?, ?, 'FLASH', ?)
+                        ON CONFLICT(product_key) DO UPDATE SET
+                            last_notified_price = MIN(last_notified_price, excluded.last_notified_price)
+                        """,
+                        (
+                            p_key,
+                            int(row["last_notified_price"]),
+                            str(row["last_notified_at"] or utc_now_iso()),
+                            str(row["sku"]),
+                        ),
+                    )
 
     def close(self) -> None:
         """Close the SQLite connection cleanly."""
@@ -209,6 +263,59 @@ class PriceStorage:
                 WHERE sku = ?
                 """,
                 (int(notified_price), ts, sku),
+            )
+
+    def should_notify_signature(
+        self,
+        store: str,
+        title: str,
+        effective_price: int,
+        alert_type: str,
+        extra_drop_pct: float = 15.0,
+    ) -> bool:
+        """Prevent duplicate Telegram alerts across color variants or duplicate SKUs."""
+        p_key = make_product_signature(store, title)
+        row = self.conn.execute(
+            "SELECT last_notified_price, last_alert_type FROM notified_signatures WHERE product_key = ?",
+            (p_key,),
+        ).fetchone()
+        if row is None:
+            return True
+
+        prev_price = int(row["last_notified_price"])
+        prev_type = str(row["last_alert_type"])
+        # Always allow escalation to GLITCH if previously only FLASH/VIP/DP
+        if alert_type == "GLITCH" and prev_type != "GLITCH":
+            return True
+
+        cutoff = float(prev_price) * (1.0 - (extra_drop_pct / 100.0))
+        return float(effective_price) <= cutoff
+
+    def mark_signature_notified(
+        self,
+        store: str,
+        title: str,
+        sku: str,
+        notified_price: int,
+        alert_type: str,
+        notified_at: Optional[str] = None,
+    ) -> None:
+        """Record normalized product signature after sending a Telegram alert."""
+        ts = notified_at or utc_now_iso()
+        p_key = make_product_signature(store, title)
+        with self.conn:
+            self.conn.execute(
+                """
+                INSERT INTO notified_signatures (
+                    product_key, last_notified_price, last_notified_at, last_alert_type, last_sku
+                ) VALUES (?, ?, ?, ?, ?)
+                ON CONFLICT(product_key) DO UPDATE SET
+                    last_notified_price = excluded.last_notified_price,
+                    last_notified_at = excluded.last_notified_at,
+                    last_alert_type = excluded.last_alert_type,
+                    last_sku = excluded.last_sku
+                """,
+                (p_key, int(notified_price), ts, alert_type, sku),
             )
 
     def upsert_active_deal(self, alert: DealAlert) -> None:
