@@ -1,18 +1,18 @@
 {
-  "generated_at": "2026-11-20T01:11:00.763447+00:00",
+  "generated_at": "2026-11-20T01:16:32.471609+00:00",
   "mode": "scan",
-  "total_monitored_products": 4660,
-  "total_active_deals": 334,
+  "total_monitored_products": 4674,
+  "total_active_deals": 335,
   "counts_by_type": {
     "GLITCH": 17,
     "VIP": 0,
-    "FLASH": 171,
+    "FLASH": 172,
     "DOLARES_PREMIO": 146
   },
   "counts_by_store": {
     "Falabella": 15,
     "Hites": 1,
-    "Lider": 39,
+    "Lider": 40,
     "MercadoLibre": 18,
     "PC Factory": 1,
     "Paris": 38,
@@ -97,7 +97,7 @@
       "url": "https://www.lider.cl/ip/Aud-fonos-Ultrapods-Inal-mbricos-Wireless-Verde/00814012314683?athbdg=L1300",
       "image_url": "https://i5.walmartimages.cl/asr/169ee048-2e8f-48a9-85ed-7378415efbcb.cbf74cf56abb183c90847256152fc7ba.jpeg?odnHeight=480&odnWidth=480&odnBg=ffffff",
       "detected_at": "2026-11-19T15:07:13.144962+00:00",
-      "updated_at": "2026-11-19T23:31:01.732281+00:00",
+      "updated_at": "2026-11-20T01:16:25.322407+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -124,7 +124,7 @@
       "url": "https://www.lider.cl/ip/C-mara-Digital-SMARTKLIK-R10-75MP-5K-WiFi-16X-Zoom/00194234311236?athbdg=L1300",
       "image_url": "https://i5.walmartimages.cl/asr/705097f9-baa4-47c0-bf3d-63860d8d0184.5be75e25082a02267bbb5fe8521dd78f.jpeg?odnHeight=480&odnWidth=480&odnBg=ffffff",
       "detected_at": "2026-11-19T20:31:09.310225+00:00",
-      "updated_at": "2026-11-19T23:31:03.983115+00:00",
+      "updated_at": "2026-11-20T01:16:32.251098+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -151,7 +151,7 @@
       "url": "https://www.paris.cl/notebook-ideapad-slim-3-intel-core-i3-n305-8gb-ram-512gb-ssd-156-fhd-626082999.html",
       "image_url": "https://cl-dam-resizer.ecomm.cencosud.com/unsafe/adaptive-fit-in/792x1068/cl/paris/626082999/variant/692de113e03bacaf7675fda0/images/05e11b37-58d4-42a3-9205-5305714b9ce9/626082999-0000-001.jpg",
       "detected_at": "2026-11-19T15:06:53.544934+00:00",
-      "updated_at": "2026-11-20T01:10:48.659486+00:00",
+      "updated_at": "2026-11-20T01:16:16.943937+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -205,7 +205,7 @@
       "url": "https://www.lider.cl/ip/Aud-fonos-Inal-mbricos-Transparentes-Tws-Ultrapods-Rosa/00814012313190?athbdg=L1300",
       "image_url": "https://i5.walmartimages.cl/asr/a456acb1-d803-4670-aa87-2c91a2774791.36d2e47f4b245dfcde83759e251951bb.jpeg?odnHeight=480&odnWidth=480&odnBg=ffffff",
       "detected_at": "2026-11-19T15:07:13.828037+00:00",
-      "updated_at": "2026-11-19T23:31:02.131967+00:00",
+      "updated_at": "2026-11-20T01:16:25.746013+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -232,7 +232,7 @@
       "url": "https://simple.ripley.cl/parlante-bluetooth-lg-xboom-grab-by-william-2000406686493p",
       "image_url": "https://rimage.ripley.cl/home.ripley/Attachment/WOP/1/2000406686493/full_image-2000406686493",
       "detected_at": "2026-11-19T15:36:11.338023+00:00",
-      "updated_at": "2026-11-20T01:10:58.677729+00:00",
+      "updated_at": "2026-11-20T01:16:23.333955+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -340,7 +340,7 @@
       "url": "https://www.paris.cl/notebook-tuf-gaming-f16-fx607-intel-core-5-rtx-3050-16gb-ram-512gb-ssd-16-fhd-144hz-648446999.html",
       "image_url": "https://cl-dam-resizer.ecomm.cencosud.com/unsafe/adaptive-fit-in/792x1068/paris/648446999/variant/images/22a4e949-92fc-4a08-b806-ac65f591dd17/648446999-0000-001.jpg",
       "detected_at": "2026-11-19T23:16:23.166417+00:00",
-      "updated_at": "2026-11-20T01:10:48.602057+00:00",
+      "updated_at": "2026-11-20T01:16:16.907193+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -367,7 +367,7 @@
       "url": "https://simple.ripley.cl/smartphone-tecno-spark-50-5g-256gb-8gb-ram-50mp-67-2000411413251",
       "image_url": "https://rimage.ripley.cl/home.ripley/Attachment/WOP/1/2000411413268/full_image-2000411413268",
       "detected_at": "2026-11-19T23:35:36.623299+00:00",
-      "updated_at": "2026-11-20T01:10:56.053859+00:00",
+      "updated_at": "2026-11-20T01:16:21.652266+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -394,7 +394,7 @@
       "url": "https://simple.ripley.cl/smartphone-tecno-spark-50-5g-256gb-8gb-ram-50mp-67-2000411413251",
       "image_url": "https://rimage.ripley.cl/home.ripley/Attachment/WOP/1/2000411413282/full_image-2000411413282",
       "detected_at": "2026-11-19T23:35:37.159740+00:00",
-      "updated_at": "2026-11-20T01:10:56.072945+00:00",
+      "updated_at": "2026-11-20T01:16:21.664269+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -421,7 +421,7 @@
       "url": "https://simple.ripley.cl/smartphone-tecno-spark-50-5g-256gb-8gb-ram-50mp-67-2000411413251",
       "image_url": "https://rimage.ripley.cl/home.ripley/Attachment/WOP/1/2000411413275/full_image-2000411413275",
       "detected_at": "2026-11-19T23:35:37.170704+00:00",
-      "updated_at": "2026-11-20T01:10:56.094027+00:00",
+      "updated_at": "2026-11-20T01:16:21.676375+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -448,7 +448,7 @@
       "url": "https://simple.ripley.cl/smartphone-tecno-spark-30c-128gb-4gb-ram-50mp-66-2000409272624",
       "image_url": "https://rimage.ripley.cl/home.ripley/Attachment/WOP/1/2000409272686/full_image-2000409272686",
       "detected_at": "2026-11-19T15:21:20.692542+00:00",
-      "updated_at": "2026-11-20T01:10:55.713162+00:00",
+      "updated_at": "2026-11-20T01:16:21.438060+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -475,7 +475,7 @@
       "url": "https://www.paris.cl/cafetera-espresso-perfect-brew-compacta-470785999.html",
       "image_url": "https://cl-dam-resizer.ecomm.cencosud.com/unsafe/adaptive-fit-in/792x1068/cl/paris/470785999/variant/69ea7d16f2992014e982ef11/images/6015e675-a481-4e8d-874b-b860b1c38cf9/470785999-0000-001.jpg",
       "detected_at": "2026-11-19T15:07:03.081171+00:00",
-      "updated_at": "2026-11-20T01:10:54.638933+00:00",
+      "updated_at": "2026-11-20T01:16:20.747309+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -502,7 +502,7 @@
       "url": "https://www.mercadolibre.cl/monitor-portatil-syncora-negro-156-full-hd-usb-tipo-c/up/MLCU5142268817",
       "image_url": "https://http2.mlstatic.com/D_NQ_NP_796266-MLC117540127519_092026-O.webp",
       "detected_at": "2026-11-19T15:07:19.839501+00:00",
-      "updated_at": "2026-11-19T23:31:03.320933+00:00",
+      "updated_at": "2026-11-20T01:16:27.814158+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -556,7 +556,7 @@
       "url": "https://www.lider.cl/ip/Parlantes-Pyle-17-cm-Inal-mbricos-RF-Resistentes-al-Agua/00084289318187",
       "image_url": "https://i5.walmartimages.cl/asr/f7f4ff3e-f0f7-4b8a-84b3-64a4585c269d.5b2fef56643329779bd7f439f15ac422.jpeg?odnHeight=480&odnWidth=480&odnBg=ffffff",
       "detected_at": "2026-11-19T15:07:15.433901+00:00",
-      "updated_at": "2026-11-19T23:31:02.429911+00:00",
+      "updated_at": "2026-11-20T01:16:26.275141+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -664,7 +664,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/80835902/vivobook-15-x1504va-e84208w-x1504-c5-16gb-512gb-ssd-15p-fhd-asus",
       "image_url": "https://media.falabella.com/falabellaCL/80835902_01/public",
       "detected_at": "2026-11-19T15:06:49.530319+00:00",
-      "updated_at": "2026-11-20T01:10:45.733575+00:00",
+      "updated_at": "2026-11-20T01:16:15.102522+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -691,7 +691,7 @@
       "url": "https://www.mercadolibre.cl/mesa-notebook-60x40x28cm-portatil-desayuno-cama-color-madera/p/MLC67990610",
       "image_url": "https://http2.mlstatic.com/D_NQ_NP_867384-MLA109556665852_042026-O.webp",
       "detected_at": "2026-11-19T15:07:12.553568+00:00",
-      "updated_at": "2026-11-19T19:46:07.115362+00:00",
+      "updated_at": "2026-11-20T01:16:24.966632+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -718,7 +718,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/80835901/vivobook-go-15-e1504fa-bq5429w-e1504-amd-r5-16gb-512gb-ssd-15p-f-asus",
       "image_url": "https://media.falabella.com/falabellaCL/80835901_01/public",
       "detected_at": "2026-11-19T15:06:49.845803+00:00",
-      "updated_at": "2026-11-20T01:10:45.985494+00:00",
+      "updated_at": "2026-11-20T01:16:15.261643+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -745,7 +745,7 @@
       "url": "https://www.lider.cl/ip/Mini-Altavoz-Caracola-Rgb-Inal-mbrico-Parlante-Lampara/00814012314241?athbdg=L1300",
       "image_url": "https://i5.walmartimages.cl/asr/63f0897e-d014-4462-8182-a89ddd841b7a.f51761d85fe24cad7d538564cbb48de7.jpeg?odnHeight=480&odnWidth=480&odnBg=ffffff",
       "detected_at": "2026-11-19T15:07:16.399145+00:00",
-      "updated_at": "2026-11-19T23:31:02.703079+00:00",
+      "updated_at": "2026-11-20T01:16:26.543208+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -772,7 +772,7 @@
       "url": "https://www.lider.cl/ip/Teclado-JLab-JBuds-inal-mbrico-Bluetooth-de-95-teclas-negro/00081288701747?athbdg=L1300",
       "image_url": "https://i5.walmartimages.cl/asr/a4ae6d93-7b9b-4730-8166-6065bb3b1c30.3bcaba01424668e973317879330c29a1.jpeg?odnHeight=480&odnWidth=480&odnBg=ffffff",
       "detected_at": "2026-11-19T19:46:11.727291+00:00",
-      "updated_at": "2026-11-19T23:31:03.740988+00:00",
+      "updated_at": "2026-11-20T01:16:29.213717+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -799,7 +799,7 @@
       "url": "https://www.lider.cl/ip/Notebook-15-fa1010la-15-6-FHD-Intel-Core-i5-8GB-512GB-RTX-2050-Azul/00019749834370?athbdg=L1300",
       "image_url": "https://i5.walmartimages.cl/asr/65a943e3-4815-4769-846b-5b1aa39ccdd2.6497081c2b8e5563a5b0a05ceee07c65.jpeg?odnHeight=480&odnWidth=480&odnBg=ffffff",
       "detected_at": "2026-11-19T16:36:10.322712+00:00",
-      "updated_at": "2026-11-19T23:31:01.460011+00:00",
+      "updated_at": "2026-11-20T01:16:24.930542+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -880,7 +880,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/80808900/asus-vivobook-go-15-e1504-amd-ryzen-5-8gb-ram-512gb-ssd-pantalla-full-hd-15-6",
       "image_url": "https://media.falabella.com/falabellaCL/80808900_01/public",
       "detected_at": "2026-11-19T15:06:49.695666+00:00",
-      "updated_at": "2026-11-20T01:10:45.851360+00:00",
+      "updated_at": "2026-11-20T01:16:15.176415+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -934,7 +934,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/80709744/notebook-vivobook-15-x1504-intel-core-5-8gb-ram-512gb-ssd-15-fhd-60hz",
       "image_url": "https://media.falabella.com/falabellaCL/80709744_01/public",
       "detected_at": "2026-11-19T15:06:49.270667+00:00",
-      "updated_at": "2026-11-20T01:10:45.505223+00:00",
+      "updated_at": "2026-11-20T01:16:14.965861+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -961,7 +961,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/80874892/asus-tuf-gaming-a15-fa506-amd-ryzen-7-nvidia-rtx-3050-16gb-ram-512gb-ssd-15-6-fhd-144hz",
       "image_url": "https://media.falabella.com/falabellaCL/80874892_01/public",
       "detected_at": "2026-11-19T15:06:49.214142+00:00",
-      "updated_at": "2026-11-20T01:10:45.485068+00:00",
+      "updated_at": "2026-11-20T01:16:15.040364+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1015,7 +1015,34 @@
       "url": "https://www.paris.cl/mouse-gamer-inalambrico-g309-lightspeed-negro-571885999.html",
       "image_url": "https://cl-dam-resizer.ecomm.cencosud.com/unsafe/adaptive-fit-in/792x1068/cl/paris/571885999/variant/6a7ce9354cce8dbe07592ea5/images/9cf7bc14-733f-4ff1-bc9e-77a8975f3ebd/571885999-0000-001.jpg",
       "detected_at": "2026-11-19T15:07:02.394178+00:00",
-      "updated_at": "2026-11-20T01:10:54.033482+00:00",
+      "updated_at": "2026-11-20T01:16:20.358123+00:00",
+      "dolares_premio_pct": 0,
+      "dolares_premio_amount": 0.0,
+      "copay_clp": 0
+    },
+    {
+      "sku": "KN-LIDER-00007410121526",
+      "store": "Lider",
+      "title": "Paquete de cámara Instax Mini Fujifilm verde menta",
+      "brand": "Fujifilm",
+      "category": "camaras",
+      "alert_type": "FLASH",
+      "effective_price": 118990,
+      "current_price": 118990,
+      "card_price": null,
+      "normal_price": 154990,
+      "payment_type": "Todo Medio de Pago",
+      "previous_real_price": 227990,
+      "min_historical_price": 118990,
+      "real_drop_pct": 47.8,
+      "store_discount_pct": 23.2,
+      "savings_clp": 109000,
+      "reason": "Cotejo mercado (Knasta (Lider Electrohogar) (Paquete de cámara Instax Mini Fujif)): -47.8% bajo referencia ($227.990)",
+      "seller_name": "Lider (via Knasta)",
+      "url": "https://www.lider.cl/ip/Paquete-de-c-mara-Instax-Mini-Fujifilm-verde-menta/00007410121526?athbdg=L1300",
+      "image_url": "https://i5.walmartimages.cl/asr/a7860564-fd25-4c5a-a963-0143797039ba.cb2aa376e762e5dbceff054897b13029.jpeg?odnHeight=480&odnWidth=480&odnBg=ffffff",
+      "detected_at": "2026-11-20T01:16:30.480258+00:00",
+      "updated_at": "2026-11-20T01:16:30.480653+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1069,7 +1096,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/80808899/asus-tuf-gaming-fx607-intel-core-i5-16gb-ram-512gb-ssd-nvidia-geforce-rtx-5050",
       "image_url": "https://media.falabella.com/falabellaCL/80808899_01/public",
       "detected_at": "2026-11-19T15:06:49.950002+00:00",
-      "updated_at": "2026-11-20T01:10:46.100830+00:00",
+      "updated_at": "2026-11-20T01:16:15.334005+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1096,7 +1123,7 @@
       "url": "https://www.paris.cl/cafetera-de-capsulas-pixie-silver-867842999.html",
       "image_url": "https://cl-dam-resizer.ecomm.cencosud.com/unsafe/adaptive-fit-in/792x1068/cl/paris/867842999/variant/699dc291cc71779c2688b6fe/images/d7935c7f-0f5b-41d6-ab97-5d73f543d3f5/867842999-0000-001.jpg",
       "detected_at": "2026-11-19T16:50:42.806941+00:00",
-      "updated_at": "2026-11-20T01:10:54.628426+00:00",
+      "updated_at": "2026-11-20T01:16:20.740456+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1123,7 +1150,7 @@
       "url": "https://www.paris.cl/cafetera-de-capsulas-pixie-titan-867828999.html",
       "image_url": "https://cl-dam-resizer.ecomm.cencosud.com/unsafe/adaptive-fit-in/792x1068/cl/paris/867828999/variant/6ae407c06e37117c23f18942/images/5f5098a6-ea67-4c93-8301-6d4ca4caab57/867828999-0000-001.jpg",
       "detected_at": "2026-11-19T16:50:42.892892+00:00",
-      "updated_at": "2026-11-20T01:10:54.837459+00:00",
+      "updated_at": "2026-11-20T01:16:20.873386+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1150,7 +1177,7 @@
       "url": "https://simple.ripley.cl/notebook-gamer-hp-victus-15-fa2014la-intel-core-i5-16gb-ram-512gb-ssd-nvidia-rtx-3050-156-2000408299608p",
       "image_url": "https://rimage.ripley.cl/home.ripley/Attachment/WOP/1/2000408299608/full_image-2000408299608",
       "detected_at": "2026-11-19T15:07:03.345394+00:00",
-      "updated_at": "2026-11-20T01:10:55.295982+00:00",
+      "updated_at": "2026-11-20T01:16:21.170442+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1177,7 +1204,7 @@
       "url": "https://www.paris.cl/monitor-gamer-odyssey-g4-g40b-27-fhd-240hz-367408999.html",
       "image_url": "https://cl-dam-resizer.ecomm.cencosud.com/unsafe/adaptive-fit-in/792x1068/cl/paris/367408999/variant/6ab28bed2b0bf2be56f62579/images/8e79d19d-c38a-456d-bbb7-6ceaf4efdeae/367408999-0000-001.jpg",
       "detected_at": "2026-11-19T15:07:01.068326+00:00",
-      "updated_at": "2026-11-20T01:10:53.431034+00:00",
+      "updated_at": "2026-11-20T01:16:19.962290+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1204,7 +1231,7 @@
       "url": "https://simple.ripley.cl/mouse-inalambrico-hp-200-2hu85aa-2000403724495p",
       "image_url": "https://rimage.ripley.cl/home.ripley/Attachment/WOP/1/2000403724495/full_image-2000403724495",
       "detected_at": "2026-11-19T15:07:10.802630+00:00",
-      "updated_at": "2026-11-20T01:10:59.833385+00:00",
+      "updated_at": "2026-11-20T01:16:24.075381+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1231,7 +1258,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/17535913/notebook-asus-vivobook-s16-amd-ryzen-9-16gb-ram-512gb-ssd-16-wuxga-144hz",
       "image_url": "https://media.falabella.com/falabellaCL/17535913_01/public",
       "detected_at": "2026-11-19T15:06:49.557942+00:00",
-      "updated_at": "2026-11-20T01:10:45.754235+00:00",
+      "updated_at": "2026-11-20T01:16:15.115575+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1312,7 +1339,7 @@
       "url": "https://www.paris.cl/kit-mouse-inalambrico-mickey-diseno-gamer-y-mouse-pad-MK03WFRIC7.html",
       "image_url": "https://cl-cenco-pim-resizer.ecomm.cencosud.com/unsafe/adaptive-fit-in/400x400/prd-cl/product-medias/fd553cf4-b0cf-4de2-a851-fad552724dc5/MK03WFRIC7/MK03WFRIC7-1/1767798379712-MK03WFRIC7-1-0.jpg",
       "detected_at": "2026-11-19T15:07:21.287190+00:00",
-      "updated_at": "2026-11-19T20:31:06.809626+00:00",
+      "updated_at": "2026-11-20T01:16:29.599487+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1339,7 +1366,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/80835904/zenbook-14-oled-ux3405ca-su1479w-core-u7-16gb-1tb-ssd-14p-asus",
       "image_url": "https://media.falabella.com/falabellaCL/80835904_01/public",
       "detected_at": "2026-11-19T15:06:49.873339+00:00",
-      "updated_at": "2026-11-20T01:10:45.947088+00:00",
+      "updated_at": "2026-11-20T01:16:15.237211+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1366,7 +1393,7 @@
       "url": "https://www.lider.cl/ip/Notebook-gamer-victus-15-6-Full-HD-intel-core-i5-8GB-512GB-SSD-Plateado/00019812276089?athbdg=L1300",
       "image_url": "https://i5.walmartimages.cl/asr/ebceccf1-7cb4-4e45-94a8-536681c054a4.d5b9e3bc65ef1fa710c1c8197b036c4c.jpeg?odnHeight=480&odnWidth=480&odnBg=ffffff",
       "detected_at": "2026-11-19T16:36:07.258030+00:00",
-      "updated_at": "2026-11-19T23:31:01.298635+00:00",
+      "updated_at": "2026-11-20T01:16:24.756466+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1393,7 +1420,7 @@
       "url": "https://www.paris.cl/cafetera-de-capsulas-vertuo-pop-blanco-234903999.html",
       "image_url": "https://cl-dam-resizer.ecomm.cencosud.com/unsafe/adaptive-fit-in/792x1068/cl/paris/234903999/variant/699e383575521d3cfbe6ce7c/images/d52e73c3-bffc-45b6-8332-3d0e666b35fc/234903999-0000-001.jpg",
       "detected_at": "2026-11-19T15:11:42.857206+00:00",
-      "updated_at": "2026-11-20T01:10:54.807442+00:00",
+      "updated_at": "2026-11-20T01:16:20.854465+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1447,7 +1474,7 @@
       "url": "https://www.paris.cl/cafetera-de-capsulas-inissia-blanca-espumador-de-leche-aeroccino-3-385821999.html",
       "image_url": "https://cl-dam-resizer.ecomm.cencosud.com/unsafe/adaptive-fit-in/792x1068/cl/paris/385821999/variant/69b7ee2e6bd4287cf8a077df/images/3cd5d6df-2d3d-4b15-9d2d-df3b76a52e24/385821999-0000-001.jpg",
       "detected_at": "2026-11-19T19:26:05.432438+00:00",
-      "updated_at": "2026-11-20T01:10:54.767482+00:00",
+      "updated_at": "2026-11-20T01:16:20.829021+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1501,7 +1528,7 @@
       "url": "https://www.paris.cl/cafetera-de-capsulas-inissia-roja-espumador-de-leche-aeroccino-3-385820999.html",
       "image_url": "https://cl-dam-resizer.ecomm.cencosud.com/unsafe/adaptive-fit-in/792x1068/cl/paris/385820999/variant/699dc2a6cc71779c2688b8bd/images/c306a7aa-25b7-4c63-8ce0-ffac1044f916/385820999-0000-001.jpg",
       "detected_at": "2026-11-19T19:26:05.696267+00:00",
-      "updated_at": "2026-11-20T01:10:54.669147+00:00",
+      "updated_at": "2026-11-20T01:16:20.766616+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1528,7 +1555,7 @@
       "url": "https://www.mercadolibre.cl/up/MLCU5910321889?pdp_filters=official_store%3Aall",
       "image_url": "https://http2.mlstatic.com/D_Q_NP_2X_719403-MLC120088260776_112026-E--mouse-hyperx-pulsefire-haste-2-core-wireless-white.webp",
       "detected_at": "2026-11-19T15:06:47.325272+00:00",
-      "updated_at": "2026-11-20T01:10:44.103839+00:00",
+      "updated_at": "2026-11-20T01:16:14.071635+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1555,7 +1582,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/17703317/celular-motorola-edge-70-12512gb",
       "image_url": "https://media.falabella.com/falabellaCL/17703317_1/public",
       "detected_at": "2026-11-19T15:06:51.240343+00:00",
-      "updated_at": "2026-11-20T01:10:46.876427+00:00",
+      "updated_at": "2026-11-20T01:16:15.823118+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1636,7 +1663,7 @@
       "url": "https://www.lider.cl/ip/C-mara-Digital-4K-FIREFOTO-AC16-64MP-4K60fps-18X/00772545694942?athbdg=L1300",
       "image_url": "https://i5.walmartimages.cl/asr/30f7a572-bf36-47a4-8d9c-f4381079367d.c95bfbf7e3f182d3e42c97ff439b7762.jpeg?odnHeight=480&odnWidth=480&odnBg=ffffff",
       "detected_at": "2026-11-19T20:31:07.701462+00:00",
-      "updated_at": "2026-11-19T23:31:03.943847+00:00",
+      "updated_at": "2026-11-20T01:16:32.201085+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1717,7 +1744,7 @@
       "url": "https://www.mercadolibre.cl/up/MLCU81611974?pdp_filters=official_store%3Aall",
       "image_url": "https://http2.mlstatic.com/D_Q_NP_2X_612954-MLC47275728956_082021-E--camara-dahua-hdcvi-bala-5mp-36mm-20m-led-full-color-ip67.webp",
       "detected_at": "2026-11-19T16:35:54.835786+00:00",
-      "updated_at": "2026-11-20T01:10:44.959888+00:00",
+      "updated_at": "2026-11-20T01:16:14.622069+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1825,7 +1852,7 @@
       "url": "https://www.paris.cl/notebook-gamer-tuf-gaming-f16-fx607-intel-core-5-rtx-3050-8gb-ram-512gb-ssd-16-fhd-144hz-505542999.html",
       "image_url": "https://cl-dam-resizer.ecomm.cencosud.com/unsafe/adaptive-fit-in/792x1068/cl/paris/505542999/variant/6aa9773b41fcf75c9a719e45/images/29e69fda-c687-4025-926d-70d92c76f0be/505542999-0000-001.jpg",
       "detected_at": "2026-11-19T15:06:53.335237+00:00",
-      "updated_at": "2026-11-20T01:10:48.093223+00:00",
+      "updated_at": "2026-11-20T01:16:16.578466+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1906,7 +1933,7 @@
       "url": "https://www.lider.cl/ip/Aud-fonos-Lhotse-Bluetooth-Inal-mbrico-Rm12-Negro/00047000000626?athbdg=L1300",
       "image_url": "https://i5.walmartimages.cl/asr/099b1589-4780-4187-bb7a-163299e57381.ac8b88e0cdc068eb73ff5192db874f6b.jpeg?odnHeight=480&odnWidth=480&odnBg=ffffff",
       "detected_at": "2026-11-19T18:32:09.949095+00:00",
-      "updated_at": "2026-11-19T23:31:01.790309+00:00",
+      "updated_at": "2026-11-20T01:16:25.380902+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1933,7 +1960,7 @@
       "url": "https://www.lider.cl/ip/Aud-fonos-Lhotse-Bluetooth-Inal-mbrico-Rm12-Celeste/00047000000621?athbdg=L1300",
       "image_url": "https://i5.walmartimages.cl/asr/cc81f371-ef7d-4db2-86ea-e93b9d97a7a2.20603356b041a50c172ca1c994c50ad6.jpeg?odnHeight=480&odnWidth=480&odnBg=ffffff",
       "detected_at": "2026-11-19T18:32:12.627424+00:00",
-      "updated_at": "2026-11-19T23:31:01.878919+00:00",
+      "updated_at": "2026-11-20T01:16:25.467834+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1960,7 +1987,7 @@
       "url": "https://www.lider.cl/ip/Aud-fonos-Lhotse-Bluetooth-Inal-mbrico-Rm12-Blanco/00047000000637?athbdg=L1300",
       "image_url": "https://i5.walmartimages.cl/asr/5129efee-d05b-4342-add5-3afcde8c911d.69cb3c143564f7311999342e44e4b96e.jpeg?odnHeight=480&odnWidth=480&odnBg=ffffff",
       "detected_at": "2026-11-19T18:32:12.656978+00:00",
-      "updated_at": "2026-11-19T23:31:01.908779+00:00",
+      "updated_at": "2026-11-20T01:16:25.496529+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1987,7 +2014,7 @@
       "url": "https://www.lider.cl/ip/Aud-fonos-Lhotse-Bluetooth-Inal-mbrico-Rm12-Rosado/00047000000651?athbdg=L1300",
       "image_url": "https://i5.walmartimages.cl/asr/1111e61c-3b8a-4b0e-bc02-5ebbce037907.3e21ba99d7049f6fa23b59f59a7a8d44.jpeg?odnHeight=480&odnWidth=480&odnBg=ffffff",
       "detected_at": "2026-11-19T18:32:12.686462+00:00",
-      "updated_at": "2026-11-19T23:31:01.938118+00:00",
+      "updated_at": "2026-11-20T01:16:25.525097+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -2041,7 +2068,7 @@
       "url": "https://www.paris.cl/parlante-bluetooth-xboom-grab-by-william-196294999.html",
       "image_url": "https://cl-dam-resizer.ecomm.cencosud.com/unsafe/adaptive-fit-in/792x1068/cl/paris/196294999/variant/697ccd0dd8c418cff215976e/images/ab5dd24a-aa65-4faf-91e9-c66a2cd35256/196294999-0000-001.jpg",
       "detected_at": "2026-11-19T15:16:16.671121+00:00",
-      "updated_at": "2026-11-20T01:10:52.694398+00:00",
+      "updated_at": "2026-11-20T01:16:19.490841+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -2068,7 +2095,7 @@
       "url": "https://www.lider.cl/ip/Cafetera-de-C-psulas-con-Luz-Sonido-y-4-Accesorios/00489706575493?athbdg=L1800",
       "image_url": "https://i5.walmartimages.cl/asr/00b27a14-c5db-4220-aab0-1023550aeefd.657e884fe4e7b4d395035cf644488356.jpeg?odnHeight=480&odnWidth=480&odnBg=ffffff",
       "detected_at": "2026-11-19T20:31:11.788370+00:00",
-      "updated_at": "2026-11-19T23:31:04.070854+00:00",
+      "updated_at": "2026-11-20T01:16:32.328340+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -2095,7 +2122,7 @@
       "url": "https://www.lider.cl/ip/Aud-fonos-Lhotse-RM7-Pro-Inal-mbrico-Negro/00047000000648?athbdg=L1300",
       "image_url": "https://i5.walmartimages.cl/asr/61e7b504-2614-4059-b1e0-9dae209069d3.16679b82f4156bccb2f83ad3236cf869.png?odnHeight=480&odnWidth=480&odnBg=ffffff",
       "detected_at": "2026-11-19T18:32:11.325668+00:00",
-      "updated_at": "2026-11-19T23:31:01.849842+00:00",
+      "updated_at": "2026-11-20T01:16:25.438643+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -2122,7 +2149,7 @@
       "url": "https://www.lider.cl/ip/Aud-fonos-Lhotse-RM7-Pro-Inal-mbrico-Blanco/00047000000649?athbdg=L1300",
       "image_url": "https://i5.walmartimages.cl/asr/7be4de60-84d5-437c-8382-b3b81ce60e6a.a6d012e7cf5d873e16b82d0bdb562481.jpeg?odnHeight=480&odnWidth=480&odnBg=ffffff",
       "detected_at": "2026-11-19T18:32:12.715823+00:00",
-      "updated_at": "2026-11-19T23:31:01.967151+00:00",
+      "updated_at": "2026-11-20T01:16:25.552843+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -2149,7 +2176,7 @@
       "url": "https://www.mercadolibre.cl/p/MLC73209637?pdp_filters=official_store:all",
       "image_url": "https://http2.mlstatic.com/D_NQ_NP_987360-MLA109664859882_042026-F.jpg",
       "detected_at": "2026-11-19T15:06:41.507459+00:00",
-      "updated_at": "2026-11-20T01:10:39.514972+00:00",
+      "updated_at": "2026-11-20T01:16:11.174800+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -2203,7 +2230,7 @@
       "url": "https://www.lider.cl/ip/Aud-fonos-Inal-mbricos-Bluetooth-Irm-Es01/00814012314511?athbdg=L1300",
       "image_url": "https://i5.walmartimages.cl/asr/85884437-b882-457c-b284-e0a941b33afe.28b228aecaf6b26ed2a3431cc83a11c0.jpeg?odnHeight=480&odnWidth=480&odnBg=ffffff",
       "detected_at": "2026-11-19T15:07:13.339339+00:00",
-      "updated_at": "2026-11-19T23:31:01.820278+00:00",
+      "updated_at": "2026-11-20T01:16:25.410605+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -2311,7 +2338,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/80841083/juego-ea-sports-fc-27-ps5-electronic-arts",
       "image_url": "https://media.falabella.com/falabellaCL/80841083_1/public",
       "detected_at": "2026-11-19T15:06:52.540856+00:00",
-      "updated_at": "2026-11-20T01:10:47.867608+00:00",
+      "updated_at": "2026-11-20T01:16:16.435416+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -2338,7 +2365,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/80841084/juego-ea-sports-fc-27-ps4-electronic-arts",
       "image_url": "https://media.falabella.com/falabellaCL/80841084_1/public",
       "detected_at": "2026-11-19T15:06:52.819087+00:00",
-      "updated_at": "2026-11-20T01:10:47.965704+00:00",
+      "updated_at": "2026-11-20T01:16:16.496649+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -2365,7 +2392,7 @@
       "url": "https://www.paris.cl/smartphone-galaxy-s25-256gb-62-navy-liberado-924050999.html",
       "image_url": "https://cl-dam-resizer.ecomm.cencosud.com/unsafe/adaptive-fit-in/792x1068/cl/paris/924050999/variant/69fe58b180bef15697281330/images/f5876dbb-419a-4fe3-8776-4cf5d4f36b99/924050999-0000-001.jpg",
       "detected_at": "2026-11-19T15:06:54.217353+00:00",
-      "updated_at": "2026-11-20T01:10:49.418813+00:00",
+      "updated_at": "2026-11-20T01:16:17.405213+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -2419,7 +2446,7 @@
       "url": "https://simple.ripley.cl/cafetera-nescafe-piccolo-xs-dolce-gusto-negra-2000380650688p",
       "image_url": "https://rimage.ripley.cl/home.ripley/Attachment/WOP/1/2000380650688/full_image-2000380650688.",
       "detected_at": "2026-11-19T15:46:02.857797+00:00",
-      "updated_at": "2026-11-20T01:11:00.735509+00:00",
+      "updated_at": "2026-11-20T01:16:24.650201+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -2500,7 +2527,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/146822273/Monitor-Curvo-Asus-TUF-Gaming-VG32VQ1B-315-QHD-2560x1440-165Hz-1ms",
       "image_url": "https://media.falabella.com/falabellaCL/146822274_01/w=400,h=400,fit=pad",
       "detected_at": "2026-11-19T15:07:20.110486+00:00",
-      "updated_at": "2026-11-19T23:31:03.481079+00:00",
+      "updated_at": "2026-11-20T01:16:27.941609+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -2527,7 +2554,7 @@
       "url": "https://www.mercadolibre.cl/up/MLCU71859295?pdp_filters=official_store%3Aall",
       "image_url": "https://http2.mlstatic.com/D_Q_NP_2X_603104-MLC116748306188_092026-E--cafetera-nespresso-vertuo-pop.webp",
       "detected_at": "2026-11-19T15:06:48.875080+00:00",
-      "updated_at": "2026-11-20T01:10:45.252818+00:00",
+      "updated_at": "2026-11-20T01:16:14.805673+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -2635,7 +2662,7 @@
       "url": "https://www.mercadolibre.cl/up/MLCU67518160?pdp_filters=official_store%3Aall",
       "image_url": "https://http2.mlstatic.com/D_Q_NP_2X_946012-MLC92649149889_092025-E--cafetera-nespresso-vertuo-pop-negra.webp",
       "detected_at": "2026-11-19T15:06:48.617674+00:00",
-      "updated_at": "2026-11-20T01:10:45.081682+00:00",
+      "updated_at": "2026-11-20T01:16:14.698833+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -2743,7 +2770,7 @@
       "url": "https://www.paris.cl/cafetera-de-filtro-de-12-tazas-th-138i-266436999.html",
       "image_url": "https://cl-dam-resizer.ecomm.cencosud.com/unsafe/adaptive-fit-in/792x1068/paris/266436999/variant/images/3d90ecbf-af68-4f4c-bdeb-d20e2e7cef9d/266436999-0000-001.jpg",
       "detected_at": "2026-11-19T15:07:03.021914+00:00",
-      "updated_at": "2026-11-20T01:10:54.480528+00:00",
+      "updated_at": "2026-11-20T01:16:20.646716+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -2770,7 +2797,7 @@
       "url": "https://www.lider.cl/ip/Cafetera-Brew-Rite-Wrap-Around-con-filtro-de-caf-55-unidades-x-2/00067120316846?athbdg=L1300",
       "image_url": "https://i5.walmartimages.cl/asr/287c2ea3-c66a-4ebe-b9a1-83dfc5ba3da6.f104f55f218060c9f7868f516c94425e.jpeg?odnHeight=480&odnWidth=480&odnBg=ffffff",
       "detected_at": "2026-11-19T22:56:07.355039+00:00",
-      "updated_at": "2026-11-19T23:31:04.135084+00:00",
+      "updated_at": "2026-11-20T01:16:32.393401+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -2905,7 +2932,7 @@
       "url": "https://www.lider.cl/ip/Reloj-Smartwatch-H20-Set-10-En-1-con-Aud-fonos-Inal-mbricos/00814012311144?athbdg=L1300",
       "image_url": "https://i5.walmartimages.cl/asr/2d539932-0512-48e5-9b71-8dd79da45fcb.474738cd705bf07fb332d99c583504a8.jpeg?odnHeight=480&odnWidth=480&odnBg=ffffff",
       "detected_at": "2026-11-19T15:07:14.730276+00:00",
-      "updated_at": "2026-11-19T23:31:02.027134+00:00",
+      "updated_at": "2026-11-20T01:16:25.641271+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -2932,7 +2959,7 @@
       "url": "https://www.lider.cl/ip/C-mara-Frontal-De-Auto-Seguridad-y-Camara-Retroceso/00814012314845?athbdg=L1300",
       "image_url": "https://i5.walmartimages.cl/asr/06e6ae03-e100-4fef-a5cf-88a3c562632d.bc7aa71dc22c33a2076a037ccf2da28b.jpeg?odnHeight=480&odnWidth=480&odnBg=ffffff",
       "detected_at": "2026-11-19T15:07:22.079656+00:00",
-      "updated_at": "2026-11-19T23:31:03.865159+00:00",
+      "updated_at": "2026-11-20T01:16:30.086487+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -2959,7 +2986,7 @@
       "url": "https://www.lider.cl/ip/Mouse-Gamer-Inal-mbrico-Razer-Viper-V3-HyperSpeed-82-g/00691565500972?athbdg=L1300",
       "image_url": "https://i5.walmartimages.cl/asr/4ac206a1-0913-4bdf-a1f7-88503b11e137.d1888c397d4b50a285e2cb2ba966d7c2.jpeg?odnHeight=480&odnWidth=480&odnBg=ffffff",
       "detected_at": "2026-11-19T15:07:21.544288+00:00",
-      "updated_at": "2026-11-19T19:46:15.298566+00:00",
+      "updated_at": "2026-11-20T01:16:29.554201+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -2986,7 +3013,7 @@
       "url": "https://www.lider.cl/ip/Aud-fonos-Bluetooth-Inal-mbrico-Vidvie-Bbh2109-Negro/00814012310429?athbdg=L1300",
       "image_url": "https://i5.walmartimages.cl/asr/3aee0599-b5bd-45d8-8438-5fe869a125e5.ba1506e9ad92ab9d8e53ac848c0ea409.jpeg?odnHeight=480&odnWidth=480&odnBg=ffffff",
       "detected_at": "2026-11-19T15:07:13.627124+00:00",
-      "updated_at": "2026-11-19T23:31:01.673549+00:00",
+      "updated_at": "2026-11-20T01:16:25.264339+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -3040,7 +3067,7 @@
       "url": "https://www.mercadolibre.cl/p/MLC61180752?pdp_filters=official_store:all",
       "image_url": "https://http2.mlstatic.com/D_NQ_NP_991082-MLA107115149287_022026-F.jpg",
       "detected_at": "2026-11-19T15:06:49.079866+00:00",
-      "updated_at": "2026-11-20T01:10:45.395254+00:00",
+      "updated_at": "2026-11-20T01:16:14.896031+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -3229,7 +3256,7 @@
       "url": "https://www.paris.cl/cafetera-de-capsulas-essenza-mini-negra-565162999.html",
       "image_url": "https://cl-dam-resizer.ecomm.cencosud.com/unsafe/adaptive-fit-in/792x1068/cl/paris/565162999/variant/69fe5382d81f3b682defd28c/images/ab454e8a-c641-473f-9bca-f75985e5b3eb/565162999-0000-001.jpg",
       "detected_at": "2026-11-19T16:50:42.787589+00:00",
-      "updated_at": "2026-11-20T01:10:54.578841+00:00",
+      "updated_at": "2026-11-20T01:16:20.709366+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -3337,7 +3364,7 @@
       "url": "https://www.paris.cl/kit-mouse-inalambrico-avengers-con-mouse-pad-antideslizante-MKMYXNBSFS.html",
       "image_url": "https://cl-cenco-pim-resizer.ecomm.cencosud.com/unsafe/adaptive-fit-in/400x400/prd-cl/product-medias/fd553cf4-b0cf-4de2-a851-fad552724dc5/MKMYXNBSFS/MKMYXNBSFS-1/1698250777737-MKMYXNBSFS-1-0.jpg",
       "detected_at": "2026-11-19T15:07:21.248144+00:00",
-      "updated_at": "2026-11-19T23:31:03.816049+00:00",
+      "updated_at": "2026-11-20T01:16:29.584523+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -3364,7 +3391,7 @@
       "url": "https://www.paris.cl/kit-gaming-inalambrico-minnie-mouse-y-mouse-pad-MKEWK21Y5G.html",
       "image_url": "https://cl-cenco-pim-resizer.ecomm.cencosud.com/unsafe/adaptive-fit-in/400x400/prd-cl/product-medias/fd553cf4-b0cf-4de2-a851-fad552724dc5/MKEWK21Y5G/MKEWK21Y5G-1/1795120946190-MKEWK21Y5G-1-0.jpg",
       "detected_at": "2026-11-19T22:06:28.118691+00:00",
-      "updated_at": "2026-11-19T23:31:03.801055+00:00",
+      "updated_at": "2026-11-20T01:16:29.569624+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -3553,7 +3580,7 @@
       "url": "https://www.mercadolibre.cl/monitor-portatil-gamer-pivotscope-156-full-hd-1080p-levo/up/MLCU5887729458",
       "image_url": "https://http2.mlstatic.com/D_NQ_NP_829279-MLC121311606503_112026-O.webp",
       "detected_at": "2026-11-19T15:07:19.987149+00:00",
-      "updated_at": "2026-11-19T23:31:03.417145+00:00",
+      "updated_at": "2026-11-20T01:16:27.910568+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -3634,7 +3661,7 @@
       "url": "https://www.mercadolibre.cl/up/MLCU4287644686?pdp_filters=official_store%3Aall",
       "image_url": "https://http2.mlstatic.com/D_Q_NP_2X_771625-MLC113250303960_072026-E--samsung-25-odyssey-g4-g40h-fhd-300hz-monitor-gamer.webp",
       "detected_at": "2026-11-19T15:06:46.866916+00:00",
-      "updated_at": "2026-11-20T01:10:43.737416+00:00",
+      "updated_at": "2026-11-20T01:16:13.828345+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -3661,7 +3688,7 @@
       "url": "https://www.lider.cl/ip/C-mara-digital-Lemecrazy-4K-64-MP-para-vlogging-8-GB/00073102969420?athbdg=L1300",
       "image_url": "https://i5.walmartimages.cl/asr/39cf3fa0-4bbe-42cc-920f-6c87a5ec9b3b.7d747f7a436c87968d9e27cf4ccdf11e.jpeg?odnHeight=480&odnWidth=480&odnBg=ffffff",
       "detected_at": "2026-11-19T15:07:22.123673+00:00",
-      "updated_at": "2026-11-19T22:56:07.059516+00:00",
+      "updated_at": "2026-11-20T01:16:30.135953+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -3688,7 +3715,7 @@
       "url": "https://www.mercadolibre.cl/p/MLC52357840?pdp_filters=official_store:all",
       "image_url": "https://http2.mlstatic.com/D_NQ_NP_994453-MLA87863303513_072025-F.jpg",
       "detected_at": "2026-11-19T15:06:40.835701+00:00",
-      "updated_at": "2026-11-20T01:10:39.123054+00:00",
+      "updated_at": "2026-11-20T01:16:10.924955+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -3715,7 +3742,7 @@
       "url": "https://www.lider.cl/ip/Aud-fonos-Inal-mbricos-Galaxy-Buds-3-Pro-Plata/00880609565835?athbdg=L1300",
       "image_url": "https://i5.walmartimages.cl/asr/1a627bb1-ab2a-49ee-bff3-23b2bb644573.dd75a37b3d554ea136a6bd819cd072c8.jpeg?odnHeight=480&odnWidth=480&odnBg=ffffff",
       "detected_at": "2026-11-19T18:32:03.198307+00:00",
-      "updated_at": "2026-11-19T23:31:01.614270+00:00",
+      "updated_at": "2026-11-20T01:16:25.205592+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -3742,7 +3769,7 @@
       "url": "https://www.mercadolibre.cl/up/MLCU137219725?pdp_filters=official_store%3Aall",
       "image_url": "https://http2.mlstatic.com/D_Q_NP_2X_629753-MLC92808149302_092025-E--camara-hdcvi-dahua-pt-5mp-28mm-fullcolor-cmic-smart-luz40m.webp",
       "detected_at": "2026-11-19T16:35:53.279495+00:00",
-      "updated_at": "2026-11-20T01:10:44.948738+00:00",
+      "updated_at": "2026-11-20T01:16:14.615052+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -3769,7 +3796,7 @@
       "url": "https://www.lider.cl/ip/Cafetera-Cold-Brew-QHH-tarro-de-cristal-de-1-9-L-con-filtro-de-acero-inoxidable/00064501638578?athbdg=L1300",
       "image_url": "https://i5.walmartimages.cl/asr/473b3494-551d-4054-8a60-d40048154455.e154bb983998bb4259e5bc978e3f2d30.jpeg?odnHeight=480&odnWidth=480&odnBg=ffffff",
       "detected_at": "2026-11-19T19:46:18.322359+00:00",
-      "updated_at": "2026-11-19T20:31:12.710813+00:00",
+      "updated_at": "2026-11-20T01:16:32.378576+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -3823,7 +3850,7 @@
       "url": "https://www.paris.cl/cafetera-de-capsulas-essenza-mini-negra-espumador-de-leche-aeroccino-3-565181999.html",
       "image_url": "https://cl-dam-resizer.ecomm.cencosud.com/unsafe/adaptive-fit-in/792x1068/cl/paris/565181999/variant/6927517ba866fb29ea266b43/images/eae60eda-6e25-4ecc-835e-cac16017989c/565181999-0000-001.jpg",
       "detected_at": "2026-11-19T15:11:40.090788+00:00",
-      "updated_at": "2026-11-20T01:10:54.456696+00:00",
+      "updated_at": "2026-11-20T01:16:20.634012+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -3850,7 +3877,7 @@
       "url": "https://www.paris.cl/cafetera-de-capsulas-essenza-mini-blanca-espumador-de-leche-aeroccino-3-565183999.html",
       "image_url": "https://cl-dam-resizer.ecomm.cencosud.com/unsafe/adaptive-fit-in/792x1068/cl/paris/565183999/variant/6927517ca866fb29ea266c7e/images/146a8692-924f-424b-a3ba-cf82ad72543d/565183999-0000-001.jpg",
       "detected_at": "2026-11-19T16:50:42.882811+00:00",
-      "updated_at": "2026-11-20T01:10:54.500515+00:00",
+      "updated_at": "2026-11-20T01:16:20.659936+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -3904,7 +3931,7 @@
       "url": "https://www.lider.cl/ip/Cafetera-De-Prensa-Francesa-De-Acero-Inoxidable-De-1-Litro/00081006278076?athbdg=L1300",
       "image_url": "https://i5.walmartimages.cl/asr/500729f6-762e-4d43-b2e8-bd7c61e84dc3.905090a4c6eadc992cedb8329ded8630.jpeg?odnHeight=480&odnWidth=480&odnBg=ffffff",
       "detected_at": "2026-11-19T15:07:22.662882+00:00",
-      "updated_at": "2026-11-19T23:31:04.093163+00:00",
+      "updated_at": "2026-11-20T01:16:32.350587+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -4093,7 +4120,7 @@
       "url": "https://www.mercadolibre.cl/audifonos-gamer-rgb-microfono-diadema-acolchada/up/MLCU5716902694",
       "image_url": "https://http2.mlstatic.com/D_NQ_NP_961896-MLC119030431100_112026-O.webp",
       "detected_at": "2026-11-19T15:07:13.470793+00:00",
-      "updated_at": "2026-11-19T23:31:02.073749+00:00",
+      "updated_at": "2026-11-20T01:16:25.687852+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -4120,7 +4147,7 @@
       "url": "https://simple.ripley.cl/notebook-asus-zenbook-14-um3406ga-ql085w-amd-ryzen-ai-7-16gb-ram-512gb-ssd-touch-14-2000409403332p",
       "image_url": "https://rimage.ripley.cl/home.ripley/Attachment/WOP/1/2000409403332/full_image-2000409403332",
       "detected_at": "2026-11-19T15:07:04.054696+00:00",
-      "updated_at": "2026-11-20T01:10:55.529898+00:00",
+      "updated_at": "2026-11-20T01:16:21.320654+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -4174,7 +4201,7 @@
       "url": "https://simple.ripley.cl/mouse-gaming-logitech-g203-lightsync-negro-2000381188340p",
       "image_url": "https://home.ripley.cl/store/Attachment/WOP/D345/2000381188340/2000381188340_2.jpg",
       "detected_at": "2026-11-19T15:07:10.329933+00:00",
-      "updated_at": "2026-11-20T01:11:00.127104+00:00",
+      "updated_at": "2026-11-20T01:16:24.264209+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -4201,7 +4228,7 @@
       "url": "https://www.paris.cl/notebook-gamer-nitro-v15-anv15-41-r6hj-1-amd-ryzen-5-rtx-3050-8gb-ram-512gb-ssd-156-165hz-541690999.html",
       "image_url": "https://cl-dam-resizer.ecomm.cencosud.com/unsafe/adaptive-fit-in/792x1068/cl/paris/541690999/variant/6a57ab46eb42cf229ff77706/images/def38fb5-0c32-46a0-8ce9-3812e8aed2ad/541690999-0000-001.jpg",
       "detected_at": "2026-11-19T15:16:11.878139+00:00",
-      "updated_at": "2026-11-20T01:10:48.035750+00:00",
+      "updated_at": "2026-11-20T01:16:16.541517+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -4228,7 +4255,7 @@
       "url": "https://simple.ripley.cl/notebook-asus-zenbook-duo-ux8406ca-ql330w-intel-core-ultra-9-32gb-1tb-ssd-touch-14-2000412061116p",
       "image_url": "https://rimage.ripley.cl/home.ripley/Attachment/WOP/1/2000412061116/full_image-2000412061116",
       "detected_at": "2026-11-19T15:07:03.963340+00:00",
-      "updated_at": "2026-11-20T01:10:55.124760+00:00",
+      "updated_at": "2026-11-20T01:16:21.058043+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -4336,7 +4363,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/prod129939632/celular-samsung-galaxy-s25-ultra-256gb",
       "image_url": "https://media.falabella.com/falabellaCL/17354685_1/public",
       "detected_at": "2026-11-19T15:06:50.419781+00:00",
-      "updated_at": "2026-11-20T01:10:46.409066+00:00",
+      "updated_at": "2026-11-20T01:16:15.535644+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -4363,7 +4390,7 @@
       "url": "https://simple.ripley.cl/mouse-inalambrico-logitech-m170-red-2000381238229p",
       "image_url": "https://rimage.ripley.cl/home.ripley/Attachment/WOP/1/2000381238229/full_image-2000381238229",
       "detected_at": "2026-11-19T15:07:10.771064+00:00",
-      "updated_at": "2026-11-20T01:10:59.858233+00:00",
+      "updated_at": "2026-11-20T01:16:24.091544+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -4390,7 +4417,7 @@
       "url": "https://simple.ripley.cl/mouse-inalambrico-logitech-m170-negro-2000356661366p",
       "image_url": "https://rimage.ripley.cl/home.ripley/Attachment/WOP/1/2000356661366/full_image-2000356661366",
       "detected_at": "2026-11-19T15:07:10.892193+00:00",
-      "updated_at": "2026-11-20T01:11:00.102152+00:00",
+      "updated_at": "2026-11-20T01:16:24.247909+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -4417,7 +4444,7 @@
       "url": "https://simple.ripley.cl/mouse-inalambrico-logitech-m170-blanco-2000395623400p",
       "image_url": "https://rimage.ripley.cl/home.ripley/Attachment/WOP/1/2000395623400/full_image-2000395623400",
       "detected_at": "2026-11-19T15:07:11.109454+00:00",
-      "updated_at": "2026-11-20T01:10:59.808670+00:00",
+      "updated_at": "2026-11-20T01:16:24.059627+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -4444,7 +4471,7 @@
       "url": "https://simple.ripley.cl/mouse-logitech-m170-azul-2000356661380p",
       "image_url": "https://home.ripley.cl/store/Attachment/WOP/D345/2000356661380/2000356661380_2.jpg",
       "detected_at": "2026-11-19T15:07:11.152279+00:00",
-      "updated_at": "2026-11-20T01:10:59.710740+00:00",
+      "updated_at": "2026-11-20T01:16:23.996886+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -4471,7 +4498,7 @@
       "url": "https://simple.ripley.cl/macbook-air-m5-16gb-ram-512gb-ssd-153-2000410247628",
       "image_url": "https://rimage.ripley.cl/home.ripley/Attachment/WOP/1/2000410247659/full_image-2000410247659",
       "detected_at": "2026-11-19T15:07:03.910070+00:00",
-      "updated_at": "2026-11-20T01:10:55.449822+00:00",
+      "updated_at": "2026-11-20T01:16:21.270451+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -4498,7 +4525,7 @@
       "url": "https://www.paris.cl/monitor-gamer-odyssey-g5-g50f-27-qhd-180hz-426124999.html",
       "image_url": "https://cl-dam-resizer.ecomm.cencosud.com/unsafe/adaptive-fit-in/792x1068/cl/paris/426124999/variant/6ab28cd717e5360fd8d53ae5/images/8cb4c81d-f51e-4675-949e-1ec93a816592/426124999-0000-001.jpg",
       "detected_at": "2026-11-19T15:07:00.974417+00:00",
-      "updated_at": "2026-11-20T01:10:53.341776+00:00",
+      "updated_at": "2026-11-20T01:16:19.903437+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -4525,7 +4552,7 @@
       "url": "https://www.mercadolibre.cl/p/MLC55762050?pdp_filters=official_store:all",
       "image_url": "https://http2.mlstatic.com/D_NQ_NP_967487-MLA106498487385_022026-F.jpg",
       "detected_at": "2026-11-19T15:06:41.537020+00:00",
-      "updated_at": "2026-11-20T01:10:39.534555+00:00",
+      "updated_at": "2026-11-20T01:16:11.186863+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -4807,22 +4834,22 @@
       "brand": "Xiaomi",
       "category": "componentes",
       "alert_type": "FLASH",
-      "effective_price": 96990,
-      "current_price": 96990,
+      "effective_price": 97990,
+      "current_price": 97990,
       "card_price": null,
       "normal_price": 105990,
       "payment_type": "Todo Medio de Pago",
       "previous_real_price": 124990,
       "min_historical_price": 96990,
-      "real_drop_pct": 22.4,
-      "store_discount_pct": 8.5,
-      "savings_clp": 28000,
-      "reason": "Cotejo mercado (MercadoLibre (Xiaomi Monitor A27i 2026 Om8ff-eu)): -22.4% bajo referencia ($124.990)",
+      "real_drop_pct": 21.6,
+      "store_discount_pct": 7.5,
+      "savings_clp": 27000,
+      "reason": "Cotejo mercado (MercadoLibre (Xiaomi Monitor A27i 2026 Om8ff-eu)): -21.6% bajo referencia ($124.990)",
       "seller_name": "Tecnomas (via Knasta)",
       "url": "https://www.tecnomas.cl/producto/xiaomi-a27i-2026-p27fda-ragl-69664",
       "image_url": "https://res.cloudinary.com/djx6viedj/image/upload/t_trimmed_square_1024/8zagcp5wwzrgrsfq3zu0xjru8g1c?_a=BACMTiEv",
       "detected_at": "2026-11-19T20:31:05.355814+00:00",
-      "updated_at": "2026-11-19T23:31:03.534539+00:00",
+      "updated_at": "2026-11-20T01:16:28.012457+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -4876,7 +4903,7 @@
       "url": "https://simple.ripley.cl/notebook-asus-tuf-gaming-f16-fx607vjr-tu309w-intel-core-5-8gb-ram-512gb-ssd-nvidia-rtx-3050-16-2000413021836p",
       "image_url": "https://rimage.ripley.cl/home.ripley/Attachment/WOP/1/2000413021836/full_image-2000413021836",
       "detected_at": "2026-11-19T15:07:03.223554+00:00",
-      "updated_at": "2026-11-20T01:10:55.470650+00:00",
+      "updated_at": "2026-11-20T01:16:21.283294+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -4903,7 +4930,7 @@
       "url": "https://www.mercadolibre.cl/p/MLC79041267?pdp_filters=official_store:all",
       "image_url": "https://http2.mlstatic.com/D_NQ_NP_616201-MLA117316057509_092026-F.jpg",
       "detected_at": "2026-11-19T15:06:39.894778+00:00",
-      "updated_at": "2026-11-20T01:10:38.671504+00:00",
+      "updated_at": "2026-11-20T01:16:10.632840+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -4957,7 +4984,7 @@
       "url": "https://www.pcfactory.cl/producto/52217-viewsonic-monitor-gamer-viewsonic-27-qhd-180hz-ips-1ms-freesync-premium-vx2718-2kpc",
       "image_url": "https://assets.pcfactory.cl/public/foto/52217/1_500.jpg",
       "detected_at": "2026-11-19T15:07:12.174953+00:00",
-      "updated_at": "2026-11-19T23:31:03.464942+00:00",
+      "updated_at": "2026-11-20T01:16:27.973752+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -4984,7 +5011,7 @@
       "url": "https://www.paris.cl/monitor-27-fhd-l27-4e-100hz-383798999.html",
       "image_url": "https://cl-dam-resizer.ecomm.cencosud.com/unsafe/adaptive-fit-in/792x1068/cl/paris/383798999/variant/699cb5c921ebd957c88d3f98/images/67974d1f-90ff-46d7-8bf8-9b42640ce5b0/383798999-0000-001.jpg",
       "detected_at": "2026-11-19T15:07:01.007279+00:00",
-      "updated_at": "2026-11-20T01:10:53.453932+00:00",
+      "updated_at": "2026-11-20T01:16:19.977620+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -5038,7 +5065,7 @@
       "url": "https://www.paris.cl/audifonos-bluetooth-con-cancelacion-de-ruido-tune-780-nc-blanco-457702999.html",
       "image_url": "https://cl-dam-resizer.ecomm.cencosud.com/unsafe/adaptive-fit-in/792x1068/cl/paris/457702999/variant/69d8e7edbbe0a9aed7de9ce2/images/59c513a9-06af-4f2f-b4da-c4a3488342a5/457702999-0000-001.jpg",
       "detected_at": "2026-11-19T15:06:55.898302+00:00",
-      "updated_at": "2026-11-20T01:10:50.395494+00:00",
+      "updated_at": "2026-11-20T01:16:18.019167+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -5092,7 +5119,7 @@
       "url": "https://simple.ripley.cl/cafetera-thomas-th-130-2000348943012p",
       "image_url": "https://rimage.ripley.cl/home.ripley/Attachment/WOP/1/2000348943012/full_image-2000348943012",
       "detected_at": "2026-11-19T15:16:34.160839+00:00",
-      "updated_at": "2026-11-20T01:11:00.550542+00:00",
+      "updated_at": "2026-11-20T01:16:24.532833+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
