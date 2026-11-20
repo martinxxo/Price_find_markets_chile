@@ -24,7 +24,6 @@ SOLOTODO_CATEGORIES = [
     ("componentes", 40),  # Mouse
     ("componentes", 41),  # Teclados
     ("componentes", 2),   # Tarjetas de video
-    ("camaras", 615),     # Cámaras
     ("cafe", 219),        # Cafeteras
 ]
 

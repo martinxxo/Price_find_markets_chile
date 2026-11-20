@@ -338,43 +338,51 @@ class TestScraperParsingAndResilience(unittest.TestCase):
         paris_payload = {
             "results": [
                 {
-                    "sku": "P555",
+                    "key": "273729999",
                     "name": "Smart TV LG 55",
-                    "condition": "https://schema.org/NewCondition",
-                    "external_url": "https://www.paris.cl/tv-lg.html",
-                    "active_registry": {
-                        "is_available": True,
-                        "normal_price": "699990.00",
-                        "offer_price": "379990.00",
+                    "brand": "LG",
+                    "sellers": ["Paris"],
+                    "slug": "tv-lg-273729999",
+                    "masterVariant": {
+                        "sku": "273729999",
+                        "prices": {
+                            "regular": {"value": {"centAmount": 699990}},
+                            "offer": {"value": {"centAmount": 449990}},
+                            "paymentMethod": {"value": {"centAmount": 379990}, "method": "cencosudCard"},
+                        },
+                        "images": [{"url": "https://img.paris.cl/tv.jpg"}],
                     },
                 }
             ]
         }
-        with patch("src.scrapers.solotodo_client.fetch_json", return_value=paris_payload):
+        with patch("src.scrapers.paris.fetch_json", return_value=paris_payload):
             par_items = fetch_paris_products()
             self.assertEqual(len(par_items), 1)
-            # Uses normal_price Todo Medio de Pago instead of store-card offer_price
-            self.assertEqual(par_items[0].effective_price, 699990)
+            # Uses direct Todo Medio de Pago offer centAmount (449.990), ignoring cencosudCard (379.990)
+            self.assertEqual(par_items[0].effective_price, 449990)
+            self.assertEqual(par_items[0].normal_price, 699990)
 
         ripley_payload = {
-            "results": [
+            "products": [
                 {
-                    "sku": "20003999",
+                    "parentProductID": "20003999P",
                     "name": "Consola Sony PS5",
-                    "condition": "https://schema.org/NewCondition",
-                    "external_url": "https://simple.ripley.cl/p/ps5",
-                    "active_registry": {
-                        "is_available": True,
-                        "normal_price": "599990.00",
-                        "offer_price": "429990.00",
-                    },
+                    "brand": "Sony",
+                    "seller": "RIPLEY",
+                    "inStock": True,
+                    "priceNumber": 479990,
+                    "masterPriceNumber": 599990,
+                    "ripleyPriceNumber": 429990,
+                    "primaryImage": "https://rimage.ripley.cl/ps5.jpg",
                 }
             ]
         }
-        with patch("src.scrapers.solotodo_client.fetch_json", return_value=ripley_payload):
+        with patch("src.scrapers.ripley.fetch_json", return_value=ripley_payload):
             rip_items = fetch_ripley_products()
             self.assertEqual(len(rip_items), 1)
-            self.assertEqual(rip_items[0].effective_price, 599990)
+            # Uses direct Todo Medio de Pago priceNumber (479.990), ignoring ripleyPriceNumber (429.990)
+            self.assertEqual(rip_items[0].effective_price, 479990)
+            self.assertEqual(rip_items[0].normal_price, 599990)
 
     def test_persistent_brand_flash_deal_stays_active_without_spam(self) -> None:
         notifier = DummyNotifier()

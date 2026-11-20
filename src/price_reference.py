@@ -46,7 +46,12 @@ _COMMON_SCREEN_SIZES = {
     "40", "43", "48", "49", "50", "55", "58", "60", "65", "70", "75", "77",
     "83", "85", "86", "98", "100",
 }
-_MODEL_CODE_RE = re.compile(r"^(?=.*[a-z])(?=.*\d)[a-z0-9\-]{3,}$", re.IGNORECASE)
+_GENERIC_SPEC_CODES = {
+    "1080p", "720p", "1440p", "2160p", "60fps", "120fps", "ddr4", "ddr5",
+    "gdx6", "gddr6", "wifi6", "wifi5", "ip65", "ip66", "ip67", "ip68",
+    "rj45", "cat6", "usb3", "usb2", "typec", "usbc", "gen2", "gen3", "gen4",
+}
+_MODEL_CODE_RE = re.compile(r"^(?=.*[a-z])(?=.*\d)[a-z0-9\-]{4,}$", re.IGNORECASE)
 
 _TIER_TOKENS = {
     "oled", "qled", "qned", "nanocell", "nano", "miniled", "pro", "max", "ultra",
@@ -114,6 +119,8 @@ def extract_title_signature(
             continue
         if _MODEL_CODE_RE.match(tok):
             compact_code = tok.replace("-", "")
+            if compact_code in _GENERIC_SPEC_CODES:
+                continue
             model_codes.add(compact_code)
             sig_tokens.add(compact_code)
             if compact_code not in query_parts:
@@ -154,11 +161,16 @@ def _titles_match(
     clean_ba = _normalize(brand_a).strip()
     clean_bb = _normalize(brand_b).strip()
     generic_brands = ("", "marca", "tienda travel", "generico")
-    if (
-        clean_ba not in generic_brands
-        and clean_bb not in generic_brands
-        and clean_ba != clean_bb
-    ):
+    if clean_ba not in generic_brands and clean_bb not in generic_brands:
+        if clean_ba != clean_bb:
+            return False
+    elif clean_ba not in generic_brands:
+        if clean_ba not in tokens_b:
+            return False
+    elif clean_bb not in generic_brands:
+        if clean_bb not in tokens_a:
+            return False
+    else:
         return False
 
     # Reject mismatched capacities, screen inches, or panel/product tiers
