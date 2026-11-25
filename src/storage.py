@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import re
 import sqlite3
+import statistics
 import unicodedata
 from pathlib import Path
 from typing import Any, Optional
@@ -112,9 +113,36 @@ class PriceStorage:
                     ref_price INTEGER NOT NULL,
                     source TEXT NOT NULL,
                     matched_title TEXT NOT NULL,
+                    sample_count INTEGER DEFAULT 1,
+                    is_verified_history INTEGER DEFAULT 0,
                     updated_at TEXT NOT NULL
                 )
                 """
+            )
+            ref_cols = {
+                row["name"]
+                for row in self.conn.execute("PRAGMA table_info(reference_prices)").fetchall()
+            }
+            for col_name, col_def in (
+                ("sample_count", "INTEGER DEFAULT 1"),
+                ("is_verified_history", "INTEGER DEFAULT 0"),
+            ):
+                if col_name not in ref_cols:
+                    self.conn.execute(
+                        f"ALTER TABLE reference_prices ADD COLUMN {col_name} {col_def}"
+                    )
+            self.conn.execute(
+                """
+                CREATE TABLE IF NOT EXISTS price_history (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    sku TEXT NOT NULL,
+                    price INTEGER NOT NULL,
+                    observed_at TEXT NOT NULL
+                )
+                """
+            )
+            self.conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_price_history_sku ON price_history (sku, id DESC)"
             )
             self.conn.execute(
                 """
@@ -250,6 +278,35 @@ class PriceStorage:
                         snapshot.sku,
                     ),
                 )
+            self.conn.execute(
+                "INSERT INTO price_history (sku, price, observed_at) VALUES (?, ?, ?)",
+                (snapshot.sku, price, now),
+            )
+            # Keep at most the latest 30 observations per SKU to keep DB compact
+            self.conn.execute(
+                """
+                DELETE FROM price_history
+                WHERE sku = ?
+                  AND id NOT IN (
+                      SELECT id FROM price_history
+                      WHERE sku = ?
+                      ORDER BY id DESC
+                      LIMIT 30
+                  )
+                """,
+                (snapshot.sku, snapshot.sku),
+            )
+
+    def get_median_historical_price(self, sku: str) -> Optional[int]:
+        """Compute spike-resistant median price from recent price_history observations."""
+        rows = self.conn.execute(
+            "SELECT price FROM price_history WHERE sku = ? ORDER BY id DESC LIMIT 30",
+            (sku,),
+        ).fetchall()
+        prices = [int(r["price"]) for r in rows if int(r["price"]) > 0]
+        if len(prices) < 2:
+            return None
+        return int(round(statistics.median(prices)))
 
     def mark_notified(self, sku: str, notified_price: int, notified_at: Optional[str] = None) -> None:
         """Record the last notified price and timestamp for anti-spam throttling."""
@@ -407,27 +464,46 @@ class PriceStorage:
         ref_price: int,
         source: str,
         matched_title: str,
+        sample_count: int = 1,
+        is_verified_history: bool = False,
     ) -> None:
         """Cache a cross-store market reference price in SQLite."""
         now = utc_now_iso()
         with self.conn:
             self.conn.execute(
                 """
-                INSERT INTO reference_prices (query_key, ref_price, source, matched_title, updated_at)
-                VALUES (?, ?, ?, ?, ?)
+                INSERT INTO reference_prices (
+                    query_key, ref_price, source, matched_title,
+                    sample_count, is_verified_history, updated_at
+                )
+                VALUES (?, ?, ?, ?, ?, ?, ?)
                 ON CONFLICT(query_key) DO UPDATE SET
                     ref_price = excluded.ref_price,
                     source = excluded.source,
                     matched_title = excluded.matched_title,
+                    sample_count = excluded.sample_count,
+                    is_verified_history = excluded.is_verified_history,
                     updated_at = excluded.updated_at
                 """,
-                (query_key, int(ref_price), source, matched_title, now),
+                (
+                    query_key,
+                    int(ref_price),
+                    source,
+                    matched_title,
+                    int(sample_count),
+                    1 if is_verified_history else 0,
+                    now,
+                ),
             )
 
     def get_all_products_brief(self) -> list[dict[str, Any]]:
         """Return lightweight product rows for building the cross-store reference index."""
         rows = self.conn.execute(
-            "SELECT sku, store, title, brand, category, last_price, max_price FROM products"
+            """
+            SELECT sku, store, title, brand, category,
+                   last_price, normal_price, min_price, max_price, observations_count
+            FROM products
+            """
         ).fetchall()
         return [dict(r) for r in rows]
 

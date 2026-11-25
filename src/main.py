@@ -47,24 +47,52 @@ def process_snapshots(
     official_seller_only: bool = True,
     reference_engine: Optional[CrossStoreReferenceEngine] = None,
 ) -> list[DealAlert]:
-    """Filter, evaluate, persist, and notify a batch of product snapshots."""
+    """Filter, validate against market, evaluate, persist, and notify product snapshots."""
     alerts: list[DealAlert] = []
     filtered_out = 0
-    processed = 0
+    valid_items: list[tuple[ProductSnapshot, Optional[dict], Optional[int]]] = []
 
     for snapshot in snapshots:
         if not is_valid_official_tech_product(snapshot, official_seller_only=official_seller_only):
             filtered_out += 1
             continue
-
-        processed += 1
         prev = storage.get_product(snapshot.sku)
+        median_price = storage.get_median_historical_price(snapshot.sku) if prev is not None else None
+        valid_items.append((snapshot, prev, median_price))
+
+    # Concurrent market reference prefetch: validates all potential GLITCHes and checks unseen Black Friday items
+    if reference_engine is not None and valid_items:
+        prefetch_candidates: list[tuple[ProductSnapshot, bool, bool]] = []
+        for snapshot, prev, median_price in valid_items:
+            prelim = detector.evaluate(
+                snapshot,
+                prev,
+                market_reference=None,
+                median_historical_price=median_price,
+            )
+            needs_validation = prelim is not None and (
+                prelim.alert_type == "GLITCH" or prelim.real_drop_pct >= 40.0
+            )
+            prefetch_candidates.append((snapshot, prev is None, needs_validation))
+        reference_engine.prefetch_references(prefetch_candidates)
+
+    processed = len(valid_items)
+    for snapshot, prev, median_price in valid_items:
         market_ref = (
-            reference_engine.get_reference_price(snapshot, is_unseen=(prev is None))
+            reference_engine.get_reference_price(
+                snapshot,
+                is_unseen=(prev is None),
+                allow_live_lookup=False,
+            )
             if reference_engine is not None
             else None
         )
-        alert = detector.evaluate(snapshot, prev, market_reference=market_ref)
+        alert = detector.evaluate(
+            snapshot,
+            prev,
+            market_reference=market_ref,
+            median_historical_price=median_price,
+        )
 
         storage.upsert_product(snapshot)
 

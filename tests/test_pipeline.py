@@ -14,7 +14,7 @@ from src.filters import is_valid_official_tech_product
 from src.main import process_snapshots, run_demo
 from src.models import DealAlert, ProductSnapshot
 from src.notifier import AlertNotifier
-from src.price_reference import CrossStoreReferenceEngine
+from src.price_reference import CrossStoreReferenceEngine, MarketReference
 from src.scrapers.falabella import fetch_falabella_products
 from src.scrapers.knasta import fetch_knasta_products
 from src.scrapers.mercadolibre import fetch_mercadolibre_products
@@ -682,6 +682,151 @@ class TestScraperParsingAndResilience(unittest.TestCase):
                 self.assertIsNone(neg_engine.get_reference_price(headset, is_unseen=True))
                 self.assertIsNone(neg_engine.get_reference_price(tv_nano, is_unseen=True))
                 self.assertIsNone(neg_engine.get_reference_price(phone_128, is_unseen=True))
+
+    def test_black_friday_anti_inflation_shield_and_unseen_glitch_detection(self) -> None:
+        settings = load_settings()
+        detector = DealDetector(settings=settings, watchlist=[])
+
+        with tempfile.TemporaryDirectory() as tmp:
+            db_path = Path(tmp) / "bf.db"
+            notifier = DummyNotifier()
+            with PriceStorage(db_path) as storage:
+                # 1. Spike $100k -> $700k -> $100k must NOT trigger a false GLITCH
+                m_normal = make_snapshot(
+                    sku="MLC-24N3Q-SPIKE",
+                    store="MercadoLibre",
+                    title='Monitor Hisense 24" FHD 144Hz 24N3Q',
+                    brand="Hisense",
+                    category="componentes",
+                    current_price=100000,
+                    normal_price=100000,
+                )
+                m_spiked = make_snapshot(
+                    sku="MLC-24N3Q-SPIKE",
+                    store="MercadoLibre",
+                    title='Monitor Hisense 24" FHD 144Hz 24N3Q',
+                    brand="Hisense",
+                    category="componentes",
+                    current_price=700000,
+                    normal_price=700000,
+                )
+                process_snapshots([m_normal], storage, detector, notifier)
+                process_snapshots([m_spiked], storage, detector, notifier)
+                alerts_after_spike = process_snapshots([m_normal], storage, detector, notifier)
+                self.assertEqual(len(alerts_after_spike), 0)
+
+                # 2. Even if an item stayed at $709k for days before dropping to $79.990,
+                # market reference ($82.990) MUST shield against false GLITCH
+                prev_inflated = {
+                    "last_price": 709990,
+                    "avg_price": 576999.0,
+                    "min_price": 709990,
+                    "max_price": 709990,
+                    "observations_count": 20,
+                    "last_notified_price": None,
+                }
+                m_returned = make_snapshot(
+                    sku="MLC-24N3Q-OLD",
+                    store="MercadoLibre",
+                    title='Monitor Hisense 24" FHD 144Hz 24N3Q',
+                    brand="Hisense",
+                    category="componentes",
+                    current_price=79990,
+                    normal_price=79990,
+                )
+                market_shield = MarketReference(
+                    price=82990,
+                    source="Knasta 90d (Tienda Travel)",
+                    sample_count=3,
+                    is_verified_history=True,
+                )
+                self.assertIsNone(
+                    detector.evaluate(m_returned, prev_inflated, market_reference=market_shield)
+                )
+
+                # 3. Unseen brand-new Black Friday item published super cheap ($34.990, NO crossed price)
+                # MUST be caught as GLITCH against verified market value ($89.990)
+                m_unseen_cheap = make_snapshot(
+                    sku="TT-24N3Q-NEW",
+                    store="Tienda Travel",
+                    title='Monitor Hisense 24" FHD 144Hz 24N3Q',
+                    brand="Hisense",
+                    category="componentes",
+                    current_price=34990,
+                    normal_price=34990,
+                )
+                unseen_alert = detector.evaluate(
+                    m_unseen_cheap,
+                    None,
+                    market_reference=MarketReference(
+                        price=89990,
+                        source="Knasta 90d",
+                        sample_count=3,
+                        is_verified_history=True,
+                    ),
+                )
+                self.assertIsNotNone(unseen_alert)
+                self.assertEqual(unseen_alert.alert_type, "GLITCH")
+                self.assertGreaterEqual(unseen_alert.real_drop_pct, 60.0)
+
+                # 4. Prevent game vs console, TCL C7L vs X11, and 1-store $1.99M outlier false matches
+                mario_game = make_snapshot(
+                    sku="PAR-MK8",
+                    store="Paris",
+                    title="Juego Nintendo Switch Mario Kart 8 Deluxe",
+                    brand="Nintendo",
+                    category="consolas",
+                    current_price=59990,
+                )
+                switch_console = make_snapshot(
+                    sku="RIP-SW2",
+                    store="Ripley",
+                    title="CONSOLA NINTENDO SWITCH 2 + JUEGO MARIO KART",
+                    brand="Nintendo",
+                    category="consolas",
+                    current_price=649990,
+                )
+                tcl_c7l = make_snapshot(
+                    sku="PAR-C7L",
+                    store="Paris",
+                    title='TCL SQD Mini LED Smart TV 75" UHD 4K C7L',
+                    brand="TCL",
+                    category="tv",
+                    current_price=939990,
+                )
+                tcl_x11 = make_snapshot(
+                    sku="RIP-X11",
+                    store="Ripley",
+                    title='SMART TV TCL SQD MINI LED 4K UHD 75" X11',
+                    brand="TCL",
+                    category="tv",
+                    current_price=3299990,
+                )
+                engine = CrossStoreReferenceEngine(
+                    storage=storage,
+                    live_snapshots=[mario_game, switch_console, tcl_c7l, tcl_x11],
+                    max_live_lookups=0,
+                )
+                self.assertIsNone(engine.get_reference_price(mario_game, is_unseen=True))
+                self.assertIsNone(engine.get_reference_price(tcl_c7l, is_unseen=True))
+
+                # 5. Single unverified inflated outlier ($1.999.900 vs $549.990) must NOT create GLITCH
+                hisense_tv = make_snapshot(
+                    sku="RIP-75Q6QV",
+                    store="Ripley",
+                    title='SMART TV HISENSE QLED 4K UHD 75" 75Q6QV',
+                    brand="Hisense",
+                    category="tv",
+                    current_price=549990,
+                    normal_price=549990,
+                )
+                outlier_ref = MarketReference(
+                    price=1999900,
+                    source="MercadoLibre (outlier)",
+                    sample_count=1,
+                    is_verified_history=False,
+                )
+                self.assertIsNone(detector.evaluate(hisense_tv, None, market_reference=outlier_ref))
 
 
 if __name__ == "__main__":

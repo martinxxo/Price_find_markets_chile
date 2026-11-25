@@ -68,6 +68,6 @@
   "official_seller_only": true,
   "exclude_store_card_prices": true,
   "cross_reference_enabled": true,
-  "max_live_cross_refs_per_scan": 25,
+  "max_live_cross_refs_per_scan": 60,
   "public_web_url": "https://martinxxo.github.io/Price_find_markets_chile/"
 }

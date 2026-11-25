@@ -1,11 +1,12 @@
-"""Deal detection engine for price glitches, flash sales, and VIP watchlist alerts."""
+"""Deal detection engine with anti-inflation market shielding and unseen-product Black Friday detection."""
 
 from __future__ import annotations
 
 import unicodedata
-from typing import Any, Optional
+from typing import Any, Optional, Union
 
 from src.models import DealAlert, ProductSnapshot, utc_now_iso
+from src.price_reference import MarketReference, detect_product_subtype
 
 RECOGNIZED_TECH_BRANDS = {
     "apple",
@@ -31,10 +32,19 @@ RECOGNIZED_TECH_BRANDS = {
     "jbl",
     "bose",
     "sennheiser",
+    "audio-technica",
+    "marshall",
+    "sonos",
+    "shokz",
+    "anker",
+    "soundcore",
+    "harman",
     "logitech",
     "razer",
     "hyperx",
     "corsair",
+    "steelseries",
+    "keychron",
     "amd",
     "nvidia",
     "intel",
@@ -42,9 +52,15 @@ RECOGNIZED_TECH_BRANDS = {
     "hisense",
     "tcl",
     "philips",
+    "aoc",
+    "benq",
+    "viewsonic",
     "canon",
     "nikon",
+    "fujifilm",
     "gopro",
+    "insta360",
+    "dji",
     "garmin",
     "meta",
     "valve",
@@ -55,16 +71,39 @@ RECOGNIZED_TECH_BRANDS = {
     "seagate",
     "sandisk",
     "crucial",
+    "nespresso",
+    "delonghi",
+    "oster",
+    "moulinex",
+    "breville",
+    "krups",
+    "thomas",
 }
 
 
 def _normalize_text(text: str) -> str:
-    decomposed = unicodedata.normalize("NFKD", text)
+    decomposed = unicodedata.normalize("NFKD", text or "")
     return "".join(ch for ch in decomposed if not unicodedata.combining(ch)).lower()
 
 
+def _unpack_market_ref(
+    market_reference: Optional[Union[MarketReference, tuple[int, str]]],
+) -> tuple[int, str, int, bool]:
+    if market_reference is None:
+        return 0, "", 0, False
+    if isinstance(market_reference, MarketReference):
+        return (
+            int(market_reference.price),
+            str(market_reference.source),
+            int(market_reference.sample_count),
+            bool(market_reference.is_verified_history),
+        )
+    price, source = market_reference
+    return int(price), str(source), 2, True
+
+
 class DealDetector:
-    """Evaluates product snapshots against price history, category floors, and VIP rules."""
+    """Evaluates product snapshots against spike-resistant history, market value, floors, and VIP rules."""
 
     def __init__(
         self,
@@ -94,9 +133,13 @@ class DealDetector:
     def _match_watchlist(self, snapshot: ProductSnapshot) -> Optional[dict[str, Any]]:
         clean_title = _normalize_text(snapshot.title)
         category = snapshot.category.lower().strip()
+        subtype = detect_product_subtype(snapshot.title)
         for item in self.watchlist:
             item_cat = item.get("category", "")
             if item_cat and category and item_cat != category:
+                continue
+            # Do not match individual video games against console VIP targets
+            if item_cat == "consolas" and subtype == "game":
                 continue
             if snapshot.sku in item.get("skus", []):
                 return item
@@ -126,7 +169,7 @@ class DealDetector:
         last_notified = previous_record.get("last_notified_price")
         if last_notified is None or int(last_notified) <= 0:
             return True
-        extra_drop = float(self.thresholds.get("re_notify_extra_drop_pct", 5.0))
+        extra_drop = float(self.thresholds.get("re_notify_extra_drop_pct", 15.0))
         cutoff = float(last_notified) * (1.0 - (extra_drop / 100.0))
         return float(effective_price) <= cutoff
 
@@ -134,54 +177,107 @@ class DealDetector:
         self,
         snapshot: ProductSnapshot,
         previous_record: Optional[dict[str, Any]],
-        market_reference: Optional[tuple[int, str]] = None,
+        market_reference: Optional[Union[MarketReference, tuple[int, str]]] = None,
+        median_historical_price: Optional[int] = None,
     ) -> Optional[DealAlert]:
-        """Return a DealAlert if snapshot triggers GLITCH, VIP, FLASH, or cross-store deals."""
+        """Return a DealAlert if snapshot triggers verified GLITCH, VIP, FLASH, or DP rules."""
         effective = snapshot.effective_price
         if effective <= 0:
             return None
 
         normal_price = snapshot.normal_price or 0
         store_discount_pct = self._calc_drop_pct(normal_price, effective)
-        floor_price = self.floors.get(snapshot.category.lower().strip())
+        category_key = snapshot.category.lower().strip()
+        floor_price = self.floors.get(category_key)
+        subtype = detect_product_subtype(snapshot.title)
 
         glitch_drop_pct = float(self.thresholds["glitch_drop_pct"])
         flash_drop_pct = float(self.thresholds["flash_drop_pct"])
         first_seen_glitch_pct = float(self.thresholds["first_seen_glitch_discount_pct"])
 
+        is_priority = self._is_priority_product(snapshot)
+        eff_flash_drop = (
+            float(self.thresholds.get("priority_flash_drop_pct", flash_drop_pct))
+            if is_priority
+            else flash_drop_pct
+        )
+        eff_first_seen_flash = (
+            float(self.thresholds.get("priority_first_seen_flash_discount_pct", 40.0))
+            if is_priority
+            else 40.0
+        )
+
+        # Unpack market reference (if available from local cross-store index or Knasta/SoloTodo)
+        m_price, m_source, m_samples, m_verified = _unpack_market_ref(market_reference)
+        market_drop_pct = self._calc_drop_pct(m_price, effective) if m_price > effective else 0.0
+        # Trust an upward market reference to CREATE a deal only if verified (Knasta 90d / 2+ stores)
+        # or within a plausible range vs store normal price (blocks 1-store $1.99M outlier)
+        market_trusted_for_creation = (
+            m_price > effective
+            and (
+                m_verified
+                or m_samples >= 2
+                or (normal_price > 0 and m_price <= normal_price * 2.8)
+            )
+        )
+
         alert_type: Optional[str] = None
+        alert_origin = ""  # "history", "floor", "market", "store_discount", "vip", "dp"
         reason = ""
+
+        # Floor eligibility: strict guards against games/cheap non-brand gadgets breaking category floors
+        can_use_floor = (
+            floor_price is not None
+            and effective <= floor_price
+            and subtype not in ("game", "mousepad", "glasses", "security_cam")
+            and self._is_recognized_brand(snapshot.brand)
+            and normal_price >= int(floor_price * 2.5)
+        )
 
         if previous_record is not None:
             last_price = int(previous_record["last_price"])
             avg_price = float(previous_record["avg_price"])
-            min_hist = min(int(previous_record["min_price"]), effective)
+            prev_min = int(previous_record["min_price"])
             max_hist = int(previous_record["max_price"])
-            reference_price = max(last_price, int(round(avg_price)))
-            real_drop_pct = self._calc_drop_pct(reference_price, effective)
-            drop_vs_max = self._calc_drop_pct(max_hist, effective)
-            if drop_vs_max > real_drop_pct:
-                reference_price = max_hist
-                real_drop_pct = drop_vs_max
-            previous_real_price = (
-                last_price
-                if last_price > effective
-                else (max_hist if max_hist > effective else int(round(avg_price)))
+            min_hist = min(prev_min, effective)
+
+            # Spike-resistant historical reference:
+            # Detects temporary inflation spikes like $100k -> $700k -> $100k
+            is_inflated_spike = (
+                prev_min > 0
+                and max_hist > prev_min * 2.2
+                and effective >= prev_min * 0.85
             )
+            if is_inflated_spike:
+                reference_price = prev_min
+                real_drop_pct = 0.0
+            elif median_historical_price is not None and median_historical_price > 0 and int(previous_record.get("observations_count", 0)) >= 5:
+                # With >=5 history points, median ignores one-off price spikes
+                reference_price = median_historical_price
+                real_drop_pct = self._calc_drop_pct(reference_price, effective)
+            else:
+                reference_price = max(last_price, int(round(avg_price)))
+                real_drop_pct = self._calc_drop_pct(reference_price, effective)
+                # Only extend to max_hist if max_hist is NOT an artificial spike
+                if prev_min > 0 and max_hist <= prev_min * 2.2:
+                    drop_vs_max = self._calc_drop_pct(max_hist, effective)
+                    if drop_vs_max > real_drop_pct:
+                        reference_price = max_hist
+                        real_drop_pct = drop_vs_max
+
+            previous_real_price = reference_price if reference_price > effective else effective
             savings_clp = max(0, reference_price - effective)
 
             if real_drop_pct >= glitch_drop_pct:
                 alert_type = "GLITCH"
+                alert_origin = "history"
                 reason = (
                     f"Caída brusca real de {real_drop_pct:.1f}% frente al historial "
                     f"(${reference_price:,})".replace(",", ".")
                 )
-            elif (
-                floor_price is not None
-                and effective <= floor_price
-                and max(real_drop_pct, store_discount_pct) >= 60.0
-            ):
+            elif can_use_floor and max(real_drop_pct, store_discount_pct) >= 60.0:
                 alert_type = "GLITCH"
+                alert_origin = "floor"
                 best_ref = max(real_drop_pct, store_discount_pct)
                 real_drop_pct = best_ref
                 if normal_price > reference_price:
@@ -197,39 +293,52 @@ class DealDetector:
             real_drop_pct = store_discount_pct
             savings_clp = max(0, previous_real_price - effective)
 
-            if (
-                floor_price is not None
-                and effective <= floor_price
-                and store_discount_pct >= first_seen_glitch_pct
-            ):
+            if can_use_floor and store_discount_pct >= first_seen_glitch_pct:
                 alert_type = "GLITCH"
+                alert_origin = "floor"
                 reason = (
                     f"Nuevo en radar: rompe piso de categoría (${floor_price:,}) "
                     f"con {store_discount_pct:.1f}% bajo precio normal".replace(",", ".")
                 )
 
-        # Cross-store market reference check for GLITCH (catches unseen/unmarked glitches)
-        market_drop_pct = 0.0
-        market_ref_price = 0
-        market_ref_source = ""
-        if market_reference is not None:
-            market_ref_price, market_ref_source = market_reference
-            if market_ref_price > effective:
-                market_drop_pct = self._calc_drop_pct(market_ref_price, effective)
-                if alert_type is None and market_drop_pct >= glitch_drop_pct:
-                    alert_type = "GLITCH"
-                    previous_real_price = market_ref_price
-                    real_drop_pct = market_drop_pct
-                    savings_clp = market_ref_price - effective
-                    reason = (
-                        f"Cotejo mercado ({market_ref_source}): -{market_drop_pct:.1f}% "
-                        f"bajo referencia (${market_ref_price:,})".replace(",", ".")
-                    )
+        # Cross-store market reference check for GLITCH (catches unseen/unmarked Black Friday glitches!)
+        if alert_type is None and market_trusted_for_creation and market_drop_pct >= glitch_drop_pct:
+            alert_type = "GLITCH"
+            alert_origin = "market"
+            previous_real_price = m_price
+            real_drop_pct = market_drop_pct
+            savings_clp = m_price - effective
+            reason = (
+                f"Cotejo mercado ({m_source}): -{market_drop_pct:.1f}% "
+                f"bajo referencia (${m_price:,})".replace(",", ".")
+            )
 
-        # Rule 2: VIP watchlist check (if not already a GLITCH and not glitch-only category)
-        category_key = snapshot.category.lower().strip()
+        # PROTECTIVE SHIELD #1: Validate any GLITCH against real market value!
+        # Blocks inflated-price glitches like Monitor $79.990 (was $709.990) when market is $82.990
+        if alert_type == "GLITCH" and alert_origin in ("history", "floor") and m_price > 0:
+            if market_drop_pct < 30.0:
+                if (
+                    market_drop_pct >= eff_flash_drop
+                    and category_key not in self.glitch_only_categories
+                ):
+                    alert_type = "FLASH"
+                    alert_origin = "market"
+                    previous_real_price = m_price
+                    real_drop_pct = market_drop_pct
+                    savings_clp = max(0, m_price - effective)
+                    reason = (
+                        f"Verificado vs mercado ({m_source}): -{market_drop_pct:.1f}% "
+                        f"bajo referencia (${m_price:,})".replace(",", ".")
+                    )
+                else:
+                    # Confirmed NOT a glitch and NOT a real market discount -> discard!
+                    alert_type = None
+                    alert_origin = ""
+                    reason = ""
+
+        # Category restricted strictly to verified GLITCH (e.g. TVs)
         if category_key in self.glitch_only_categories:
-            if alert_type is None:
+            if alert_type != "GLITCH":
                 return None
             return DealAlert(
                 snapshot=snapshot,
@@ -244,9 +353,11 @@ class DealDetector:
                 should_notify=self._should_notify(previous_record, effective),
             )
 
+        # Rule 2: VIP watchlist check
         vip_match = self._match_watchlist(snapshot)
         if alert_type is None and vip_match is not None and effective <= int(vip_match["max_price_clp"]):
             alert_type = "VIP"
+            alert_origin = "vip"
             max_target = int(vip_match["max_price_clp"])
             if previous_real_price <= effective and normal_price > effective:
                 previous_real_price = normal_price
@@ -257,31 +368,36 @@ class DealDetector:
                 f"${max_target:,}".replace(",", ".")
             )
 
-        # Rule 3: Flash deal check (higher sensitivity for priority categories/keywords)
-        is_priority = self._is_priority_product(snapshot)
-        eff_flash_drop = (
-            float(self.thresholds.get("priority_flash_drop_pct", flash_drop_pct))
-            if is_priority
-            else flash_drop_pct
-        )
-        eff_first_seen_flash = (
-            float(self.thresholds.get("priority_first_seen_flash_discount_pct", 40.0))
-            if is_priority
-            else 40.0
-        )
-
+        # Rule 3: Flash deal check (real historical drop, trusted market drop, or verified store discount)
         if alert_type is None:
             if previous_record is not None and real_drop_pct >= eff_flash_drop:
                 alert_type = "FLASH"
+                alert_origin = "history"
                 prefix = "Oferta Flash prioritaria" if is_priority else "Oferta Flash real"
                 reason = (
                     f"{prefix}: bajó {real_drop_pct:.1f}% frente a su precio histórico"
+                )
+            elif market_trusted_for_creation and market_drop_pct >= eff_flash_drop:
+                alert_type = "FLASH"
+                alert_origin = "market"
+                previous_real_price = m_price
+                real_drop_pct = market_drop_pct
+                savings_clp = m_price - effective
+                dp_note = (
+                    f" + hasta {snapshot.dolares_premio_pct}% Dólares Premio"
+                    if snapshot.dolares_premio_pct > 0
+                    else ""
+                )
+                reason = (
+                    f"Cotejo mercado ({m_source}): -{market_drop_pct:.1f}% "
+                    f"bajo referencia (${m_price:,}){dp_note}".replace(",", ".")
                 )
             elif (
                 store_discount_pct >= eff_first_seen_flash
                 and (self._is_recognized_brand(snapshot.brand) or is_priority)
             ):
                 alert_type = "FLASH"
+                alert_origin = "store_discount"
                 if normal_price > effective and store_discount_pct > real_drop_pct:
                     real_drop_pct = store_discount_pct
                     previous_real_price = normal_price
@@ -290,33 +406,31 @@ class DealDetector:
                 reason = (
                     f"{tag} con {store_discount_pct:.1f}% bajo precio normal"
                 )
-            elif market_ref_price > effective and market_drop_pct >= eff_flash_drop:
-                alert_type = "FLASH"
-                previous_real_price = market_ref_price
-                real_drop_pct = market_drop_pct
-                savings_clp = market_ref_price - effective
-                dp_note = (
-                    f" + hasta {snapshot.dolares_premio_pct}% Dólares Premio"
-                    if snapshot.dolares_premio_pct > 0
-                    else ""
-                )
-                reason = (
-                    f"Cotejo mercado ({market_ref_source}): -{market_drop_pct:.1f}% "
-                    f"bajo referencia (${market_ref_price:,}){dp_note}".replace(",", ".")
-                )
+
+        # PROTECTIVE SHIELD #2: Block fake Black Friday FLASH discounts if market price is same/lower!
+        if alert_type == "FLASH" and alert_origin in ("history", "store_discount") and m_price > 0:
+            if market_drop_pct < 12.0:
+                alert_type = None
+                alert_origin = ""
+                reason = ""
 
         # Rule 4: Tienda Travel Dólares Premio special redemption deals
         if alert_type is None and snapshot.dolares_premio_pct > 0:
             tt_cfg = self.settings.get("tienda_travel", {})
             min_dp_discount = float(tt_cfg.get("min_discount_pct_for_dp_alert", 20.0))
             min_high_canje = int(tt_cfg.get("min_high_canje_pct", 50))
-            best_drop = max(real_drop_pct, store_discount_pct)
+            best_drop = max(real_drop_pct, store_discount_pct, market_drop_pct)
 
             if best_drop >= min_dp_discount or (
                 snapshot.dolares_premio_pct >= min_high_canje and best_drop >= 10.0
             ):
                 alert_type = "DOLARES_PREMIO"
-                if best_drop > real_drop_pct and normal_price > effective:
+                alert_origin = "dp"
+                if market_trusted_for_creation and market_drop_pct >= best_drop:
+                    real_drop_pct = market_drop_pct
+                    previous_real_price = m_price
+                    savings_clp = m_price - effective
+                elif best_drop > real_drop_pct and normal_price > effective:
                     real_drop_pct = best_drop
                     previous_real_price = normal_price
                     savings_clp = normal_price - effective
