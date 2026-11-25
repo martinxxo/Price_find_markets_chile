@@ -599,6 +599,15 @@ class TestScraperParsingAndResilience(unittest.TestCase):
                     current_price=199990,
                     normal_price=199990,
                 )
+                market_item_2 = make_snapshot(
+                    sku="RIP-LP60X",
+                    store="Ripley",
+                    title="Tocadiscos Audio-Technica AT-LP60X Bluetooth Negro",
+                    brand="Audio-Technica",
+                    category="audio",
+                    current_price=204990,
+                    normal_price=204990,
+                )
                 unseen_tt_item = make_snapshot(
                     sku="TT-LP60X-NEW",
                     store="Tienda Travel",
@@ -613,7 +622,7 @@ class TestScraperParsingAndResilience(unittest.TestCase):
                 )
                 ref_engine = CrossStoreReferenceEngine(
                     storage=storage,
-                    live_snapshots=[market_item, unseen_tt_item],
+                    live_snapshots=[market_item, market_item_2, unseen_tt_item],
                     max_live_lookups=0,
                 )
                 ref = ref_engine.get_reference_price(unseen_tt_item, is_unseen=True)
