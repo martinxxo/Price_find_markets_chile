@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T23:15:47.149472+00:00",
+  "generated_at": "2026-11-25T23:20:26.525506+00:00",
   "mode": "scan",
   "total_monitored_products": 11740,
   "total_active_deals": 350,
@@ -14,7 +14,7 @@
     "Casa Royal": 1,
     "Easy": 1,
     "Falabella": 22,
-    "Lider": 31,
+    "Lider": 30,
     "MercadoLibre": 4,
     "PC Factory": 4,
     "Paris": 24,
@@ -22,7 +22,7 @@
     "Smartdeal": 1,
     "Sodimac": 1,
     "Tienda Travel": 213,
-    "Winpy": 20
+    "Winpy": 21
   },
   "deals": [
     {
@@ -182,7 +182,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/80874891/asus-tuf-gaming-f16-fx607-intel-core-5-nvidia-rtx-3050-16gb-ram-512gb-ssd-16-fhd-144hz",
       "image_url": "https://media.falabella.com/falabellaCL/80874891_01/public",
       "detected_at": "2026-11-25T20:59:35.717093+00:00",
-      "updated_at": "2026-11-25T23:15:41.382191+00:00",
+      "updated_at": "2026-11-25T23:20:21.278699+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -236,7 +236,7 @@
       "url": "https://www.lider.cl/ip/Aud-fonos-In-Ear-Moto-Buds-79Motm105B-Bt-Tws-Negro/00505537471519",
       "image_url": "https://i5.walmartimages.cl/asr/55300758-65f6-43a3-a8f4-948c9fa8f873.f2e1f1091efc3e93a0114f4cc3b327fb.jpeg",
       "detected_at": "2026-11-25T22:25:37.769053+00:00",
-      "updated_at": "2026-11-25T23:10:28.837341+00:00",
+      "updated_at": "2026-11-25T23:20:23.540035+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -317,7 +317,7 @@
       "url": "https://www.lider.cl/ip/Horno-El-ctrico-UT-Backofen-Pro-B-25-Litros-Negro/00780466036093",
       "image_url": "https://i5.walmartimages.cl/asr/dce05c6e-56cc-4236-8987-ea3c552c0cec.44a30def564372f553c9707281ba23ce.jpeg",
       "detected_at": "2026-11-25T22:25:45.977154+00:00",
-      "updated_at": "2026-11-25T23:10:29.674572+00:00",
+      "updated_at": "2026-11-25T23:20:24.875091+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -452,7 +452,7 @@
       "url": "https://www.winpy.cl/venta/mouse-inalambrico-lenovo-thinkpad-essential-1200dpi-dongle-usb-negro/",
       "image_url": "",
       "detected_at": "2026-11-25T20:59:41.271785+00:00",
-      "updated_at": "2026-11-25T23:10:29.109699+00:00",
+      "updated_at": "2026-11-25T23:20:24.528304+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -496,17 +496,17 @@
       "card_price": null,
       "normal_price": 1499990,
       "payment_type": "Todo Medio de Pago",
-      "previous_real_price": 2969990,
+      "previous_real_price": 2961675,
       "min_historical_price": 1499990,
-      "real_drop_pct": 49.5,
+      "real_drop_pct": 49.4,
       "store_discount_pct": 0.0,
-      "savings_clp": 1470000,
-      "reason": "Cotejo mercado (3 tiendas (Ripley (NOTEBOOK ASUS ROG STRIX G16 AMD RYZE))): -49.5% bajo referencia ($2.969.990)",
+      "savings_clp": 1461685,
+      "reason": "Cotejo mercado (3 tiendas (Ripley (NOTEBOOK ASUS ROG STRIX G16 AMD RYZE))): -49.4% bajo referencia ($2.961.675)",
       "seller_name": "Lider",
       "url": "https://www.lider.cl/ip/Notebook-Asus-Gamer-ROG-Strix-G16-G614-AMD-Ryzen-9-NVIDIA-GeForce-RTX-5050-16GB-RAM-512GB-SSD-16-2-5K-240Hz/00471163608011",
       "image_url": "https://i5.walmartimages.cl/asr/23f7dc6c-aef5-4571-ba01-ee70aa8b9745.9f208824aca8919cdec5b73952a1dcbd.jpeg",
       "detected_at": "2026-11-25T22:25:34.345452+00:00",
-      "updated_at": "2026-11-25T23:10:28.662177+00:00",
+      "updated_at": "2026-11-25T23:20:23.252299+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -587,7 +587,7 @@
       "url": "https://www.paris.cl/mouse-gamer-inalambrico-g309-lightspeed-negro-571885999.html",
       "image_url": "https://cl-dam-resizer.ecomm.cencosud.com/unsafe/adaptive-fit-in/792x1068/cl/paris/571885999/variant/6a7ce9354cce8dbe07592ea5/images/9cf7bc14-733f-4ff1-bc9e-77a8975f3ebd/571885999-0000-001.jpg",
       "detected_at": "2026-11-25T21:00:45.140838+00:00",
-      "updated_at": "2026-11-25T23:15:42.559053+00:00",
+      "updated_at": "2026-11-25T23:20:21.797875+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -749,7 +749,7 @@
       "url": "https://www.lider.cl/ip/Microondas-MM20FBH-20-Litros-Negro/00780731185584",
       "image_url": "https://i5.walmartimages.cl/asr/9cab7502-afdc-49df-9875-b892168f48cd.915183665025e5ce07bc7a32fffe320c.jpeg",
       "detected_at": "2026-11-25T22:25:46.541775+00:00",
-      "updated_at": "2026-11-25T23:10:29.694302+00:00",
+      "updated_at": "2026-11-25T23:20:24.893558+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -803,7 +803,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/80834537/cafetera-automatica-ut-kaffemeister-e-ursus-trotter",
       "image_url": "https://media.falabella.com/falabellaCL/80834537_1/public",
       "detected_at": "2026-11-25T20:59:36.209425+00:00",
-      "updated_at": "2026-11-25T23:15:41.565468+00:00",
+      "updated_at": "2026-11-25T23:20:21.455335+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -830,7 +830,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/17323993/Cafetera-de-Capsula-Inissia-Negra-Nespresso",
       "image_url": "https://media.falabella.com/falabellaCL/17324032_1/public",
       "detected_at": "2026-11-25T20:59:36.132819+00:00",
-      "updated_at": "2026-11-25T23:15:41.540601+00:00",
+      "updated_at": "2026-11-25T23:20:21.412223+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -938,7 +938,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/prod101376266/Cafetera-Essenza-Mini-Nespresso",
       "image_url": "https://media.falabella.com/falabellaCL/6061461_1/public",
       "detected_at": "2026-11-25T21:20:25.641654+00:00",
-      "updated_at": "2026-11-25T23:15:41.546487+00:00",
+      "updated_at": "2026-11-25T23:20:21.418302+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1127,7 +1127,7 @@
       "url": "https://www.lider.cl/ip/Lavadora-Carga-Superior-20-Kg-20-SZG-Silver/00780731185915",
       "image_url": "https://i5.walmartimages.cl/asr/4b02d470-7cc0-4230-b88f-5538286f380d.08b64850d6143b82e9af74f490c5fc03.jpeg",
       "detected_at": "2026-11-25T22:25:49.628471+00:00",
-      "updated_at": "2026-11-25T23:10:29.742456+00:00",
+      "updated_at": "2026-11-25T23:20:26.477888+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1154,7 +1154,7 @@
       "url": "https://www.winpy.cl/venta/teclado-mecanico-logitech-g515-tkl-switch-gl-tactil-rgb-ingles-negro/",
       "image_url": "",
       "detected_at": "2026-11-25T20:59:41.634382+00:00",
-      "updated_at": "2026-11-25T23:10:29.459974+00:00",
+      "updated_at": "2026-11-25T23:20:24.397821+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1262,7 +1262,7 @@
       "url": "https://www.lider.cl/ip/Lavadora-secadora-12-KG-7-KG-WD12VVC5S6C/00880609187031",
       "image_url": "https://i5.walmartimages.cl/asr/381d952f-b3c3-4db5-8c1f-44fab9628000.4c423b812cdd3ba7799870f202661b0d.jpeg",
       "detected_at": "2026-11-25T22:25:50.673360+00:00",
-      "updated_at": "2026-11-25T23:10:29.754624+00:00",
+      "updated_at": "2026-11-25T23:20:26.490604+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1397,7 +1397,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/17306975/cama-europea-anatomic-full-x-2-00mt-base-normal-cic",
       "image_url": "https://media.falabella.com/falabellaCL/17306975_1/public",
       "detected_at": "2026-11-25T20:59:35.888170+00:00",
-      "updated_at": "2026-11-25T23:15:41.467976+00:00",
+      "updated_at": "2026-11-25T23:20:21.332940+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1451,7 +1451,7 @@
       "url": "https://www.winpy.cl/venta/kit-teclado-mouse-logitech-pop-icon-bluetooth-espanol-rosado/",
       "image_url": "",
       "detected_at": "2026-11-25T20:59:41.087648+00:00",
-      "updated_at": "2026-11-25T23:15:44.825422+00:00",
+      "updated_at": "2026-11-25T23:20:24.437941+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1478,7 +1478,7 @@
       "url": "https://www.mercadolibre.cl/up/MLCU4203989282?pdp_filters=official_store%3Aall",
       "image_url": "https://http2.mlstatic.com/D_Q_NP_2X_935698-MLC111840547538_062026-E--kit-celular-honor-600-512-gb-audifonos-earbuds-clip2-pro.webp",
       "detected_at": "2026-11-25T20:59:38.287303+00:00",
-      "updated_at": "2026-11-25T23:15:43.699412+00:00",
+      "updated_at": "2026-11-25T23:20:22.562768+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1716,12 +1716,12 @@
       "real_drop_pct": 38.5,
       "store_discount_pct": 0.0,
       "savings_clp": 25000,
-      "reason": "Cotejo mercado (Ripley (CAFETERA NESCAFE PICCOLO XS DOLCE GU)): -38.5% bajo referencia ($64.990)",
+      "reason": "Cotejo mercado (2 tiendas (Ripley (CAFETERA NESCAFE PICCOLO XS DOLCE GU))): -38.5% bajo referencia ($64.990)",
       "seller_name": "Lider",
       "url": "https://www.lider.cl/ip/Cafetera-Piccolo-XS-Black/00844529159144",
       "image_url": "https://i5.walmartimages.cl/asr/30f4a84f-e010-4811-9cce-7a8be515fe81.242d0c6a85e08449f4573a047687f4ab.jpeg",
       "detected_at": "2026-11-25T22:25:44.809964+00:00",
-      "updated_at": "2026-11-25T23:10:29.356347+00:00",
+      "updated_at": "2026-11-25T23:20:24.704199+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1829,7 +1829,7 @@
       "url": "https://www.winpy.cl/venta/teclado-gamer-hyperx-alloy-core-rgb-membrana-espanol-5-zonas-rgb/",
       "image_url": "",
       "detected_at": "2026-11-25T20:59:41.524458+00:00",
-      "updated_at": "2026-11-25T23:10:29.422089+00:00",
+      "updated_at": "2026-11-25T23:20:24.366683+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1937,7 +1937,7 @@
       "url": "https://www.winpy.cl/venta/kit-teclado-mouse-logitech-pop-icon-bluetooth-espanol-blanco-naranja/",
       "image_url": "",
       "detected_at": "2026-11-25T20:59:41.137682+00:00",
-      "updated_at": "2026-11-25T23:10:29.182328+00:00",
+      "updated_at": "2026-11-25T23:20:24.471418+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1965,33 +1965,6 @@
       "image_url": "https://rimage.ripley.cl/home.ripley/Attachment/WOP/1/2000403541597/full_image-2000403541597",
       "detected_at": "2026-11-25T20:59:37.893558+00:00",
       "updated_at": "2026-11-25T20:59:37.895714+00:00",
-      "dolares_premio_pct": 0,
-      "dolares_premio_amount": 0.0,
-      "copay_clp": 0
-    },
-    {
-      "sku": "LID-00880609187032",
-      "store": "Lider",
-      "title": "LG Lavadora secadora 12 KG / 7 KG WD12WVC5S6",
-      "brand": "LG",
-      "category": "electrodomesticos",
-      "alert_type": "FLASH",
-      "effective_price": 409990,
-      "current_price": 409990,
-      "card_price": null,
-      "normal_price": 409990,
-      "payment_type": "Todo Medio de Pago",
-      "previous_real_price": 649990,
-      "min_historical_price": 409990,
-      "real_drop_pct": 36.9,
-      "store_discount_pct": 0.0,
-      "savings_clp": 240000,
-      "reason": "Cotejo mercado (Easy (LG Lavadora/secadora 12/7 kg WD12WVC)): -36.9% bajo referencia ($649.990)",
-      "seller_name": "Lider",
-      "url": "https://www.lider.cl/ip/Lavadora-secadora-12-KG-7-KG-WD12WVC5S6/00880609187032",
-      "image_url": "https://i5.walmartimages.cl/asr/ad093ab7-75d5-49e3-9c52-f196f36c5cd1.cd8a522e4da0648367349d5a75714e3a.jpeg",
-      "detected_at": "2026-11-25T22:25:48.551601+00:00",
-      "updated_at": "2026-11-25T23:10:29.726651+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -2099,7 +2072,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/80529200/Cafetera-Citiz-Milk-Nespresso",
       "image_url": "https://media.falabella.com/falabellaCL/80529200_1/public",
       "detected_at": "2026-11-25T20:59:36.203064+00:00",
-      "updated_at": "2026-11-25T23:15:41.563830+00:00",
+      "updated_at": "2026-11-25T23:20:21.435335+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -2159,6 +2132,33 @@
       "copay_clp": 499990
     },
     {
+      "sku": "LID-00780733379735",
+      "store": "Lider",
+      "title": "Sindelen Horno Empotrado 57 Litros HE-7200IN",
+      "brand": "Sindelen",
+      "category": "electrodomesticos",
+      "alert_type": "FLASH",
+      "effective_price": 184990,
+      "current_price": 184990,
+      "card_price": null,
+      "normal_price": 184990,
+      "payment_type": "Todo Medio de Pago",
+      "previous_real_price": 287991,
+      "min_historical_price": 184990,
+      "real_drop_pct": 35.8,
+      "store_discount_pct": 0.0,
+      "savings_clp": 103001,
+      "reason": "Cotejo mercado (ABC (Kit de Cocina Sindelen Horno Empotra)): -35.8% bajo referencia ($287.991)",
+      "seller_name": "Lider",
+      "url": "https://www.lider.cl/ip/Horno-Empotrado-57-Litros-HE-7200IN/00780733379735",
+      "image_url": "https://i5.walmartimages.cl/asr/6281e40c-ee40-4cb3-a514-7221bba07075.968e19d9e01e834b4a6deb1f703f4d99.jpeg",
+      "detected_at": "2026-11-25T23:20:24.915299+00:00",
+      "updated_at": "2026-11-25T23:20:24.915941+00:00",
+      "dolares_premio_pct": 0,
+      "dolares_premio_amount": 0.0,
+      "copay_clp": 0
+    },
+    {
       "sku": "LID-00880608797436",
       "store": "Lider",
       "title": "LG Lavadora Carga Superior 9 Kg WT9WL Blanca",
@@ -2180,7 +2180,7 @@
       "url": "https://www.lider.cl/ip/Lavadora-Carga-Superior-9-Kg-WT9WL-Blanca/00880608797436",
       "image_url": "https://i5.walmartimages.cl/asr/cfce4a71-8aaf-4d3b-96b7-16c036f2d98c.d2664ed8689603041ac3b919dd883231.jpeg",
       "detected_at": "2026-11-25T22:25:49.082735+00:00",
-      "updated_at": "2026-11-25T23:10:29.737976+00:00",
+      "updated_at": "2026-11-25T23:20:26.473171+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -2261,7 +2261,7 @@
       "url": "https://www.lider.cl/ip/Smartphones-Samsung-Galaxy-26-FE-128-GB-Graphite/00880609942565",
       "image_url": "https://i5.walmartimages.cl/asr/57396c2b-6ec5-46ae-bc31-c43a92f64a37.700cb6f89687261323320fb351f76c3a.jpeg",
       "detected_at": "2026-11-25T22:25:43.206461+00:00",
-      "updated_at": "2026-11-25T23:10:28.629804+00:00",
+      "updated_at": "2026-11-25T23:20:23.397105+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -2288,7 +2288,7 @@
       "url": "https://www.lider.cl/ip/Freidora-de-Aire-CKSTAF401MDF-052-Negro/00005389117596",
       "image_url": "https://i5.walmartimages.cl/asr/62ba41bb-b16b-417d-9a30-83c71aa4bb58.fb4ab60a85bf48d20726b76d52e4c21f.jpeg",
       "detected_at": "2026-11-25T22:25:51.749117+00:00",
-      "updated_at": "2026-11-25T23:10:29.515106+00:00",
+      "updated_at": "2026-11-25T23:20:24.623616+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -2348,33 +2348,6 @@
       "copay_clp": 0
     },
     {
-      "sku": "LID-00790956952239",
-      "store": "Lider",
-      "title": "Electrolux Lavadora Secadora Carga Frontal EFLWD12W 14KG 8KG Electrolux",
-      "brand": "Electrolux",
-      "category": "electrodomesticos",
-      "alert_type": "FLASH",
-      "effective_price": 369990,
-      "current_price": 369990,
-      "card_price": null,
-      "normal_price": 369990,
-      "payment_type": "Todo Medio de Pago",
-      "previous_real_price": 569990,
-      "min_historical_price": 369990,
-      "real_drop_pct": 35.1,
-      "store_discount_pct": 0.0,
-      "savings_clp": 200000,
-      "reason": "Cotejo mercado (Easy (Electrolux Lavadora Secadora EFLWD12)): -35.1% bajo referencia ($569.990)",
-      "seller_name": "Lider",
-      "url": "https://www.lider.cl/ip/Lavadora-Secadora-Carga-Frontal-EFLWD12W-14KG-8KG-Electrolux/00790956952239",
-      "image_url": "https://i5.walmartimages.cl/asr/9ebb3f6a-f0e8-49a8-9a09-a5d206e02aeb.2c5daa33080795a2c1181ff372d9813e.jpeg",
-      "detected_at": "2026-11-25T22:25:47.572016+00:00",
-      "updated_at": "2026-11-25T23:10:29.721939+00:00",
-      "dolares_premio_pct": 0,
-      "dolares_premio_amount": 0.0,
-      "copay_clp": 0
-    },
-    {
       "sku": "ABC-629874",
       "store": "ABC",
       "title": "Freidora de Aire Mademsa MAF45 5,6 L",
@@ -2396,7 +2369,7 @@
       "url": "https://www.abc.cl/freidora-de-aire-mademsa-maf45-56-l/28415052.html",
       "image_url": "https://www.abc.cl/dw/image/v2/BCPP_PRD/on/demandware.static/-/Sites-master-catalog/default/dwcfbca0c6/images/large/28415052.jpg?sw=1200&sh=1200&sm=fit",
       "detected_at": "2026-11-25T20:59:42.606380+00:00",
-      "updated_at": "2026-11-25T23:15:45.547012+00:00",
+      "updated_at": "2026-11-25T23:20:24.681188+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -2531,7 +2504,7 @@
       "url": "https://www.winpy.cl/venta/teclado-mecanico-razer-huntsman-mini-switch-purple-rgb-espanol-negro/",
       "image_url": "",
       "detected_at": "2026-11-25T20:59:41.602511+00:00",
-      "updated_at": "2026-11-25T23:10:29.444995+00:00",
+      "updated_at": "2026-11-25T23:20:24.385422+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -2612,7 +2585,7 @@
       "url": "https://www.lider.cl/ip/Notebook-Asus-TUF-Gaming-A15-AMD-Ryzen-5-NVIDIA-GeForce-RTX-3050-8GB-RAM-512GB-SSD-15-6-FHD-144Hz/00019710581298",
       "image_url": "https://i5.walmartimages.cl/asr/53600f6b-302c-487a-95df-53a9a3e2ba27.dd9b96cb1d89f72db5ed81adffb76ade.jpeg",
       "detected_at": "2026-11-25T22:25:36.602113+00:00",
-      "updated_at": "2026-11-25T23:10:28.692631+00:00",
+      "updated_at": "2026-11-25T23:20:23.301645+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -2639,7 +2612,7 @@
       "url": "https://www.lider.cl/ip/Smartphone-A56-5G-128GB-Grafito/00880609710603",
       "image_url": "https://i5.walmartimages.cl/asr/bf5d7cdb-0437-4e23-a155-0a02e351183d.6930d5243c068b62dde100798dcfa99c.png",
       "detected_at": "2026-11-25T22:25:40.890089+00:00",
-      "updated_at": "2026-11-25T23:10:28.597374+00:00",
+      "updated_at": "2026-11-25T23:20:23.370387+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -2666,7 +2639,7 @@
       "url": "https://www.lider.cl/ip/Smartphone-MOTO-G06-4-128-GB-4G-Verde/00084049360242",
       "image_url": "https://i5.walmartimages.cl/asr/d0879524-f268-478c-8f18-eafb46a403c5.f674109b3691f0d67d1f9c830de85c59.jpeg",
       "detected_at": "2026-11-25T22:25:43.725866+00:00",
-      "updated_at": "2026-11-25T23:10:28.651278+00:00",
+      "updated_at": "2026-11-25T23:20:23.416147+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -2720,7 +2693,7 @@
       "url": "https://www.mercadolibre.cl/up/MLCU4035807870?pdp_filters=official_store%3Aall",
       "image_url": "https://http2.mlstatic.com/D_Q_NP_2X_811008-MLC120730831059_112026-E--motorola-razr-70-ultra-cafe-16gb-1tb.webp",
       "detected_at": "2026-11-25T20:59:38.224681+00:00",
-      "updated_at": "2026-11-25T23:15:43.681989+00:00",
+      "updated_at": "2026-11-25T23:20:22.427432+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -2747,7 +2720,7 @@
       "url": "https://www.lider.cl/ip/Lavadora-Carga-Superior-21-KG-Wa80F21S8Bzs/00880609710700",
       "image_url": "https://i5.walmartimages.cl/asr/c8ef2edb-738b-402c-bd29-751999255cfc.45c789d0488ce654a2e7add3032d924e.jpeg",
       "detected_at": "2026-11-25T22:25:50.169958+00:00",
-      "updated_at": "2026-11-25T23:10:29.749016+00:00",
+      "updated_at": "2026-11-25T23:20:26.485105+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -2828,7 +2801,7 @@
       "url": "https://www.lider.cl/ip/Tablet-Galaxy-Tab-S10-FE-10-9-WUXGA-128GB-Gris-S-Pen/00880609721391",
       "image_url": "https://i5.walmartimages.cl/asr/7c914196-bf5d-4428-9d1e-ca2227c58a86.63c0d1bac440a15742bf6e6f5c42e830.jpeg",
       "detected_at": "2026-11-25T22:25:51.198750+00:00",
-      "updated_at": "2026-11-25T23:10:29.231320+00:00",
+      "updated_at": "2026-11-25T23:20:24.578155+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -2936,7 +2909,7 @@
       "url": "https://www.lider.cl/ip/Galaxy-A08-LTE-128-GB-Silver/00880609945116",
       "image_url": "https://i5.walmartimages.cl/asr/e46ae5ce-8bd4-4341-a3d0-32842c9429f6.09d2a12957544e2426f78e3b49a09357.jpeg",
       "detected_at": "2026-11-25T22:25:39.611750+00:00",
-      "updated_at": "2026-11-25T23:10:28.587582+00:00",
+      "updated_at": "2026-11-25T23:20:23.357044+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -2963,7 +2936,7 @@
       "url": "https://www.lider.cl/ip/Galaxy-A08-LTE-128-GB-Dark-Blue/00880609945140",
       "image_url": "https://i5.walmartimages.cl/asr/1c3edd2e-a66c-4b08-8e31-fba7ef476b88.dadf12abf5f8b44e46ddc574fff7233f.jpeg",
       "detected_at": "2026-11-25T22:25:41.911299+00:00",
-      "updated_at": "2026-11-25T23:10:28.614678+00:00",
+      "updated_at": "2026-11-25T23:20:23.385056+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -3071,7 +3044,7 @@
       "url": "https://www.lider.cl/ip/Horno-El-ctrico-UT-BACKOFEN-PRO-I-60-Litros-Plateado/00780466036113",
       "image_url": "https://i5.walmartimages.cl/asr/c4569cd8-4d08-422b-aacf-9947e9a43423.f64ad9a677af0eaae9abe678eb16b882.jpeg",
       "detected_at": "2026-11-25T22:25:47.049227+00:00",
-      "updated_at": "2026-11-25T23:10:29.711767+00:00",
+      "updated_at": "2026-11-25T23:20:24.913256+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -3206,7 +3179,7 @@
       "url": "https://www.paris.cl/monitor-27-fhd-l27-4e-100hz-383798999.html",
       "image_url": "https://cl-dam-resizer.ecomm.cencosud.com/unsafe/adaptive-fit-in/792x1068/cl/paris/383798999/variant/699cb5c921ebd957c88d3f98/images/67974d1f-90ff-46d7-8bf8-9b42640ce5b0/383798999-0000-001.jpg",
       "detected_at": "2026-11-25T20:59:36.796413+00:00",
-      "updated_at": "2026-11-25T23:15:42.543507+00:00",
+      "updated_at": "2026-11-25T23:20:21.778831+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -3234,6 +3207,33 @@
       "image_url": "https://cl-dam-resizer.ecomm.cencosud.com/unsafe/adaptive-fit-in/400x400/cl/paris/383798999/variant/699cb5c921ebd957c88d3f98/images/67974d1f-90ff-46d7-8bf8-9b42640ce5b0/383798999-0000-001.jpg",
       "detected_at": "2026-11-25T21:25:27.241876+00:00",
       "updated_at": "2026-11-25T23:05:36.876038+00:00",
+      "dolares_premio_pct": 0,
+      "dolares_premio_amount": 0.0,
+      "copay_clp": 0
+    },
+    {
+      "sku": "WPY-LC34G55TWWLXZS",
+      "store": "Winpy",
+      "title": "Monitor Gamer Samsung Odyssey G5 Curvo de 34“ (VA, WQHD, 165Hz, 1ms, HDR10, DP+HDMI, FreeSync, VESA)",
+      "brand": "Samsung",
+      "category": "componentes",
+      "alert_type": "FLASH",
+      "effective_price": 284544,
+      "current_price": 284544,
+      "card_price": null,
+      "normal_price": 299520,
+      "payment_type": "Todo Medio de Pago",
+      "previous_real_price": 399990,
+      "min_historical_price": 284544,
+      "real_drop_pct": 28.9,
+      "store_discount_pct": 5.0,
+      "savings_clp": 115446,
+      "reason": "Cotejo mercado (PC Factory (Monitor Samsung Curvo 34\". WQHD. 100)): -28.9% bajo referencia ($399.990)",
+      "seller_name": "Winpy",
+      "url": "https://www.winpy.cl/venta/monitor-gamer-samsung-odyssey-g5-curvo-de-34-va-wqhd-165hz-1ms-hdr10-dp-hdmi-freesync-vesa/",
+      "image_url": "",
+      "detected_at": "2026-11-25T23:20:23.683895+00:00",
+      "updated_at": "2026-11-25T23:20:23.684576+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -3314,7 +3314,7 @@
       "url": "https://www.paris.cl/notebook-al14-31p-31fm-2-intel-core-i3-8gb-ram-512gb-ssd-14-wuxga-60hz-228464999.html",
       "image_url": "https://cl-dam-resizer.ecomm.cencosud.com/unsafe/adaptive-fit-in/792x1068/cl/paris/228464999/variant/6913ee7e17c594504658fde4/images/bf3d470d-3db3-47be-b237-acb48c866c1b/228464999-0000-001.jpg",
       "detected_at": "2026-11-25T21:00:43.855830+00:00",
-      "updated_at": "2026-11-25T23:10:27.065168+00:00",
+      "updated_at": "2026-11-25T23:20:21.491343+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -3341,7 +3341,7 @@
       "url": "https://www.lider.cl/ip/Notebook-Aspire-Lite-Al16-53p-578y-1-15-6-Full-HD-Intel-Ultra-5-16GB-512GB-SSD-Gris/00471147464849",
       "image_url": "https://i5.walmartimages.cl/asr/077aecc6-7754-415a-9375-b661c905a48a.1f6f69c8ea135094b097168720558dfb.jpeg",
       "detected_at": "2026-11-25T22:25:34.923515+00:00",
-      "updated_at": "2026-11-25T23:10:28.683642+00:00",
+      "updated_at": "2026-11-25T23:20:23.291428+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -3395,7 +3395,7 @@
       "url": "https://simple.ripley.cl/smartphone-xiaomi-redmi-17-5g-128gb-4g-ram-50mp-69-2000412849844",
       "image_url": "https://rimage.ripley.cl/home.ripley/Attachment/WOP/1/2000412849851/full_image-2000412849851",
       "detected_at": "2026-11-25T21:00:45.536038+00:00",
-      "updated_at": "2026-11-25T23:10:27.611497+00:00",
+      "updated_at": "2026-11-25T23:20:22.000081+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -3449,7 +3449,7 @@
       "url": "https://www.lider.cl/ip/Smartphone-Samsung-Galaxy-A37-128-GB-5G-Awesome-White/00880609905616",
       "image_url": "https://i5.walmartimages.cl/asr/3689f27e-728c-4c64-9b62-91296f21f1a8.be1e67dfcfe6071d42dd96bfa7af502e.jpeg",
       "detected_at": "2026-11-25T22:25:44.216134+00:00",
-      "updated_at": "2026-11-25T23:10:28.654339+00:00",
+      "updated_at": "2026-11-25T23:20:23.419096+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -3476,7 +3476,7 @@
       "url": "https://www.paris.cl/parlante-bluetooth-soundcore-boom-go-3i-negro-600409999.html",
       "image_url": "https://cl-dam-resizer.ecomm.cencosud.com/unsafe/adaptive-fit-in/792x1068/cl/paris/600409999/variant/6a99db0d1e2d2b17fe679bfc/images/051770bb-aea1-4cbc-a333-47ec53bc9a2e/600409999-0000-001.jpg",
       "detected_at": "2026-11-25T21:00:45.066817+00:00",
-      "updated_at": "2026-11-25T23:10:27.341063+00:00",
+      "updated_at": "2026-11-25T23:20:21.742415+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -3530,7 +3530,7 @@
       "url": "https://simple.ripley.cl/parlante-bluetooth-amazon-echo-dot-5ta-gen-blanco-2000395383885p",
       "image_url": "https://rimage.ripley.cl/home.ripley/Attachment/WOP/1/2000395383885/full_image-2000395383885",
       "detected_at": "2026-11-25T21:00:46.621568+00:00",
-      "updated_at": "2026-11-25T23:10:27.828724+00:00",
+      "updated_at": "2026-11-25T23:20:22.250167+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -3584,7 +3584,7 @@
       "url": "https://www.winpy.cl/venta/teclado-mecanico-razer-blackwidow-v4-x-switch-yellow-espanol-negro/",
       "image_url": "",
       "detected_at": "2026-11-25T20:59:41.618513+00:00",
-      "updated_at": "2026-11-25T23:10:29.451514+00:00",
+      "updated_at": "2026-11-25T23:20:24.390840+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -3692,7 +3692,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/80641714/macbook-pro-14-chip-m5-10n-cpu-10n-gpu-1tb-ssd",
       "image_url": "https://media.falabella.com/falabellaCL/80641715_1/public",
       "detected_at": "2026-11-25T22:20:21.646678+00:00",
-      "updated_at": "2026-11-25T23:15:41.358879+00:00",
+      "updated_at": "2026-11-25T23:20:21.234576+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -3773,7 +3773,7 @@
       "url": "https://www.paris.cl/apple-macbook-pro-chip-m5-16gb-ram-1tb-ssd-14-touch-id-space-black-305872999.html",
       "image_url": "https://cl-dam-resizer.ecomm.cencosud.com/unsafe/adaptive-fit-in/792x1068/cl/paris/305872999/variant/69c570b08cb054691c699dec/images/ab7c7ac9-7c5a-4d6a-8c3a-87ca1719f8b7/305872999-0000-001.jpg",
       "detected_at": "2026-11-25T21:00:43.080447+00:00",
-      "updated_at": "2026-11-25T23:15:41.581091+00:00",
+      "updated_at": "2026-11-25T23:20:21.465008+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -3800,7 +3800,7 @@
       "url": "https://www.paris.cl/apple-macbook-pro-14-chip-m5-16gb-ram-1tb-ssd-14-120hz-silver-305875999.html",
       "image_url": "https://cl-dam-resizer.ecomm.cencosud.com/unsafe/adaptive-fit-in/792x1068/cl/paris/305875999/variant/6a54e18b693cf3b7891b2bd4/images/edf8477b-73f7-436b-9b9e-27e153bd47b5/305875999-0000-001.jpg",
       "detected_at": "2026-11-25T21:00:43.919712+00:00",
-      "updated_at": "2026-11-25T23:10:27.078553+00:00",
+      "updated_at": "2026-11-25T23:20:21.502425+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -3827,7 +3827,7 @@
       "url": "https://www.mercadolibre.cl/up/MLCU25001167?pdp_filters=official_store%3Aall",
       "image_url": "https://http2.mlstatic.com/D_Q_NP_2X_696678-MLC106922395566_022026-E--cafetera-frappe-oster-con-licuadora-bvstdc03b.webp",
       "detected_at": "2026-11-25T20:59:39.568687+00:00",
-      "updated_at": "2026-11-25T23:15:44.103629+00:00",
+      "updated_at": "2026-11-25T23:20:23.216645+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -3881,7 +3881,7 @@
       "url": "https://www.lider.cl/ip/Notebook-Asus-TUF-Gaming-A16-FA607-AMD-Ryzen-7-NVIDIA-GeForce-RTX-4050-16GB-512GB-SSD-16-FHD-144Hz/00471163617085",
       "image_url": "https://i5.walmartimages.cl/asr/ac23b85f-eb85-4008-8cd6-18475aea06d4.97604c8bc95efe001700e4a558c3758d.jpeg",
       "detected_at": "2026-11-25T22:25:37.116292+00:00",
-      "updated_at": "2026-11-25T23:10:28.697388+00:00",
+      "updated_at": "2026-11-25T23:20:23.306610+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -3962,7 +3962,7 @@
       "url": "https://www.lider.cl/ip/Cafetera-Autom-tica-Nescaf-Dolce-Gusto-Genio-S-Plus-Negra/00761328714025",
       "image_url": "https://i5.walmartimages.cl/asr/e67111e9-e05f-4ce6-8fd6-f21f1972cebb.1406a5a3d27c192994862ded4de29956.jpeg",
       "detected_at": "2026-11-25T22:25:45.318428+00:00",
-      "updated_at": "2026-11-25T23:10:29.370065+00:00",
+      "updated_at": "2026-11-25T23:20:24.716726+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -4124,7 +4124,7 @@
       "url": "https://www.winpy.cl/venta/teclado-mecanico-logitech-g-g413-tkl-se-switch-tactiles-ingles-negro/",
       "image_url": "",
       "detected_at": "2026-11-25T20:59:41.602511+00:00",
-      "updated_at": "2026-11-25T23:10:29.447200+00:00",
+      "updated_at": "2026-11-25T23:20:24.387403+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -4205,7 +4205,7 @@
       "url": "https://www.lider.cl/ip/Notebook-Asus-Vivobook-Go-15-E1504-AMD-Ryzen-5-8GB-RAM-512GB-SSD-15-6-FHD-60Hz/00471163621860",
       "image_url": "https://i5.walmartimages.cl/asr/559b2d4a-b7a7-4eaa-b224-9849097527ab.c4c0d1faefa5acc07067d787c7ec5c06.jpeg",
       "detected_at": "2026-11-25T22:25:36.086646+00:00",
-      "updated_at": "2026-11-25T23:10:28.686820+00:00",
+      "updated_at": "2026-11-25T23:20:23.294950+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
