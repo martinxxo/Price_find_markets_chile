@@ -63,6 +63,7 @@
   const state = {
     deals: [],
     type: "ALL",
+    bfSegment: "OFF",
     store: "ALL",
     category: "ALL",
     priceRange: "ALL",
@@ -81,6 +82,8 @@
     statFlash: document.getElementById("stat-flash"),
     statVip: document.getElementById("stat-vip"),
     statDp: document.getElementById("stat-dp"),
+    bfCountPill: document.getElementById("bf-count-pill"),
+    bfClearBtn: document.getElementById("bf-clear-btn"),
     glitchBanner: document.getElementById("glitch-banner"),
     glitchBannerTitle: document.getElementById("glitch-banner-title"),
     glitchBannerBtn: document.getElementById("glitch-banner-btn"),
@@ -139,6 +142,25 @@
     return "💵 Todo Medio de Pago";
   }
 
+  const BF_TECH_CATEGORIES = new Set(["notebooks", "celulares", "consolas", "tv", "audio", "componentes", "camaras"]);
+  const BF_HOME_CATEGORIES = new Set(["cafe", "electrodomesticos", "hogar"]);
+  const BF_FOOD_STORES = new Set(["Lider", "Lider Supermercado", "Santa Isabel", "Tottus"]);
+
+  function isBlackFridayDeal(deal) {
+    return deal.alert_type === "GLITCH" || Number(deal.real_drop_pct || 0) >= 30.0;
+  }
+
+  function matchesBlackFridaySegment(deal, segment) {
+    if (!segment || segment === "OFF") return true;
+    if (!isBlackFridayDeal(deal)) return false;
+    if (segment === "ALL_BF") return true;
+    if (segment === "TRAVEL_BF") return deal.store === "Tienda Travel";
+    if (segment === "TECH_BF") return BF_TECH_CATEGORIES.has(deal.category);
+    if (segment === "HOME_BF") return BF_HOME_CATEGORIES.has(deal.category);
+    if (segment === "FOOD_BF") return deal.category === "comida" || BF_FOOD_STORES.has(deal.store);
+    return true;
+  }
+
   function matchesPriceRange(price, range) {
     if (!range || range === "ALL") return true;
     const num = Number(price) || 0;
@@ -155,7 +177,12 @@
   function getFilteredDeals() {
     const query = state.search.trim().toLowerCase();
     const filtered = state.deals.filter((deal) => {
-      if (state.type !== "ALL" && deal.alert_type !== state.type) return false;
+      if (state.type === "BLACK_FRIDAY") {
+        if (!isBlackFridayDeal(deal)) return false;
+      } else if (state.type !== "ALL" && deal.alert_type !== state.type) {
+        return false;
+      }
+      if (!matchesBlackFridaySegment(deal, state.bfSegment)) return false;
       if (state.store !== "ALL" && deal.store !== state.store) return false;
       if (state.category !== "ALL" && deal.category !== state.category) return false;
       if (!matchesPriceRange(deal.effective_price, state.priceRange)) return false;
@@ -268,6 +295,10 @@
     if (els.statDp) {
       els.statDp.textContent = Number(counts.DOLARES_PREMIO || 0).toLocaleString("es-CL");
     }
+    if (els.bfCountPill) {
+      const bfCount = state.deals.filter(isBlackFridayDeal).length;
+      els.bfCountPill.textContent = `${bfCount.toLocaleString("es-CL")} ofertas Black Friday`;
+    }
     if (els.glitchBanner) {
       const glitchCount = Number(counts.GLITCH || 0);
       if (glitchCount > 0) {
@@ -305,12 +336,57 @@
     }
   }
 
+  function syncBfUi() {
+    document.querySelectorAll(".bf-chips .bf-chip").forEach((chip) => {
+      chip.classList.toggle("active", chip.dataset.bf === state.bfSegment);
+    });
+    if (els.bfClearBtn) {
+      els.bfClearBtn.classList.toggle("hidden", state.bfSegment === "OFF");
+    }
+  }
+
   function bindEvents() {
+    document.querySelectorAll(".bf-chips .bf-chip").forEach((chip) => {
+      chip.addEventListener("click", () => {
+        const seg = chip.dataset.bf || "OFF";
+        state.bfSegment = state.bfSegment === seg ? "OFF" : seg;
+        if (state.bfSegment !== "OFF" && state.type === "BLACK_FRIDAY") {
+          state.type = "ALL";
+          document.querySelectorAll(".type-pills .pill").forEach((b) => {
+            b.classList.toggle("active", b.dataset.type === "ALL");
+          });
+        }
+        syncBfUi();
+        renderDeals();
+      });
+    });
+
+    if (els.bfClearBtn) {
+      els.bfClearBtn.addEventListener("click", () => {
+        state.bfSegment = "OFF";
+        if (state.type === "BLACK_FRIDAY") {
+          state.type = "ALL";
+          document.querySelectorAll(".type-pills .pill").forEach((b) => {
+            b.classList.toggle("active", b.dataset.type === "ALL");
+          });
+        }
+        syncBfUi();
+        renderDeals();
+      });
+    }
+
     document.querySelectorAll(".type-pills .pill").forEach((btn) => {
       btn.addEventListener("click", () => {
         document.querySelectorAll(".type-pills .pill").forEach((b) => b.classList.remove("active"));
         btn.classList.add("active");
         state.type = btn.dataset.type || "ALL";
+        if (state.type === "BLACK_FRIDAY") {
+          state.bfSegment = "ALL_BF";
+          syncBfUi();
+        } else if (state.bfSegment === "ALL_BF") {
+          state.bfSegment = "OFF";
+          syncBfUi();
+        }
         renderDeals();
       });
     });
@@ -344,6 +420,7 @@
 
     els.resetBtn.addEventListener("click", () => {
       state.type = "ALL";
+      state.bfSegment = "OFF";
       state.store = "ALL";
       state.category = "ALL";
       state.priceRange = "ALL";
@@ -357,6 +434,7 @@
       document.querySelectorAll(".type-pills .pill").forEach((b) => {
         b.classList.toggle("active", b.dataset.type === "ALL");
       });
+      syncBfUi();
       renderDeals();
     });
 

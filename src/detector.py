@@ -293,6 +293,7 @@ class DealDetector:
             and (normal_price - effective) >= min_glitch_profit_clp
         )
 
+        is_inflated_spike = False
         if previous_record is not None:
             last_price = int(previous_record["last_price"])
             avg_price = float(previous_record["avg_price"])
@@ -301,17 +302,25 @@ class DealDetector:
             min_hist = min(prev_min, effective)
 
             # Spike-resistant historical reference:
-            # Detects temporary inflation spikes like $100k -> $700k -> $100k
+            # Detects temporary inflation spikes like $79k -> $709k -> $79k (just dropped back from a spike
+            # above prev_min, or median stays near prev_min), WITHOUT misclassifying a real active glitch
+            # staying at its crash price ($899k -> $299k -> $299k, where last_price == prev_min and median is $899k).
+            just_returned_from_spike = prev_min > 0 and last_price > prev_min * 2.2
+            median_confirms_low = (
+                median_historical_price is None
+                or median_historical_price <= prev_min * 1.4
+            )
             is_inflated_spike = (
                 prev_min > 0
                 and max_hist > prev_min * 2.2
                 and effective >= prev_min * 0.85
+                and (just_returned_from_spike or median_confirms_low)
             )
             if is_inflated_spike:
                 reference_price = prev_min
                 real_drop_pct = 0.0
-            elif median_historical_price is not None and median_historical_price > 0 and int(previous_record.get("observations_count", 0)) >= 5:
-                # With >=5 history points, median ignores one-off price spikes
+            elif median_historical_price is not None and median_historical_price > 0 and int(previous_record.get("observations_count", 0)) >= 3:
+                # With >=3 history points, median ignores one-off price spikes AND preserves real glitch drops
                 reference_price = median_historical_price
                 real_drop_pct = self._calc_drop_pct(reference_price, effective)
             else:
@@ -470,9 +479,22 @@ class DealDetector:
                     f"bajo referencia (${m_price:,}){dp_note}".replace(",", ".")
                 )
             elif (
-                store_discount_pct >= eff_first_seen_flash
+                not is_inflated_spike
+                and store_discount_pct >= eff_first_seen_flash
                 and is_known_brand
                 and max(0, normal_price - effective) >= min_flash_savings_clp
+                and (
+                    previous_record is None
+                    or int(previous_record.get("observations_count", 0)) <= 1
+                    or (
+                        int(previous_record.get("min_price") or 0) > 0
+                        and normal_price <= int(previous_record["min_price"]) * 2.0
+                        and (
+                            effective >= int(previous_record["min_price"]) * 0.98
+                            or savings_clp >= min_flash_savings_clp
+                        )
+                    )
+                )
             ):
                 alert_type = "FLASH"
                 alert_origin = "store_discount"

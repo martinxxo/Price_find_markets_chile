@@ -31,7 +31,7 @@ _STOPWORDS = {
     "bluetooth", "inalambrico", "inalambrica", "portatil", "ps4", "ps5", "xbox", "pc",
     "usb", "hdmi", "wifi", "4k", "uhd", "fhd", "hd", "ips", "va", "led", "ai",
     "magic", "remote", "funciones", "ia", "cancelacion", "ruido", "ram", "ssd",
-    "compacta", "digital", "autofocus", "zoom", "exterior", "interior", "color",
+    "digital", "autofocus", "zoom", "exterior", "interior", "color",
     "luces", "recargable", "doble", "lente", "fiestas", "fiesta", "karaoke", "serie",
     "equipo", "musica", "sonido",
 }
@@ -44,7 +44,7 @@ _UNIT_SPACED_RE = re.compile(
     r"\b(\d+)\s+(gb|tb|mb|ml|gr|g|kg|w|hz|mah|pulgadas?|pulg|mp)\b",
     re.IGNORECASE,
 )
-_INCH_RE = re.compile(r"\b(\d{2,3})\s*(?:\"|''|”|pulgadas?|pulg)\b", re.IGNORECASE)
+_INCH_RE = re.compile(r"\b(\d{2,3}(?:\.\d)?)\s*(?:\"|''|“|”|pulgadas?|pulg)\b", re.IGNORECASE)
 _COMMON_SCREEN_SIZES = {
     "13", "14", "15", "16", "17", "22", "24", "25", "27", "29", "32", "34",
     "40", "43", "48", "49", "50", "55", "58", "60", "65", "70", "75", "77",
@@ -66,8 +66,9 @@ _GENERIC_SPEC_CODES = {
 _MODEL_CODE_RE = re.compile(r"^(?=.*[a-z])(?=.*\d)[a-z0-9\-]{2,}$", re.IGNORECASE)
 
 _TIER_TOKENS = {
-    "oled", "qled", "qned", "nanocell", "nano", "miniled", "sqd", "pro", "max", "ultra",
-    "plus", "fe", "lite", "slim", "air", "mini", "evo", "studio", "deluxe",
+    "oled", "qled", "qned", "nanocell", "nano", "miniled", "sqd", "qhd", "wqhd",
+    "pro", "max", "ultra", "plus", "fe", "lite", "slim", "air", "mini", "evo",
+    "studio", "deluxe", "compacta", "compact", "maxima", "barista",
     "edt", "edp", "parfum", "elixir", "intense", "cook", "chroma", "haste",
 }
 
@@ -109,11 +110,11 @@ def _normalize(text: str) -> str:
     decomposed = unicodedata.normalize("NFKD", text or "")
     clean = "".join(ch for ch in decomposed if not unicodedata.combining(ch)).lower()
     clean = _UNIT_SPACED_RE.sub(r"\1\2", clean)
-    return re.sub(r"[^a-z0-9\s\-\"”']", " ", clean)
+    return re.sub(r"[^a-z0-9\s\.\-\"“”']", " ", clean)
 
 
 def detect_product_subtype(title: str) -> str:
-    """Distinguish sub-types (e.g. game vs console, security cam vs photo cam, glasses vs cam)."""
+    """Distinguish sub-types (e.g. game vs console, tablet vs laptop, dryer vs washer-dryer)."""
     norm = _normalize(title)
     if any(k in norm for k in ("gafas", "lentes")):
         return "glasses"
@@ -121,6 +122,16 @@ def detect_product_subtype(title: str) -> str:
         return "mousepad"
     if _SECURITY_CAM_PATTERNS.search(norm):
         return "security_cam"
+    if "lavadora-secadora" in norm or ("lavadora" in norm and "secadora" in norm):
+        return "lavadora_secadora"
+    if "secadora" in norm:
+        return "secadora"
+    if "lavadora" in norm:
+        return "lavadora"
+    if "ipad" in norm or "tablet" in norm or "galaxy tab" in norm or "redmi pad" in norm:
+        return "tablet"
+    if "macbook" in norm or "notebook" in norm or "laptop" in norm or "thinkpad" in norm:
+        return "laptop"
     has_console = bool(_CONSOLE_PATTERNS.search(norm))
     has_game = bool(_GAME_PATTERNS.search(norm))
     if has_game and "consola" not in norm and "+" not in title:
@@ -395,12 +406,9 @@ class CrossStoreReferenceEngine:
             return None
 
         # Cross-store prices are trusted to both shield AND create deals;
-        # same-store alternate SKUs are only reliable as a protective shield if cheaper than snapshot
+        # NEVER mix same-store variants into competitor prices (otherwise a 2-color glitch cancels itself out!)
         if other_store_prices:
-            prices_for_ref = other_store_prices + [
-                p for p in same_store_alt_prices if p <= snapshot.effective_price * 1.2
-            ]
-            ref_price, count = compute_robust_market_price(prices_for_ref)
+            ref_price, count = compute_robust_market_price(other_store_prices)
             is_verified = count >= 2
         else:
             # Same-store only: use solely as a protective shield (never create a glitch from a same-store higher SKU)
