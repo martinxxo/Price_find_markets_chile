@@ -1,10 +1,13 @@
 {
   "thresholds": {
-    "flash_drop_pct": 25.0,
-    "priority_flash_drop_pct": 20.0,
-    "priority_first_seen_flash_discount_pct": 30.0,
-    "glitch_drop_pct": 50.0,
+    "flash_drop_pct": 28.0,
+    "priority_flash_drop_pct": 22.0,
+    "priority_first_seen_flash_discount_pct": 35.0,
+    "glitch_drop_pct": 55.0,
     "first_seen_glitch_discount_pct": 65.0,
+    "min_glitch_profit_clp": 45000,
+    "min_flash_savings_clp": 15000,
+    "min_dp_savings_clp": 12000,
     "re_notify_extra_drop_pct": 15.0,
     "re_notify_cooldown_hours": 24
   },
@@ -16,27 +19,37 @@
     "audio",
     "componentes",
     "camaras",
-    "cafe"
+    "cafe",
+    "consolas"
   ],
   "priority_keywords": [
     "parlante",
     "soundbar",
+    "barra de sonido",
     "audifono",
     "earbuds",
     "tocadiscos",
     "tornamesa",
     "camara",
     "gopro",
+    "insta360",
     "notebook",
     "macbook",
+    "ipad",
+    "tablet",
     "monitor",
     "teclado",
     "mouse",
     "periferico",
+    "rtx",
+    "playstation",
+    "nintendo switch",
     "cafetera",
     "espresso",
     "molinillo",
-    "cafe"
+    "cafe",
+    "air fryer",
+    "aspiradora robot"
   ],
   "category_floor_prices_clp": {
     "notebooks": 130000,
@@ -45,20 +58,22 @@
     "tv": 95000,
     "audio": 35000,
     "componentes": 60000,
-    "camaras": 40000,
-    "cafe": 6000,
+    "camaras": 45000,
+    "cafe": 15000,
     "electrodomesticos": 25000,
-    "ropa_hombre": 8000,
-    "comida": 5000,
-    "perfumes_hombre": 15000
+    "hogar": 20000,
+    "ropa_hombre": 10000,
+    "comida": 8000,
+    "perfumes_hombre": 18000
   },
   "stores_enabled": [
-    "mercadolibre",
+    "tienda_travel",
     "falabella",
     "paris",
     "ripley",
-    "knasta",
-    "tienda_travel"
+    "mercadolibre",
+    "blackfriday_stores",
+    "knasta"
   ],
   "tienda_travel": {
     "dolares_premio_clp_rate": 992.5,

@@ -32,7 +32,8 @@ _STOPWORDS = {
     "usb", "hdmi", "wifi", "4k", "uhd", "fhd", "hd", "ips", "va", "led", "ai",
     "magic", "remote", "funciones", "ia", "cancelacion", "ruido", "ram", "ssd",
     "compacta", "digital", "autofocus", "zoom", "exterior", "interior", "color",
-    "luces", "recargable", "doble", "lente",
+    "luces", "recargable", "doble", "lente", "fiestas", "fiesta", "karaoke", "serie",
+    "equipo", "musica", "sonido",
 }
 
 _UNIT_TOKEN_RE = re.compile(
@@ -130,12 +131,13 @@ def detect_product_subtype(title: str) -> str:
 
 
 def _extract_specs(norm_text: str) -> dict[str, set[str]]:
-    """Extract capacity, volume, screen inches, and product tier tokens to prevent mismatches."""
+    """Extract capacity, volume, screen inches, standalone series numbers, and product tier tokens."""
     specs: dict[str, set[str]] = {
         "storage": set(),
         "volume": set(),
         "inches": set(),
         "tier": set(),
+        "numbers": set(),
     }
     for m in _INCH_RE.finditer(norm_text):
         specs["inches"].add(m.group(1))
@@ -143,6 +145,8 @@ def _extract_specs(norm_text: str) -> dict[str, set[str]]:
         cleaned = tok.strip(".,:;()[]{}\"'”")
         if cleaned in _COMMON_SCREEN_SIZES:
             specs["inches"].add(cleaned)
+        elif cleaned.isdigit() and 1 <= int(cleaned) <= 9999:
+            specs["numbers"].add(cleaned)
         um = _UNIT_TOKEN_RE.match(cleaned)
         if um:
             val, unit = um.group(1), um.group(2).lower()
@@ -201,7 +205,7 @@ def extract_title_signature(
 
 
 def _specs_conflict(specs_a: dict[str, set[str]], specs_b: dict[str, set[str]]) -> bool:
-    for key in ("storage", "volume", "inches"):
+    for key in ("storage", "volume", "inches", "numbers"):
         if specs_a[key] and specs_b[key] and not (specs_a[key] & specs_b[key]):
             return True
     if specs_a["tier"] != specs_b["tier"] and (specs_a["tier"] or specs_b["tier"]):
@@ -209,21 +213,19 @@ def _specs_conflict(specs_a: dict[str, set[str]], specs_b: dict[str, set[str]]) 
     return False
 
 
-def _titles_match(
+def _titles_match_sigs(
     sig_a: tuple[set[str], set[str], str, dict[str, set[str]], str],
-    brand_a: str,
-    title_b: str,
-    brand_b: str = "",
+    clean_ba: str,
+    sig_b: tuple[set[str], set[str], str, dict[str, set[str]], str],
+    clean_bb: str,
 ) -> bool:
     tokens_a, codes_a, _, specs_a, subtype_a = sig_a
-    tokens_b, codes_b, _, specs_b, subtype_b = extract_title_signature(title_b, brand_b)
+    tokens_b, codes_b, _, specs_b, subtype_b = sig_b
 
     # Never cross-match incompatible subtypes (e.g. game vs console, glasses vs camera)
     if subtype_a != subtype_b and (subtype_a or subtype_b):
         return False
 
-    clean_ba = _normalize(brand_a).strip()
-    clean_bb = _normalize(brand_b).strip()
     generic_brands = ("", "marca", "tienda travel", "generico")
     if clean_ba not in generic_brands and clean_bb not in generic_brands:
         if clean_ba != clean_bb:
@@ -264,6 +266,21 @@ def _titles_match(
     return len(inter) >= 4 and jaccard >= 0.6
 
 
+def _titles_match(
+    sig_a: tuple[set[str], set[str], str, dict[str, set[str]], str],
+    brand_a: str,
+    title_b: str,
+    brand_b: str = "",
+) -> bool:
+    sig_b = extract_title_signature(title_b, brand_b)
+    return _titles_match_sigs(
+        sig_a,
+        _normalize(brand_a).strip(),
+        sig_b,
+        _normalize(brand_b).strip(),
+    )
+
+
 def compute_robust_market_price(prices: list[int]) -> tuple[int, int]:
     """Compute outlier-resistant market reference price (strips inflated spikes like $709k vs $89k)."""
     valid = sorted(p for p in prices if p > 1000)
@@ -298,7 +315,14 @@ class CrossStoreReferenceEngine:
         self.cache_ttl = timedelta(hours=cache_ttl_hours)
         self.live_lookups_used = 0
         self._index: list[dict[str, Any]] = []
+        self._index_by_cat: dict[str, list[dict[str, Any]]] = {}
         self._build_local_index(live_snapshots)
+
+    def _add_index_entry(self, entry: dict[str, Any]) -> None:
+        self._index.append(entry)
+        cat = entry["category"]
+        if cat:
+            self._index_by_cat.setdefault(cat, []).append(entry)
 
     def _build_local_index(self, live_snapshots: list[ProductSnapshot]) -> None:
         seen_skus: set[str] = set()
@@ -307,13 +331,14 @@ class CrossStoreReferenceEngine:
                 continue
             seen_skus.add(snap.sku)
             sig = extract_title_signature(snap.title, snap.brand)
-            self._index.append(
+            self._add_index_entry(
                 {
                     "sku": snap.sku,
                     "store": snap.store,
                     "category": snap.category.lower().strip(),
                     "title": snap.title,
                     "brand": snap.brand,
+                    "brand_norm": _normalize(snap.brand).strip(),
                     "price": snap.effective_price,
                     "sig": sig,
                 }
@@ -330,13 +355,14 @@ class CrossStoreReferenceEngine:
             # Use the lower of last_price and normal_price to avoid feeding spiked prices into the index
             min_p = int(row.get("min_price") or last_p)
             safe_price = last_p if last_p <= min_p * 2.0 else min_p
-            self._index.append(
+            self._add_index_entry(
                 {
                     "sku": sku,
                     "store": str(row["store"]),
                     "category": str(row.get("category") or "").lower().strip(),
                     "title": title,
                     "brand": brand,
+                    "brand_norm": _normalize(brand).strip(),
                     "price": safe_price,
                     "sig": extract_title_signature(title, brand),
                 }
@@ -344,17 +370,17 @@ class CrossStoreReferenceEngine:
 
     def _find_local_match(self, snapshot: ProductSnapshot) -> Optional[MarketReference]:
         sig = extract_title_signature(snapshot.title, snapshot.brand)
+        clean_brand = _normalize(snapshot.brand).strip()
         cat = snapshot.category.lower().strip()
         other_store_prices: list[int] = []
         same_store_alt_prices: list[int] = []
         sample_label = ""
 
-        for entry in self._index:
+        candidates = self._index_by_cat.get(cat, self._index) if cat else self._index
+        for entry in candidates:
             if entry["sku"] == snapshot.sku:
                 continue
-            if cat and entry["category"] and entry["category"] != cat:
-                continue
-            if _titles_match(sig, snapshot.brand, entry["title"], entry["brand"]):
+            if _titles_match_sigs(sig, clean_brand, entry["sig"], entry["brand_norm"]):
                 if entry["store"] != snapshot.store:
                     other_store_prices.append(int(entry["price"]))
                     if not sample_label:

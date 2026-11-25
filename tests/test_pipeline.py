@@ -537,13 +537,13 @@ class TestScraperParsingAndResilience(unittest.TestCase):
         self.assertIsNotNone(glitch_alert)
         self.assertEqual(glitch_alert.alert_type, "GLITCH")
 
-        # Priority item (tocadiscos / audio) with 32% discount triggers FLASH
+        # Priority item (tocadiscos / audio) with >=35% discount triggers FLASH
         turntable = make_snapshot(
             sku="TT-AUDIO-1",
             title="Tocadiscos Audio-Technica AT-LP60X",
             brand="Audio-Technica",
             category="audio",
-            current_price=135000,
+            current_price=125000,
             normal_price=199990,
         )
         tt_alert = detector.evaluate(turntable, None)
@@ -759,7 +759,7 @@ class TestScraperParsingAndResilience(unittest.TestCase):
                     m_unseen_cheap,
                     None,
                     market_reference=MarketReference(
-                        price=89990,
+                        price=99990,
                         source="Knasta 90d",
                         sample_count=3,
                         is_verified_history=True,
@@ -768,6 +768,29 @@ class TestScraperParsingAndResilience(unittest.TestCase):
                 self.assertIsNotNone(unseen_alert)
                 self.assertEqual(unseen_alert.alert_type, "GLITCH")
                 self.assertGreaterEqual(unseen_alert.real_drop_pct, 60.0)
+                self.assertGreaterEqual(unseen_alert.savings_clp, 45000)
+
+                # Low-ticket dead-stock 55% drop ($21.990 -> $9.990, only $12k savings) must NOT be GLITCH
+                cheap_speaker = make_snapshot(
+                    sku="RIP-CHEAP-SPK",
+                    store="Ripley",
+                    title="PARLANTE BLUETOOTH PHILIPS TAS2307",
+                    brand="Philips",
+                    category="audio",
+                    current_price=9990,
+                    normal_price=21990,
+                )
+                cheap_alert = detector.evaluate(
+                    cheap_speaker,
+                    None,
+                    market_reference=MarketReference(
+                        price=21990,
+                        source="SoloTodo (2 tiendas)",
+                        sample_count=2,
+                        is_verified_history=True,
+                    ),
+                )
+                self.assertIsNone(cheap_alert)
 
                 # 4. Prevent game vs console, TCL C7L vs X11, and 1-store $1.99M outlier false matches
                 mario_game = make_snapshot(

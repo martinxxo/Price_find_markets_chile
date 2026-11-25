@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+from concurrent.futures import ThreadPoolExecutor, as_completed
 import logging
 from pathlib import Path
 from typing import Callable, Iterable, Optional
@@ -13,6 +14,7 @@ from src.filters import is_valid_official_tech_product
 from src.models import DealAlert, ProductSnapshot
 from src.notifier import AlertNotifier
 from src.price_reference import CrossStoreReferenceEngine
+from src.scrapers.blackfriday_stores import fetch_blackfriday_stores_products
 from src.scrapers.demo_data import get_demo_pass_one, get_demo_pass_two
 from src.scrapers.falabella import fetch_falabella_products
 from src.scrapers.knasta import fetch_knasta_products
@@ -30,12 +32,13 @@ logging.basicConfig(
 logger = logging.getLogger("chiledeals")
 
 SCRAPER_REGISTRY: dict[str, Callable[[], list[ProductSnapshot]]] = {
-    "mercadolibre": fetch_mercadolibre_products,
+    "tienda_travel": fetch_tienda_travel_products,
     "falabella": fetch_falabella_products,
     "paris": fetch_paris_products,
     "ripley": fetch_ripley_products,
+    "mercadolibre": fetch_mercadolibre_products,
+    "blackfriday_stores": fetch_blackfriday_stores_products,
     "knasta": fetch_knasta_products,
-    "tienda_travel": fetch_tienda_travel_products,
 }
 
 
@@ -179,25 +182,40 @@ def run_live_scan(
         if settings.get("exclude_store_card_prices", True):
             storage.conn.execute("DELETE FROM active_deals WHERE payment_type = 'Tarjeta Tienda'")
 
-    all_snapshots: list[ProductSnapshot] = []
-    for store_key in settings.get("stores_enabled", []):
-        fetcher = SCRAPER_REGISTRY.get(store_key.lower())
-        if fetcher is None:
-            logger.warning("Unknown store '%s' in settings.json; skipping.", store_key)
-            continue
+    enabled_keys = [
+        str(k).lower()
+        for k in settings.get("stores_enabled", [])
+        if str(k).lower() in SCRAPER_REGISTRY
+    ]
+    results_by_store: dict[str, list[ProductSnapshot]] = {}
+
+    def _run_store(store_key: str) -> tuple[str, list[ProductSnapshot]]:
+        fetcher = SCRAPER_REGISTRY[store_key]
         try:
             items = fetcher()
             logger.info("Store '%s' returned %d candidate items.", store_key, len(items))
-            all_snapshots.extend(items)
+            return store_key, items
         except Exception as exc:  # pragma: no cover - defensive guard per store
             logger.warning("Unexpected error scanning store '%s': %s", store_key, exc)
+            return store_key, []
+
+    with ThreadPoolExecutor(max_workers=max(1, len(enabled_keys))) as pool:
+        futures = [pool.submit(_run_store, sk) for sk in enabled_keys]
+        for fut in as_completed(futures):
+            sk, items = fut.result()
+            results_by_store[sk] = items
+
+    # Preserve priority ordering configured in settings.json (e.g. tienda_travel first)
+    all_snapshots: list[ProductSnapshot] = []
+    for sk in enabled_keys:
+        all_snapshots.extend(results_by_store.get(sk, []))
 
     ref_engine = None
     if settings.get("cross_reference_enabled", True):
         ref_engine = CrossStoreReferenceEngine(
             storage=storage,
             live_snapshots=all_snapshots,
-            max_live_lookups=int(settings.get("max_live_cross_refs_per_scan", 25)),
+            max_live_lookups=int(settings.get("max_live_cross_refs_per_scan", 60)),
         )
 
     return process_snapshots(
