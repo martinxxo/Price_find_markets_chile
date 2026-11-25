@@ -65,6 +65,7 @@
     type: "ALL",
     store: "ALL",
     category: "ALL",
+    priceRange: "ALL",
     search: "",
     sort: "drop_desc"
   };
@@ -86,6 +87,7 @@
     searchInput: document.getElementById("search-input"),
     storeSelect: document.getElementById("store-select"),
     categorySelect: document.getElementById("category-select"),
+    priceSelect: document.getElementById("price-select"),
     sortSelect: document.getElementById("sort-select"),
     resetBtn: document.getElementById("reset-filters-btn"),
     themeToggle: document.getElementById("theme-toggle"),
@@ -137,12 +139,26 @@
     return "💵 Todo Medio de Pago";
   }
 
+  function matchesPriceRange(price, range) {
+    if (!range || range === "ALL") return true;
+    const num = Number(price) || 0;
+    if (range.endsWith("+")) {
+      const min = Number(range.slice(0, -1)) || 0;
+      return num >= min;
+    }
+    const [minStr, maxStr] = range.split("-");
+    const min = Number(minStr) || 0;
+    const max = Number(maxStr) || Infinity;
+    return num >= min && num <= max;
+  }
+
   function getFilteredDeals() {
     const query = state.search.trim().toLowerCase();
     const filtered = state.deals.filter((deal) => {
       if (state.type !== "ALL" && deal.alert_type !== state.type) return false;
       if (state.store !== "ALL" && deal.store !== state.store) return false;
       if (state.category !== "ALL" && deal.category !== state.category) return false;
+      if (!matchesPriceRange(deal.effective_price, state.priceRange)) return false;
       if (query) {
         const hay = `${deal.title} ${deal.brand} ${deal.store} ${deal.sku}`.toLowerCase();
         if (!hay.includes(query)) return false;
@@ -314,6 +330,13 @@
       renderDeals();
     });
 
+    if (els.priceSelect) {
+      els.priceSelect.addEventListener("change", (e) => {
+        state.priceRange = e.target.value;
+        renderDeals();
+      });
+    }
+
     els.sortSelect.addEventListener("change", (e) => {
       state.sort = e.target.value;
       renderDeals();
@@ -323,11 +346,13 @@
       state.type = "ALL";
       state.store = "ALL";
       state.category = "ALL";
+      state.priceRange = "ALL";
       state.search = "";
       state.sort = "drop_desc";
       els.searchInput.value = "";
       els.storeSelect.value = "ALL";
       els.categorySelect.value = "ALL";
+      if (els.priceSelect) els.priceSelect.value = "ALL";
       els.sortSelect.value = "drop_desc";
       document.querySelectorAll(".type-pills .pill").forEach((b) => {
         b.classList.toggle("active", b.dataset.type === "ALL");
