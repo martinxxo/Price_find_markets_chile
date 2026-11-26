@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-11-26T04:15:31.110644+00:00",
+  "generated_at": "2026-11-26T04:20:32.675461+00:00",
   "mode": "scan",
   "total_monitored_products": 12816,
-  "total_active_deals": 381,
+  "total_active_deals": 383,
   "counts_by_type": {
     "GLITCH": 1,
     "VIP": 0,
-    "FLASH": 190,
+    "FLASH": 192,
     "DOLARES_PREMIO": 190
   },
   "counts_by_store": {
@@ -14,7 +14,7 @@
     "Casa Royal": 1,
     "Central Gamer": 1,
     "Easy": 7,
-    "Falabella": 26,
+    "Falabella": 28,
     "Hites": 1,
     "LG Store": 1,
     "Lenovo Chile": 2,
@@ -135,7 +135,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/80874891/asus-tuf-gaming-f16-fx607-intel-core-5-nvidia-rtx-3050-16gb-ram-512gb-ssd-16-fhd-144hz",
       "image_url": "https://media.falabella.com/falabellaCL/80874891_01/public",
       "detected_at": "2026-11-25T20:59:35.717093+00:00",
-      "updated_at": "2026-11-26T04:15:28.375653+00:00",
+      "updated_at": "2026-11-26T04:20:29.093651+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -222,6 +222,33 @@
       "copay_clp": 0
     },
     {
+      "sku": "FAL-6061461",
+      "store": "Falabella",
+      "title": "Cafetera Essenza Mini",
+      "brand": "NESPRESSO",
+      "category": "cafe",
+      "alert_type": "FLASH",
+      "effective_price": 64990,
+      "current_price": 64990,
+      "card_price": null,
+      "normal_price": 149990,
+      "payment_type": "Todo Medio de Pago",
+      "previous_real_price": 149990,
+      "min_historical_price": 64990,
+      "real_drop_pct": 56.7,
+      "store_discount_pct": 56.7,
+      "savings_clp": 85000,
+      "reason": "Prioritario (NESPRESSO) con -56.7% (ahorro $85.000)",
+      "seller_name": "Falabella",
+      "url": "https://www.falabella.com/falabella-cl/product/prod101376266/Cafetera-Essenza-Mini-Nespresso",
+      "image_url": "https://media.falabella.com/falabellaCL/6061461_1/public",
+      "detected_at": "2026-11-26T04:20:29.287484+00:00",
+      "updated_at": "2026-11-26T04:20:29.288455+00:00",
+      "dolares_premio_pct": 0,
+      "dolares_premio_amount": 0.0,
+      "copay_clp": 0
+    },
+    {
       "sku": "LID-00780466036093",
       "store": "Lider",
       "title": "Ursus Trotter Horno Eléctrico UT Backofen Pro-B 25 Litros Negro",
@@ -270,7 +297,7 @@
       "url": "https://www.abc.cl/cafetera-de-filtro-goteo-easyways-sicilia-12-tazas-15-l/28580061.html",
       "image_url": "https://www.abc.cl/dw/image/v2/BCPP_PRD/on/demandware.static/-/Sites-master-catalog/default/dw28c31c9b/images/large/28580061.jpg?sw=1200&sh=1200&sm=fit",
       "detected_at": "2026-11-25T20:59:42.182847+00:00",
-      "updated_at": "2026-11-26T04:15:30.725786+00:00",
+      "updated_at": "2026-11-26T04:20:32.315188+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -540,7 +567,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/prod101389012/Cafetera-con-Capsula-Vertuo-Pop-Nespresso",
       "image_url": "https://media.falabella.com/falabellaCL/16701998_01/public",
       "detected_at": "2026-11-26T04:10:51.919262+00:00",
-      "updated_at": "2026-11-26T04:15:28.544173+00:00",
+      "updated_at": "2026-11-26T04:20:29.317954+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -594,7 +621,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/883475144/cafetera-espresso-con-espumador-de-leche-wcm-capuccino-wurden",
       "image_url": "https://media.falabella.com/falabellaCL/883475145_005/public",
       "detected_at": "2026-11-26T03:55:27.748729+00:00",
-      "updated_at": "2026-11-26T04:15:28.524973+00:00",
+      "updated_at": "2026-11-26T04:20:29.297095+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -729,7 +756,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/80834537/cafetera-automatica-ut-kaffemeister-e-ursus-trotter",
       "image_url": "https://media.falabella.com/falabellaCL/80834537_1/public",
       "detected_at": "2026-11-25T20:59:36.209425+00:00",
-      "updated_at": "2026-11-26T04:15:28.541197+00:00",
+      "updated_at": "2026-11-26T04:20:29.314510+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1188,7 +1215,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/80529200/Cafetera-Citiz-Milk-Nespresso",
       "image_url": "https://media.falabella.com/falabellaCL/80529200_1/public",
       "detected_at": "2026-11-26T03:55:28.290880+00:00",
-      "updated_at": "2026-11-26T04:15:28.539443+00:00",
+      "updated_at": "2026-11-26T04:20:29.312430+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1431,7 +1458,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/17306975/cama-europea-anatomic-full-x-2-00mt-base-normal-cic",
       "image_url": "https://media.falabella.com/falabellaCL/17306975_1/public",
       "detected_at": "2026-11-25T20:59:35.888170+00:00",
-      "updated_at": "2026-11-26T04:15:28.427926+00:00",
+      "updated_at": "2026-11-26T04:20:29.170577+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1512,7 +1539,7 @@
       "url": "https://www.mercadolibre.cl/up/MLCU4203989282?pdp_filters=official_store%3Aall",
       "image_url": "https://http2.mlstatic.com/D_Q_NP_2X_935698-MLC111840547538_062026-E--kit-celular-honor-600-512-gb-audifonos-earbuds-clip2-pro.webp",
       "detected_at": "2026-11-25T20:59:38.287303+00:00",
-      "updated_at": "2026-11-26T04:15:29.489195+00:00",
+      "updated_at": "2026-11-26T04:20:30.548757+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1869,6 +1896,33 @@
       "copay_clp": 179997
     },
     {
+      "sku": "FAL-80723110",
+      "store": "Falabella",
+      "title": "Cafetera Citiz Platinum",
+      "brand": "NESPRESSO",
+      "category": "cafe",
+      "alert_type": "FLASH",
+      "effective_price": 129990,
+      "current_price": 129990,
+      "card_price": null,
+      "normal_price": 209990,
+      "payment_type": "Todo Medio de Pago",
+      "previous_real_price": 209990,
+      "min_historical_price": 129990,
+      "real_drop_pct": 38.1,
+      "store_discount_pct": 38.1,
+      "savings_clp": 80000,
+      "reason": "Prioritario (NESPRESSO) con -38.1% (ahorro $80.000)",
+      "seller_name": "Falabella",
+      "url": "https://www.falabella.com/falabella-cl/product/80723110/cafetera-nespresso-citiz-platinum",
+      "image_url": "https://media.falabella.com/falabellaCL/80723110_1/public",
+      "detected_at": "2026-11-26T04:20:29.319176+00:00",
+      "updated_at": "2026-11-26T04:20:29.320075+00:00",
+      "dolares_premio_pct": 0,
+      "dolares_premio_amount": 0.0,
+      "copay_clp": 0
+    },
+    {
       "sku": "WPY-HX-KB5ME2-LA",
       "store": "Winpy",
       "title": "Teclado Gamer HyperX Alloy Core RGB (Membrana, Español, 5 Zonas RGB)",
@@ -1917,7 +1971,7 @@
       "url": "https://www.easy.cl/horno-empotrado-57-litros-he-7200-inox-sindelen-1260026/p",
       "image_url": "https://easycl.vteximg.com.br/arquivos/ids/5079967/1260026-0000-001.jpg?v=638863959490000000",
       "detected_at": "2026-11-26T04:10:58.438585+00:00",
-      "updated_at": "2026-11-26T04:15:30.982071+00:00",
+      "updated_at": "2026-11-26T04:20:32.634148+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -2052,7 +2106,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/16820060/Cafetera-con-Capsula-Gran-Lattissima-Negra-Nespresso",
       "image_url": "https://media.falabella.com/falabellaCL/16820061_01/public",
       "detected_at": "2026-11-26T03:55:28.281007+00:00",
-      "updated_at": "2026-11-26T04:15:28.533081+00:00",
+      "updated_at": "2026-11-26T04:20:29.277481+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -2160,7 +2214,7 @@
       "url": "https://www.wei.cl/producto/teclado-usb-ergonomico-pro-fit-color-negro-k75400es-5f5684a374",
       "image_url": "https://www.wei.cl/img/product/5F5684A374g.jpeg?nocache=MzMxMTE=",
       "detected_at": "2026-11-26T04:10:56.279771+00:00",
-      "updated_at": "2026-11-26T04:15:30.461291+00:00",
+      "updated_at": "2026-11-26T04:20:31.714847+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -2430,7 +2484,7 @@
       "url": "https://simple.ripley.cl/notebook-asus-zenbook-14-um3406ga-ql085w-amd-ryzen-ai-7-16gb-ram-512gb-ssd-touch-14-2000409403332p",
       "image_url": "https://rimage.ripley.cl/home.ripley/Attachment/WOP/1/2000409403332/full_image-2000409403332",
       "detected_at": "2026-11-25T23:15:42.677672+00:00",
-      "updated_at": "2026-11-26T04:15:29.014044+00:00",
+      "updated_at": "2026-11-26T04:20:29.944116+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -2970,7 +3024,7 @@
       "url": "https://www.mercadolibre.cl/up/MLCU4035807870?pdp_filters=official_store%3Aall",
       "image_url": "https://http2.mlstatic.com/D_Q_NP_2X_811008-MLC120730831059_112026-E--motorola-razr-70-ultra-cafe-16gb-1tb.webp",
       "detected_at": "2026-11-25T20:59:38.224681+00:00",
-      "updated_at": "2026-11-26T04:15:29.469960+00:00",
+      "updated_at": "2026-11-26T04:20:30.523535+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -3159,7 +3213,7 @@
       "url": "https://www.winpy.cl/venta/mouse-logitech-g-pro-x-superlight-lightspeed-bluetooth-25000dpi-1ms-blanco/",
       "image_url": "",
       "detected_at": "2026-11-26T04:10:57.210612+00:00",
-      "updated_at": "2026-11-26T04:15:30.557025+00:00",
+      "updated_at": "2026-11-26T04:20:31.935534+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -3294,7 +3348,7 @@
       "url": "https://www.paris.cl/audifonos-bluetooth-freebuds-7i-pink-322033999.html",
       "image_url": "https://cl-dam-resizer.ecomm.cencosud.com/unsafe/adaptive-fit-in/792x1068/cl/paris/322033999/variant/69038df4a6f0cdb774d04b31/images/fe25f36b-c3ea-4fcf-9950-3f13906434ad/322033999-0000-001.jpg",
       "detected_at": "2026-11-25T20:59:36.616187+00:00",
-      "updated_at": "2026-11-26T04:15:28.771826+00:00",
+      "updated_at": "2026-11-26T04:20:29.610048+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -3375,7 +3429,7 @@
       "url": "https://www.abc.cl/tablet-lenovo-idea-tab-11-mediatek-dimensity-d6300-8-gb-ram-128-gb-11-2k-wifi-luna-grey-case-lapiz/28949189.html",
       "image_url": "https://www.abc.cl/dw/image/v2/BCPP_PRD/on/demandware.static/-/Sites-master-catalog/default/dw4c6991b2/images/large/28949189.jpg?sw=1200&sh=1200&sm=fit",
       "detected_at": "2026-11-26T03:30:29.203291+00:00",
-      "updated_at": "2026-11-26T04:15:30.809656+00:00",
+      "updated_at": "2026-11-26T04:20:32.120467+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -3618,7 +3672,7 @@
       "url": "https://www.sodimac.cl/sodimac-cl/articulo/156565642/product/156565643",
       "image_url": "https://media.falabella.com/sodimacCL/7935013_01/public?scl=1.0",
       "detected_at": "2026-11-26T04:10:58.144264+00:00",
-      "updated_at": "2026-11-26T04:15:30.754487+00:00",
+      "updated_at": "2026-11-26T04:20:32.355778+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -3645,7 +3699,7 @@
       "url": "https://www.paris.cl/monitor-27-fhd-l27-4e-100hz-383798999.html",
       "image_url": "https://cl-dam-resizer.ecomm.cencosud.com/unsafe/adaptive-fit-in/792x1068/cl/paris/383798999/variant/699cb5c921ebd957c88d3f98/images/67974d1f-90ff-46d7-8bf8-9b42640ce5b0/383798999-0000-001.jpg",
       "detected_at": "2026-11-25T20:59:36.796413+00:00",
-      "updated_at": "2026-11-26T04:15:28.862996+00:00",
+      "updated_at": "2026-11-26T04:20:29.738948+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -3726,7 +3780,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/80641714/macbook-pro-14-chip-m5-10n-cpu-10n-gpu-1tb-ssd",
       "image_url": "https://media.falabella.com/falabellaCL/80641713_1/public",
       "detected_at": "2026-11-25T22:00:32.424341+00:00",
-      "updated_at": "2026-11-26T04:10:51.620492+00:00",
+      "updated_at": "2026-11-26T04:20:29.054836+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -3861,7 +3915,7 @@
       "url": "https://www.winpy.cl/venta/monitor-gamer-samsung-odyssey-g5-curvo-de-34-va-wqhd-165hz-1ms-hdr10-dp-hdmi-freesync-vesa/",
       "image_url": "",
       "detected_at": "2026-11-25T23:20:23.683895+00:00",
-      "updated_at": "2026-11-26T04:15:30.076009+00:00",
+      "updated_at": "2026-11-26T04:20:31.271716+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -4050,7 +4104,7 @@
       "url": "https://simple.ripley.cl/smartphone-xiaomi-redmi-17-5g-128gb-4g-ram-50mp-69-2000412849844",
       "image_url": "https://rimage.ripley.cl/home.ripley/Attachment/WOP/1/2000412849851/full_image-2000412849851",
       "detected_at": "2026-11-25T21:00:45.536038+00:00",
-      "updated_at": "2026-11-26T04:15:29.075050+00:00",
+      "updated_at": "2026-11-26T04:20:30.025886+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -4104,7 +4158,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/17422356/CAF-DOLCE-GUSTO-PICCOLO-XS-NEGRA",
       "image_url": "https://media.falabella.com/falabellaCL/17422356_1/public",
       "detected_at": "2026-11-26T03:55:27.222650+00:00",
-      "updated_at": "2026-11-26T04:15:28.520954+00:00",
+      "updated_at": "2026-11-26T04:20:29.291918+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -4509,7 +4563,7 @@
       "url": "https://www.paris.cl/apple-macbook-pro-chip-m5-16gb-ram-1tb-ssd-14-touch-id-space-black-305872999.html",
       "image_url": "https://cl-dam-resizer.ecomm.cencosud.com/unsafe/adaptive-fit-in/792x1068/cl/paris/305872999/variant/69c570b08cb054691c699dec/images/ab7c7ac9-7c5a-4d6a-8c3a-87ca1719f8b7/305872999-0000-001.jpg",
       "detected_at": "2026-11-25T21:00:43.080447+00:00",
-      "updated_at": "2026-11-26T04:15:28.578740+00:00",
+      "updated_at": "2026-11-26T04:20:29.367606+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -4563,7 +4617,7 @@
       "url": "https://www.wei.cl/producto/hp-527pu-27-2560-x-1440-displayport-hdmi-usb-c-9e0g5aa-aba-204ac00783",
       "image_url": "https://www.wei.cl/img/product/204AC00783g.jpeg?nocache=MzQzMzA=",
       "detected_at": "2026-11-26T04:10:54.548029+00:00",
-      "updated_at": "2026-11-26T04:15:30.047664+00:00",
+      "updated_at": "2026-11-26T04:20:31.230075+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -4590,7 +4644,7 @@
       "url": "https://www.mercadolibre.cl/up/MLCU25001167?pdp_filters=official_store%3Aall",
       "image_url": "https://http2.mlstatic.com/D_Q_NP_2X_696678-MLC106922395566_022026-E--cafetera-frappe-oster-con-licuadora-bvstdc03b.webp",
       "detected_at": "2026-11-25T20:59:39.568687+00:00",
-      "updated_at": "2026-11-26T04:15:29.943548+00:00",
+      "updated_at": "2026-11-26T04:20:31.136379+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -4914,7 +4968,7 @@
       "url": "https://www.winpy.cl/venta/audifonos-jbl-tour-one-m3-smart-tx-cancelacion-de-ruido-bluetooth-mocha/",
       "image_url": "",
       "detected_at": "2026-11-26T04:10:55.461285+00:00",
-      "updated_at": "2026-11-26T04:15:30.235877+00:00",
+      "updated_at": "2026-11-26T04:20:31.510018+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -5130,7 +5184,7 @@
       "url": "https://www.paris.cl/audifonos-bluetooth-freeclip-rose-gold-932102999.html",
       "image_url": "https://cl-dam-resizer.ecomm.cencosud.com/unsafe/adaptive-fit-in/792x1068/paris/932102999/variant/images/990b8336-5ccd-4a45-8c40-3f4973d159f9/932102999-0000-001.jpg",
       "detected_at": "2026-11-26T03:35:25.913700+00:00",
-      "updated_at": "2026-11-26T04:15:28.733303+00:00",
+      "updated_at": "2026-11-26T04:20:29.553097+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
