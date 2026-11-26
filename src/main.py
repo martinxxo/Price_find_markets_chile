@@ -54,11 +54,15 @@ def process_snapshots(
     alerts: list[DealAlert] = []
     filtered_out = 0
     valid_items: list[tuple[ProductSnapshot, Optional[dict], Optional[int]]] = []
+    seen_batch_skus: set[str] = set()
 
     for snapshot in snapshots:
+        if snapshot.sku in seen_batch_skus:
+            continue
         if not is_valid_official_tech_product(snapshot, official_seller_only=official_seller_only):
             filtered_out += 1
             continue
+        seen_batch_skus.add(snapshot.sku)
         prev = storage.get_product(snapshot.sku)
         median_price = storage.get_median_historical_price(snapshot.sku) if prev is not None else None
         valid_items.append((snapshot, prev, median_price))
@@ -80,53 +84,63 @@ def process_snapshots(
         reference_engine.prefetch_references(prefetch_candidates)
 
     processed = len(valid_items)
-    for snapshot, prev, median_price in valid_items:
-        market_ref = (
-            reference_engine.get_reference_price(
-                snapshot,
-                is_unseen=(prev is None),
-                allow_live_lookup=False,
+    pending_notifications: list[DealAlert] = []
+
+    # Step 1: Persist all product snapshots, price_history, and active_deals in ONE atomic batch transaction
+    with storage.batch_transaction():
+        for snapshot, prev, median_price in valid_items:
+            market_ref = (
+                reference_engine.get_reference_price(
+                    snapshot,
+                    is_unseen=(prev is None),
+                    allow_live_lookup=False,
+                )
+                if reference_engine is not None
+                else None
             )
-            if reference_engine is not None
-            else None
-        )
-        alert = detector.evaluate(
-            snapshot,
-            prev,
-            market_reference=market_ref,
-            median_historical_price=median_price,
-        )
+            alert = detector.evaluate(
+                snapshot,
+                prev,
+                market_reference=market_ref,
+                median_historical_price=median_price,
+            )
 
-        storage.upsert_product(snapshot)
+            storage.upsert_product(snapshot, existing=prev, existing_loaded=True)
 
-        if alert is not None:
-            storage.upsert_active_deal(alert)
-            alerts.append(alert)
-            extra_drop = float(detector.thresholds.get("re_notify_extra_drop_pct", 15.0))
-            if alert.should_notify and storage.should_notify_signature(
-                snapshot.store,
-                snapshot.title,
-                snapshot.effective_price,
-                alert.alert_type,
-                extra_drop_pct=extra_drop,
-            ):
-                sent = notifier.send_alert(alert)
-                if sent:
-                    storage.mark_notified(
-                        snapshot.sku,
-                        snapshot.effective_price,
-                        alert.detected_at,
-                    )
-                    storage.mark_signature_notified(
-                        snapshot.store,
-                        snapshot.title,
-                        snapshot.sku,
-                        snapshot.effective_price,
-                        alert.alert_type,
-                        alert.detected_at,
-                    )
-        else:
-            storage.remove_active_deal(snapshot.sku)
+            if alert is not None:
+                storage.upsert_active_deal(alert)
+                alerts.append(alert)
+                if alert.should_notify:
+                    pending_notifications.append(alert)
+            else:
+                storage.remove_active_deal(snapshot.sku)
+
+    # Step 2: Dispatch Telegram alerts AFTER DB commit, committing each notified signature immediately
+    extra_drop = float(detector.thresholds.get("re_notify_extra_drop_pct", 15.0))
+    for alert in pending_notifications:
+        snap = alert.snapshot
+        if storage.should_notify_signature(
+            snap.store,
+            snap.title,
+            snap.effective_price,
+            alert.alert_type,
+            extra_drop_pct=extra_drop,
+        ):
+            sent = notifier.send_alert(alert)
+            if sent:
+                storage.mark_notified(
+                    snap.sku,
+                    snap.effective_price,
+                    alert.detected_at,
+                )
+                storage.mark_signature_notified(
+                    snap.store,
+                    snap.title,
+                    snap.sku,
+                    snap.effective_price,
+                    alert.alert_type,
+                    alert.detected_at,
+                )
 
     logger.info(
         "Batch processed: %d valid products, %d filtered out, %d deals detected.",

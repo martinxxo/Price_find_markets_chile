@@ -578,6 +578,53 @@ class TestBlackFridaySimulation(unittest.TestCase):
         self.assertFalse(_titles_match(sig_250g, "Lavazza", "Café Molido Lavazza Qualita Oro 1kg", "Lavazza"))
         self.assertFalse(_titles_match(sig_250g, "Lavazza", "Cafetera Espresso Lavazza A Modo Mio", "Lavazza"))
 
+    def test_sqlite_batch_transaction_atomicity_rollback_and_speed(self) -> None:
+        """Verify batch_transaction commits atomically, rolls back cleanly on error, and trims history > 30."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            db_path = Path(tmpdir) / "batch_test.db"
+            with PriceStorage(db_path) as storage:
+                # 1. Seed 1 baseline product
+                base = _snap("SKU-BASE", "Falabella", "Notebook Lenovo Base", "Lenovo", "notebooks", 500000, 500000, "Falabella", "https://falabella.com/1")
+                storage.upsert_product(base)
+
+                # 2. Failed batch must roll back completely without touching SKU-BASE
+                try:
+                    with storage.batch_transaction():
+                        for idx in range(50):
+                            storage.upsert_product(
+                                _snap(f"SKU-ROLLBACK-{idx}", "Falabella", f"Producto {idx}", "Sony", "audio", 50000, 60000, "Falabella", f"https://falabella.com/{idx}"),
+                                existing=None,
+                                existing_loaded=True,
+                            )
+                        raise RuntimeError("Simulated mid-batch crash")
+                except RuntimeError:
+                    pass
+
+                self.assertEqual(storage.conn.execute("SELECT COUNT(*) FROM products").fetchone()[0], 1)
+                self.assertIsNotNone(storage.get_product("SKU-BASE"))
+
+                # 3. Successful batch of 500 products persists all rows cleanly and enforces 30-row history cap
+                with storage.batch_transaction():
+                    for idx in range(500):
+                        storage.upsert_product(
+                            _snap(f"SKU-OK-{idx}", "Tienda Travel", f"Producto OK {idx}", "Sony", "audio", 49990, 79990, "Tienda Travel", f"https://tienda.travel.cl/{idx}"),
+                            existing=None,
+                            existing_loaded=True,
+                        )
+                self.assertEqual(storage.conn.execute("SELECT COUNT(*) FROM products").fetchone()[0], 501)
+
+                # 4. Verify history trimming still caps at 30 when observations > 30
+                for step in range(35):
+                    prev = storage.get_product("SKU-BASE")
+                    with storage.batch_transaction():
+                        storage.upsert_product(
+                            _snap("SKU-BASE", "Falabella", "Notebook Lenovo Base", "Lenovo", "notebooks", 500000 - step * 100, 500000, "Falabella", "https://falabella.com/1"),
+                            existing=prev,
+                            existing_loaded=True,
+                        )
+                hist_count = storage.conn.execute("SELECT COUNT(*) FROM price_history WHERE sku = 'SKU-BASE'").fetchone()[0]
+                self.assertEqual(hist_count, 30)
+
 
 if __name__ == "__main__":
     unittest.main()

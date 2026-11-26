@@ -6,8 +6,9 @@ import re
 import sqlite3
 import statistics
 import unicodedata
+from contextlib import contextmanager
 from pathlib import Path
-from typing import Any, Optional
+from typing import Any, Iterator, Optional
 
 from src.models import DealAlert, ProductSnapshot, utc_now_iso
 
@@ -16,6 +17,11 @@ _COLOR_WORDS = {
     "black", "white", "blue", "gray", "grey", "rojo", "roja", "verde",
     "dorado", "rosado", "rosa", "celeste", "morado", "violeta",
 }
+
+
+@contextmanager
+def _null_context() -> Iterator[None]:
+    yield
 
 
 def make_product_signature(store: str, title: str) -> str:
@@ -37,6 +43,7 @@ class PriceStorage:
         self.conn.row_factory = sqlite3.Row
         self.conn.execute("PRAGMA synchronous = NORMAL")
         self.conn.execute("PRAGMA temp_store = MEMORY")
+        self._in_batch = False
         self._init_schema()
 
     def _init_schema(self) -> None:
@@ -194,6 +201,25 @@ class PriceStorage:
     def __exit__(self, exc_type: Any, exc: Any, tb: Any) -> None:
         self.close()
 
+    @contextmanager
+    def batch_transaction(self) -> Iterator[None]:
+        """Group bulk product/deal writes into a single atomic SQLite transaction."""
+        if self._in_batch:
+            yield
+            return
+        self._in_batch = True
+        try:
+            with self.conn:
+                yield
+        finally:
+            self._in_batch = False
+
+    def _maybe_commit_ctx(self):
+        """Return a no-op context inside batch_transaction, or self.conn otherwise."""
+        if self._in_batch:
+            return _null_context()
+        return self.conn
+
     def get_product(self, sku: str) -> Optional[dict[str, Any]]:
         """Fetch historical price record for a SKU, or None if unseen."""
         row = self.conn.execute(
@@ -202,14 +228,21 @@ class PriceStorage:
         ).fetchone()
         return dict(row) if row else None
 
-    def upsert_product(self, snapshot: ProductSnapshot) -> None:
+    def upsert_product(
+        self,
+        snapshot: ProductSnapshot,
+        existing: Optional[dict[str, Any]] = None,
+        existing_loaded: bool = False,
+    ) -> None:
         """Insert or update historical price statistics for a product snapshot."""
         price = snapshot.effective_price
-        existing = self.get_product(snapshot.sku)
+        if not existing_loaded and existing is None:
+            existing = self.get_product(snapshot.sku)
         now = snapshot.timestamp or utc_now_iso()
 
-        with self.conn:
+        with self._maybe_commit_ctx():
             if existing is None:
+                new_count = 1
                 self.conn.execute(
                     """
                     INSERT INTO products (
@@ -285,19 +318,20 @@ class PriceStorage:
                 (snapshot.sku, price, now),
             )
             # Keep at most the latest 30 observations per SKU to keep DB compact
-            self.conn.execute(
-                """
-                DELETE FROM price_history
-                WHERE sku = ?
-                  AND id NOT IN (
-                      SELECT id FROM price_history
-                      WHERE sku = ?
-                      ORDER BY id DESC
-                      LIMIT 30
-                  )
-                """,
-                (snapshot.sku, snapshot.sku),
-            )
+            if new_count > 30:
+                self.conn.execute(
+                    """
+                    DELETE FROM price_history
+                    WHERE sku = ?
+                      AND id NOT IN (
+                          SELECT id FROM price_history
+                          WHERE sku = ?
+                          ORDER BY id DESC
+                          LIMIT 30
+                      )
+                    """,
+                    (snapshot.sku, snapshot.sku),
+                )
 
     def get_median_historical_price(self, sku: str) -> Optional[int]:
         """Compute spike-resistant median price from recent price_history observations."""
@@ -381,7 +415,7 @@ class PriceStorage:
         """Insert or update an active deal for the web dashboard feed."""
         s = alert.snapshot
         now = utc_now_iso()
-        with self.conn:
+        with self._maybe_commit_ctx():
             self.conn.execute(
                 """
                 INSERT INTO active_deals (
@@ -449,7 +483,7 @@ class PriceStorage:
 
     def remove_active_deal(self, sku: str) -> None:
         """Remove a deal that is no longer discounted or out of stock."""
-        with self.conn:
+        with self._maybe_commit_ctx():
             self.conn.execute("DELETE FROM active_deals WHERE sku = ?", (sku,))
 
     def get_reference_price(self, query_key: str) -> Optional[dict[str, Any]]:
