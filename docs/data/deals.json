@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T00:25:30.294910+00:00",
+  "generated_at": "2026-11-26T00:30:35.337927+00:00",
   "mode": "scan",
   "total_monitored_products": 11813,
   "total_active_deals": 355,
@@ -134,33 +134,6 @@
       "copay_clp": 0
     },
     {
-      "sku": "PAR-196294999",
-      "store": "Paris",
-      "title": "LG Parlante Bluetooth xboom Grab by Will.i.am",
-      "brand": "LG",
-      "category": "audio",
-      "alert_type": "FLASH",
-      "effective_price": 62990,
-      "current_price": 62990,
-      "card_price": null,
-      "normal_price": 62990,
-      "payment_type": "Todo Medio de Pago",
-      "previous_real_price": 159990,
-      "min_historical_price": 59990,
-      "real_drop_pct": 60.6,
-      "store_discount_pct": 0.0,
-      "savings_clp": 97000,
-      "reason": "Descuento Flash prioritario: -60.6% frente a su historial (ahorro $97.000)",
-      "seller_name": "Paris",
-      "url": "https://www.paris.cl/parlante-bluetooth-xboom-grab-by-william-196294999.html",
-      "image_url": "https://cl-dam-resizer.ecomm.cencosud.com/unsafe/adaptive-fit-in/792x1068/cl/paris/196294999/variant/697ccd0dd8c418cff215976e/images/ab5dd24a-aa65-4faf-91e9-c66a2cd35256/196294999-0000-001.jpg",
-      "detected_at": "2026-11-25T21:25:25.086663+00:00",
-      "updated_at": "2026-11-26T00:25:26.934900+00:00",
-      "dolares_premio_pct": 0,
-      "dolares_premio_amount": 0.0,
-      "copay_clp": 0
-    },
-    {
       "sku": "FAL-80874891",
       "store": "Falabella",
       "title": "TUF Gaming F16 FX607 Intel Core 5 NVIDIA RTX 3050 8GB RAM 512GB SSD 16” FHD+ 144Hz",
@@ -182,7 +155,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/80874891/asus-tuf-gaming-f16-fx607-intel-core-5-nvidia-rtx-3050-16gb-ram-512gb-ssd-16-fhd-144hz",
       "image_url": "https://media.falabella.com/falabellaCL/80874891_01/public",
       "detected_at": "2026-11-25T20:59:35.717093+00:00",
-      "updated_at": "2026-11-26T00:25:26.281264+00:00",
+      "updated_at": "2026-11-26T00:30:31.936632+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -236,7 +209,7 @@
       "url": "https://www.lider.cl/ip/Aud-fonos-In-Ear-Moto-Buds-79Motm105B-Bt-Tws-Negro/00505537471519",
       "image_url": "https://i5.walmartimages.cl/asr/55300758-65f6-43a3-a8f4-948c9fa8f873.f2e1f1091efc3e93a0114f4cc3b327fb.jpeg",
       "detected_at": "2026-11-25T22:25:37.769053+00:00",
-      "updated_at": "2026-11-26T00:20:39.168561+00:00",
+      "updated_at": "2026-11-26T00:30:34.147251+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -371,7 +344,7 @@
       "url": "https://www.abc.cl/freidora-de-aire-thomas-th-af60mi-5-l/25073169.html",
       "image_url": "https://www.abc.cl/dw/image/v2/BCPP_PRD/on/demandware.static/-/Sites-master-catalog/default/dwc02d1f4b/images/large/25073169.jpg?sw=1200&sh=1200&sm=fit",
       "detected_at": "2026-11-25T23:15:44.854929+00:00",
-      "updated_at": "2026-11-26T00:25:30.104305+00:00",
+      "updated_at": "2026-11-26T00:30:34.713421+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -425,7 +398,7 @@
       "url": "https://www.abc.cl/freidora-de-aire-mademsa-maf50-65-l/27600573.html",
       "image_url": "https://www.abc.cl/dw/image/v2/BCPP_PRD/on/demandware.static/-/Sites-master-catalog/default/dw8308bd8b/images/large/27600573.jpg?sw=1200&sh=1200&sm=fit",
       "detected_at": "2026-11-25T23:15:45.536808+00:00",
-      "updated_at": "2026-11-26T00:25:30.133840+00:00",
+      "updated_at": "2026-11-26T00:30:34.744642+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -452,7 +425,7 @@
       "url": "https://www.winpy.cl/venta/mouse-inalambrico-lenovo-thinkpad-essential-1200dpi-dongle-usb-negro/",
       "image_url": "",
       "detected_at": "2026-11-25T20:59:41.271785+00:00",
-      "updated_at": "2026-11-26T00:20:39.507021+00:00",
+      "updated_at": "2026-11-26T00:30:34.233695+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -587,7 +560,7 @@
       "url": "https://www.paris.cl/mouse-gamer-inalambrico-g309-lightspeed-negro-571885999.html",
       "image_url": "https://cl-dam-resizer.ecomm.cencosud.com/unsafe/adaptive-fit-in/792x1068/cl/paris/571885999/variant/6a7ce9354cce8dbe07592ea5/images/9cf7bc14-733f-4ff1-bc9e-77a8975f3ebd/571885999-0000-001.jpg",
       "detected_at": "2026-11-25T21:00:45.140838+00:00",
-      "updated_at": "2026-11-26T00:25:27.094933+00:00",
+      "updated_at": "2026-11-26T00:30:32.583733+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -803,7 +776,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/80834537/cafetera-automatica-ut-kaffemeister-e-ursus-trotter",
       "image_url": "https://media.falabella.com/falabellaCL/80834537_1/public",
       "detected_at": "2026-11-25T20:59:36.209425+00:00",
-      "updated_at": "2026-11-26T00:25:26.543755+00:00",
+      "updated_at": "2026-11-26T00:30:32.149967+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -830,7 +803,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/17323993/Cafetera-de-Capsula-Inissia-Negra-Nespresso",
       "image_url": "https://media.falabella.com/falabellaCL/17324032_1/public",
       "detected_at": "2026-11-25T20:59:36.132819+00:00",
-      "updated_at": "2026-11-26T00:25:26.508719+00:00",
+      "updated_at": "2026-11-26T00:30:32.156104+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -857,7 +830,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/17323993/Cafetera-de-Capsula-Inissia-Negra-Nespresso",
       "image_url": "https://media.falabella.com/falabellaCL/17323992_01/public",
       "detected_at": "2026-11-25T21:00:43.044901+00:00",
-      "updated_at": "2026-11-26T00:05:18.361920+00:00",
+      "updated_at": "2026-11-26T00:30:32.118110+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -938,7 +911,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/prod101376266/Cafetera-Essenza-Mini-Nespresso",
       "image_url": "https://media.falabella.com/falabellaCL/6061461_1/public",
       "detected_at": "2026-11-25T21:20:25.641654+00:00",
-      "updated_at": "2026-11-26T00:05:18.390001+00:00",
+      "updated_at": "2026-11-26T00:30:32.124401+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1127,7 +1100,34 @@
       "url": "https://www.paris.cl/notebook-ideapad-slim-3-intel-core-i3-n305-8gb-ram-512gb-ssd-156-fhd-626082999.html",
       "image_url": "https://cl-dam-resizer.ecomm.cencosud.com/unsafe/adaptive-fit-in/792x1068/cl/paris/626082999/variant/692de113e03bacaf7675fda0/images/05e11b37-58d4-42a3-9205-5305714b9ce9/626082999-0000-001.jpg",
       "detected_at": "2026-11-25T23:25:32.383624+00:00",
-      "updated_at": "2026-11-26T00:25:26.570456+00:00",
+      "updated_at": "2026-11-26T00:30:32.173477+00:00",
+      "dolares_premio_pct": 0,
+      "dolares_premio_amount": 0.0,
+      "copay_clp": 0
+    },
+    {
+      "sku": "PAR-196294999",
+      "store": "Paris",
+      "title": "LG Parlante Bluetooth xboom Grab by Will.i.am",
+      "brand": "LG",
+      "category": "audio",
+      "alert_type": "FLASH",
+      "effective_price": 62990,
+      "current_price": 62990,
+      "card_price": null,
+      "normal_price": 62990,
+      "payment_type": "Todo Medio de Pago",
+      "previous_real_price": 111490,
+      "min_historical_price": 59990,
+      "real_drop_pct": 43.5,
+      "store_discount_pct": 0.0,
+      "savings_clp": 48500,
+      "reason": "Descuento Flash prioritario: -43.5% frente a su historial (ahorro $48.500)",
+      "seller_name": "Paris",
+      "url": "https://www.paris.cl/parlante-bluetooth-xboom-grab-by-william-196294999.html",
+      "image_url": "https://cl-dam-resizer.ecomm.cencosud.com/unsafe/adaptive-fit-in/792x1068/cl/paris/196294999/variant/697ccd0dd8c418cff215976e/images/ab5dd24a-aa65-4faf-91e9-c66a2cd35256/196294999-0000-001.jpg",
+      "detected_at": "2026-11-25T21:25:25.086663+00:00",
+      "updated_at": "2026-11-26T00:30:32.455804+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1451,7 +1451,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/17306975/cama-europea-anatomic-full-x-2-00mt-base-normal-cic",
       "image_url": "https://media.falabella.com/falabellaCL/17306975_1/public",
       "detected_at": "2026-11-25T20:59:35.888170+00:00",
-      "updated_at": "2026-11-26T00:25:26.371626+00:00",
+      "updated_at": "2026-11-26T00:30:32.011710+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1505,7 +1505,7 @@
       "url": "https://www.winpy.cl/venta/kit-teclado-mouse-logitech-pop-icon-bluetooth-espanol-rosado/",
       "image_url": "",
       "detected_at": "2026-11-25T20:59:41.087648+00:00",
-      "updated_at": "2026-11-26T00:25:29.524192+00:00",
+      "updated_at": "2026-11-26T00:30:34.291240+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1532,7 +1532,7 @@
       "url": "https://www.mercadolibre.cl/up/MLCU4203989282?pdp_filters=official_store%3Aall",
       "image_url": "https://http2.mlstatic.com/D_Q_NP_2X_935698-MLC111840547538_062026-E--kit-celular-honor-600-512-gb-audifonos-earbuds-clip2-pro.webp",
       "detected_at": "2026-11-25T20:59:38.287303+00:00",
-      "updated_at": "2026-11-26T00:25:27.984888+00:00",
+      "updated_at": "2026-11-26T00:30:33.288991+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1721,7 +1721,7 @@
       "url": "https://www.abc.cl/freidora-de-aire-mademsa-maf15-46-l/27600565.html",
       "image_url": "https://www.abc.cl/dw/image/v2/BCPP_PRD/on/demandware.static/-/Sites-master-catalog/default/dw437089a8/images/large/27600565.jpg?sw=1200&sh=1200&sm=fit",
       "detected_at": "2026-11-25T20:59:42.690036+00:00",
-      "updated_at": "2026-11-26T00:25:30.086153+00:00",
+      "updated_at": "2026-11-26T00:30:34.696442+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1770,12 +1770,12 @@
       "real_drop_pct": 38.5,
       "store_discount_pct": 0.0,
       "savings_clp": 25000,
-      "reason": "Cotejo mercado (2 tiendas (Ripley (CAFETERA NESCAFE PICCOLO XS DOLCE GU))): -38.5% bajo referencia ($64.990)",
+      "reason": "Cotejo mercado (2 tiendas (Paris (Nescafé Dolce Gusto Cafetera de Cáps))): -38.5% bajo referencia ($64.990)",
       "seller_name": "Lider",
       "url": "https://www.lider.cl/ip/Cafetera-Piccolo-XS-Black/00844529159144",
       "image_url": "https://i5.walmartimages.cl/asr/30f4a84f-e010-4811-9cce-7a8be515fe81.242d0c6a85e08449f4573a047687f4ab.jpeg",
       "detected_at": "2026-11-25T22:25:44.809964+00:00",
-      "updated_at": "2026-11-26T00:20:39.941846+00:00",
+      "updated_at": "2026-11-26T00:30:34.520728+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1991,7 +1991,7 @@
       "url": "https://www.winpy.cl/venta/kit-teclado-mouse-logitech-pop-icon-bluetooth-espanol-blanco-naranja/",
       "image_url": "",
       "detected_at": "2026-11-25T20:59:41.137682+00:00",
-      "updated_at": "2026-11-26T00:20:39.644950+00:00",
+      "updated_at": "2026-11-26T00:30:34.313438+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -2126,7 +2126,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/80529200/Cafetera-Citiz-Milk-Nespresso",
       "image_url": "https://media.falabella.com/falabellaCL/80529200_1/public",
       "detected_at": "2026-11-25T20:59:36.203064+00:00",
-      "updated_at": "2026-11-26T00:25:26.541430+00:00",
+      "updated_at": "2026-11-26T00:30:32.147969+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -2693,7 +2693,7 @@
       "url": "https://simple.ripley.cl/soundbar-bluetooth-hisense-h2100-21-ch-2000406714219p",
       "image_url": "https://rimage.ripley.cl/home.ripley/Attachment/WOP/1/2000406714219/full_image-2000406714219.webp",
       "detected_at": "2026-11-25T23:45:28.371070+00:00",
-      "updated_at": "2026-11-26T00:25:27.630486+00:00",
+      "updated_at": "2026-11-26T00:30:33.004438+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -2747,7 +2747,7 @@
       "url": "https://www.abc.cl/freidora-de-aire-mademsa-maf70-7-l/29182698.html",
       "image_url": "https://www.abc.cl/dw/image/v2/BCPP_PRD/on/demandware.static/-/Sites-master-catalog/default/dwe3322472/images/large/29182698.jpg?sw=1200&sh=1200&sm=fit",
       "detected_at": "2026-11-25T20:59:42.656574+00:00",
-      "updated_at": "2026-11-26T00:25:30.139135+00:00",
+      "updated_at": "2026-11-26T00:30:34.750133+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -2774,7 +2774,7 @@
       "url": "https://www.mercadolibre.cl/up/MLCU4035807870?pdp_filters=official_store%3Aall",
       "image_url": "https://http2.mlstatic.com/D_Q_NP_2X_811008-MLC120730831059_112026-E--motorola-razr-70-ultra-cafe-16gb-1tb.webp",
       "detected_at": "2026-11-25T20:59:38.224681+00:00",
-      "updated_at": "2026-11-26T00:25:27.960753+00:00",
+      "updated_at": "2026-11-26T00:30:33.264902+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -2882,7 +2882,7 @@
       "url": "https://www.lider.cl/ip/Tablet-Galaxy-Tab-S10-FE-10-9-WUXGA-128GB-Gris-S-Pen/00880609721391",
       "image_url": "https://i5.walmartimages.cl/asr/7c914196-bf5d-4428-9d1e-ca2227c58a86.63c0d1bac440a15742bf6e6f5c42e830.jpeg",
       "detected_at": "2026-11-25T22:25:51.198750+00:00",
-      "updated_at": "2026-11-26T00:20:39.710957+00:00",
+      "updated_at": "2026-11-26T00:30:34.465329+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -2936,7 +2936,7 @@
       "url": "https://www.paris.cl/smartphone-galaxy-s25-256gb-62-navy-liberado-924050999.html",
       "image_url": "https://cl-dam-resizer.ecomm.cencosud.com/unsafe/adaptive-fit-in/792x1068/cl/paris/924050999/variant/69fe58b180bef15697281330/images/f5876dbb-419a-4fe3-8776-4cf5d4f36b99/924050999-0000-001.jpg",
       "detected_at": "2026-11-25T20:59:36.346376+00:00",
-      "updated_at": "2026-11-26T00:25:26.659641+00:00",
+      "updated_at": "2026-11-26T00:30:32.232857+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -2963,7 +2963,7 @@
       "url": "https://www.abc.cl/celular-samsung-galaxy-a07-lte-4g-128-gb-67-negro/28805187.html",
       "image_url": "https://www.abc.cl/dw/image/v2/BCPP_PRD/on/demandware.static/-/Sites-master-catalog/default/dwf90400aa/images/large/28805187.jpg?sw=1200&sh=1200&sm=fit",
       "detected_at": "2026-11-25T23:15:44.279080+00:00",
-      "updated_at": "2026-11-26T00:25:29.187432+00:00",
+      "updated_at": "2026-11-26T00:30:34.991706+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -3287,7 +3287,7 @@
       "url": "https://www.paris.cl/monitor-27-fhd-l27-4e-100hz-383798999.html",
       "image_url": "https://cl-dam-resizer.ecomm.cencosud.com/unsafe/adaptive-fit-in/792x1068/cl/paris/383798999/variant/699cb5c921ebd957c88d3f98/images/67974d1f-90ff-46d7-8bf8-9b42640ce5b0/383798999-0000-001.jpg",
       "detected_at": "2026-11-25T20:59:36.796413+00:00",
-      "updated_at": "2026-11-26T00:25:27.072762+00:00",
+      "updated_at": "2026-11-26T00:30:32.556174+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -3341,7 +3341,7 @@
       "url": "https://www.winpy.cl/venta/monitor-gamer-samsung-odyssey-g5-curvo-de-34-va-wqhd-165hz-1ms-hdr10-dp-hdmi-freesync-vesa/",
       "image_url": "",
       "detected_at": "2026-11-25T23:20:23.683895+00:00",
-      "updated_at": "2026-11-26T00:20:39.414883+00:00",
+      "updated_at": "2026-11-26T00:30:33.969071+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -3503,7 +3503,7 @@
       "url": "https://simple.ripley.cl/smartphone-xiaomi-redmi-17-5g-128gb-4g-ram-50mp-69-2000412849844",
       "image_url": "https://rimage.ripley.cl/home.ripley/Attachment/WOP/1/2000412849851/full_image-2000412849851",
       "detected_at": "2026-11-25T21:00:45.536038+00:00",
-      "updated_at": "2026-11-26T00:20:37.768587+00:00",
+      "updated_at": "2026-11-26T00:30:32.798616+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -3746,7 +3746,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/80641714/macbook-pro-14-chip-m5-10n-cpu-10n-gpu-1tb-ssd",
       "image_url": "https://media.falabella.com/falabellaCL/80641718_1/public",
       "detected_at": "2026-11-25T21:05:22.899891+00:00",
-      "updated_at": "2026-11-26T00:25:26.251098+00:00",
+      "updated_at": "2026-11-26T00:30:31.905753+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -3881,7 +3881,7 @@
       "url": "https://www.paris.cl/apple-macbook-pro-chip-m5-16gb-ram-1tb-ssd-14-touch-id-space-black-305872999.html",
       "image_url": "https://cl-dam-resizer.ecomm.cencosud.com/unsafe/adaptive-fit-in/792x1068/cl/paris/305872999/variant/69c570b08cb054691c699dec/images/ab7c7ac9-7c5a-4d6a-8c3a-87ca1719f8b7/305872999-0000-001.jpg",
       "detected_at": "2026-11-25T21:00:43.080447+00:00",
-      "updated_at": "2026-11-26T00:25:26.608276+00:00",
+      "updated_at": "2026-11-26T00:30:32.188627+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -3935,7 +3935,7 @@
       "url": "https://www.mercadolibre.cl/up/MLCU25001167?pdp_filters=official_store%3Aall",
       "image_url": "https://http2.mlstatic.com/D_Q_NP_2X_696678-MLC106922395566_022026-E--cafetera-frappe-oster-con-licuadora-bvstdc03b.webp",
       "detected_at": "2026-11-25T20:59:39.568687+00:00",
-      "updated_at": "2026-11-26T00:25:28.657689+00:00",
+      "updated_at": "2026-11-26T00:30:33.877474+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -3984,12 +3984,12 @@
       "real_drop_pct": 25.3,
       "store_discount_pct": 0.0,
       "savings_clp": 20300,
-      "reason": "Cotejo mercado (3 tiendas (Paris (Nescafé Dolce Gusto Cafetera de Cáps))): -25.3% bajo referencia ($80.290)",
+      "reason": "Cotejo mercado (3 tiendas (Ripley (CAFETERA NESCAFE DOLCE GUSTO GENIO S))): -25.3% bajo referencia ($80.290)",
       "seller_name": "Lider",
       "url": "https://www.lider.cl/ip/Cafetera-Autom-tica-Nescaf-Dolce-Gusto-Genio-S-Plus-Negra/00761328714025",
       "image_url": "https://i5.walmartimages.cl/asr/e67111e9-e05f-4ce6-8fd6-f21f1972cebb.1406a5a3d27c192994862ded4de29956.jpeg",
       "detected_at": "2026-11-25T22:25:45.318428+00:00",
-      "updated_at": "2026-11-26T00:20:39.955687+00:00",
+      "updated_at": "2026-11-26T00:30:34.537967+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
