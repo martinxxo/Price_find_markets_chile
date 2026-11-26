@@ -48,9 +48,9 @@ BLOCKED_KEYWORDS = (
     "repuestos",
     "bateria para",
     "baterias para",
-    "pantalla tactil",
+    "pantalla tactil para",
     "pantalla para",
-    "pantalla lcd",
+    "pantalla lcd para",
     "display para",
     "teclado para notebook",
     "teclado de repuesto",
@@ -91,6 +91,16 @@ _BLOCKED_PATTERN = re.compile(
 )
 
 
+_MAIN_DEVICE_PREFIX_RE = re.compile(
+    r"^(?:notebook|macbook|laptop|smartphone|celular|iphone|tablet|ipad|consola|camara|monitor|smart\s+tv)\b",
+    flags=re.IGNORECASE,
+)
+_BUNDLE_ACCESSORY_RE = re.compile(
+    r"\+\s*(?:[^+]*\b)?(?:funda|carcasa|mica|lamina|cable|adaptador|cargador|soporte|estuche|bolso|mochila|correa|mouse\s*pad|mousepad)\b",
+    flags=re.IGNORECASE,
+)
+
+
 def _strip_accents(text: str) -> str:
     normalized = unicodedata.normalize("NFKD", text)
     return "".join(ch for ch in normalized if not unicodedata.combining(ch))
@@ -100,7 +110,11 @@ def contains_blocked_keyword(title: str) -> bool:
     """Return True if the product title indicates an accessory or used/refurbished item."""
     if not title:
         return True
-    clean_title = _strip_accents(title).lower()
+    clean_title = _strip_accents(title).lower().strip()
+    # If the product is clearly a main device with a '+ accessory' bundle (e.g. 'Notebook Lenovo + Bolso'),
+    # strip the trailing bundle accessory clause before checking blocked accessory keywords.
+    if _MAIN_DEVICE_PREFIX_RE.match(clean_title) and "+" in clean_title:
+        clean_title = _BUNDLE_ACCESSORY_RE.sub("", clean_title)
     return bool(_BLOCKED_PATTERN.search(clean_title))
 
 

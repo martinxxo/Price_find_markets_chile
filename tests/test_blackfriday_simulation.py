@@ -452,9 +452,12 @@ class TestBlackFridaySimulation(unittest.TestCase):
         from src.filters import contains_blocked_keyword
         from src.price_reference import _titles_match, extract_title_signature
 
-        # 1. Spare parts blocked at intake filter
+        # 1. Spare parts blocked at intake filter, but touchscreen notebooks and device+bag bundles allowed!
         self.assertTrue(contains_blocked_keyword("Batería Para Notebook Hp Spectre X360 13-ab001la Sh03xl"))
         self.assertTrue(contains_blocked_keyword("Pantalla Táctil Para Notebook Para Hp X360 14-dy0009la Nueva"))
+        self.assertFalse(contains_blocked_keyword("Notebook HP Pavilion x360 2-in-14-ek1002la i7 16 GB RAM 512 GB SSD 14 Pantalla táctil FHD"))
+        self.assertFalse(contains_blocked_keyword('Notebook Lenovo Ideapad Slim 3 R5 8GB 512GB 15.6" + Bolso'))
+        self.assertFalse(contains_blocked_keyword("Smartphone Xiaomi 17 512GB Black + Power Bank + Cargador 90W HyperCharge"))
 
         # 2. Must NEVER cross-match (real production bugs we caught and eliminated)
         forbidden_pairs = [

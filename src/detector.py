@@ -374,8 +374,13 @@ class DealDetector:
                 )
 
         # Cross-store market reference check for GLITCH (catches high-margin Black Friday glitches!)
-        # Require verified 90-day history OR >= 2 independent stores so a single-store outlier never fires a false GLITCH
-        market_verified_for_glitch = m_price > effective and (m_verified or m_samples >= 2)
+        # Require verified 90-day history OR >= 2 independent stores, and never invent a GLITCH from an external
+        # price that is >25% higher than the store's own normal_price when the store already lists a discount.
+        market_verified_for_glitch = (
+            m_price > effective
+            and (m_verified or m_samples >= 2)
+            and (normal_price <= effective or m_price <= int(normal_price * 1.25))
+        )
         if (
             alert_type is None
             and market_verified_for_glitch
