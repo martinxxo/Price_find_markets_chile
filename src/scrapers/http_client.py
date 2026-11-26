@@ -7,6 +7,7 @@ import re
 from typing import Any, Optional
 
 import requests
+from requests.adapters import HTTPAdapter
 
 logger = logging.getLogger(__name__)
 
@@ -21,6 +22,20 @@ DEFAULT_HEADERS = {
     "Accept-Language": "es-CL,es;q=0.9,en;q=0.8",
 }
 
+_SHARED_SESSION: Optional[requests.Session] = None
+
+
+def get_http_session() -> requests.Session:
+    """Return a shared connection-pooled Session for fast keep-alive TLS reuse across threads."""
+    global _SHARED_SESSION
+    if _SHARED_SESSION is None:
+        sess = requests.Session()
+        adapter = HTTPAdapter(pool_connections=32, pool_maxsize=32)
+        sess.mount("https://", adapter)
+        sess.mount("http://", adapter)
+        _SHARED_SESSION = sess
+    return _SHARED_SESSION
+
 
 def fetch_json(
     url: str,
@@ -34,7 +49,7 @@ def fetch_json(
         merged_headers.update(headers)
 
     try:
-        response = requests.get(
+        response = get_http_session().get(
             url,
             params=params,
             headers=merged_headers,

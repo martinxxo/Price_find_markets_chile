@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from concurrent.futures import ThreadPoolExecutor
 import json
 import logging
 import re
@@ -10,7 +11,7 @@ from typing import Any, Optional
 import requests
 
 from src.models import ProductSnapshot
-from src.scrapers.http_client import DEFAULT_HEADERS, DEFAULT_TIMEOUT, parse_clp_price
+from src.scrapers.http_client import DEFAULT_HEADERS, DEFAULT_TIMEOUT, get_http_session, parse_clp_price
 from src.scrapers.solotodo_client import fetch_solotodo_store_products
 
 logger = logging.getLogger(__name__)
@@ -41,7 +42,7 @@ def fetch_json(url: str) -> Optional[dict[str, Any]]:
     headers = dict(DEFAULT_HEADERS)
     headers["Accept"] = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
     try:
-        resp = requests.get(url, headers=headers, timeout=DEFAULT_TIMEOUT + 6)
+        resp = get_http_session().get(url, headers=headers, timeout=DEFAULT_TIMEOUT + 4)
         if resp.status_code in (403, 429, 503):
             logger.warning("Ripley.cl returned HTTP %s for %s", resp.status_code, url)
             return None
@@ -138,21 +139,27 @@ def _parse_ripley_item(item: dict[str, Any], category_name: str) -> Optional[Pro
 
 
 def fetch_ripley_products(pages_per_category: int = 1) -> list[ProductSnapshot]:
-    """Fetch official 1P Ripley Chile products directly from simple.ripley.cl SSR."""
+    """Fetch official 1P Ripley Chile products directly from simple.ripley.cl SSR (3-worker parallel)."""
     snapshots: list[ProductSnapshot] = []
     seen_skus: set[str] = set()
 
-    for category_name, url in RIPLEY_DIRECT_URLS:
-        data = fetch_json(url)
-        if not isinstance(data, dict):
-            continue
+    def _fetch_one(task: tuple[str, str]) -> tuple[str, Optional[dict[str, Any]]]:
+        cat_name, url = task
+        return cat_name, fetch_json(url)
 
-        for item in data.get("products") or []:
-            snap = _parse_ripley_item(item, category_name)
-            if snap is None or snap.sku in seen_skus:
+    with ThreadPoolExecutor(max_workers=3) as pool:
+        futures = [pool.submit(_fetch_one, t) for t in RIPLEY_DIRECT_URLS]
+        for fut in futures:
+            category_name, data = fut.result()
+            if not isinstance(data, dict):
                 continue
-            seen_skus.add(snap.sku)
-            snapshots.append(snap)
+
+            for item in data.get("products") or []:
+                snap = _parse_ripley_item(item, category_name)
+                if snap is None or snap.sku in seen_skus:
+                    continue
+                seen_skus.add(snap.sku)
+                snapshots.append(snap)
 
     if not snapshots:
         logger.info("Ripley direct SSR returned 0 items; falling back to SoloTodo 1P feed.")

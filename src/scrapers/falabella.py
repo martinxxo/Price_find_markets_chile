@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from concurrent.futures import ThreadPoolExecutor
 import json
 import logging
 import re
@@ -10,7 +11,7 @@ from typing import Any, Optional
 import requests
 
 from src.models import ProductSnapshot
-from src.scrapers.http_client import DEFAULT_HEADERS, DEFAULT_TIMEOUT, parse_clp_price
+from src.scrapers.http_client import DEFAULT_HEADERS, DEFAULT_TIMEOUT, get_http_session, parse_clp_price
 
 logger = logging.getLogger(__name__)
 
@@ -65,11 +66,11 @@ def fetch_json(url: str, page: int = 1) -> Optional[dict[str, Any]]:
     headers["Accept"] = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
     try:
         req_params = {"page": page} if page > 1 else None
-        resp = requests.get(
+        resp = get_http_session().get(
             url,
             params=req_params,
             headers=headers,
-            timeout=DEFAULT_TIMEOUT + 8,
+            timeout=DEFAULT_TIMEOUT + 6,
         )
         if resp.status_code in (403, 429, 503):
             logger.warning("Falabella returned HTTP %s for %s", resp.status_code, url)
@@ -87,19 +88,30 @@ def fetch_json(url: str, page: int = 1) -> Optional[dict[str, Any]]:
 
 
 def fetch_falabella_products(pages_per_category: int = 1) -> list[ProductSnapshot]:
-    """Fetch 1P official Falabella Chile technology listings."""
+    """Fetch 1P official Falabella Chile technology listings concurrently (3 workers)."""
     snapshots: list[ProductSnapshot] = []
     seen_skus: set[str] = set()
 
-    for category_name, category_url in CATEGORY_URLS.items():
-        for page in range(1, pages_per_category + 1):
-            data = fetch_json(category_url, page=page)
+    tasks = [
+        (category_name, category_url, page)
+        for category_name, category_url in CATEGORY_URLS.items()
+        for page in range(1, pages_per_category + 1)
+    ]
+
+    def _fetch_one(task: tuple[str, str, int]) -> tuple[str, Optional[dict[str, Any]]]:
+        cat_name, cat_url, pg = task
+        return cat_name, fetch_json(cat_url, page=pg)
+
+    with ThreadPoolExecutor(max_workers=3) as pool:
+        futures = [pool.submit(_fetch_one, t) for t in tasks]
+        for fut in futures:
+            category_name, data = fut.result()
             if not isinstance(data, dict):
-                break
+                continue
 
             results = ((data.get("data") or {}).get("results")) or []
             if not results:
-                break
+                continue
 
             for item in results:
                 raw_sku = str(item.get("skuId") or item.get("productId") or "").strip()

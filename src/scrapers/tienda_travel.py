@@ -9,7 +9,7 @@ from typing import Any, Optional
 import requests
 
 from src.models import ProductSnapshot
-from src.scrapers.http_client import parse_clp_price
+from src.scrapers.http_client import get_http_session, parse_clp_price
 
 logger = logging.getLogger(__name__)
 
@@ -28,9 +28,9 @@ def fetch_json(
     headers: Optional[dict[str, str]] = None,
     timeout: int = 25,
 ) -> Optional[dict[str, Any]]:
-    """Fetch JSON from Tienda Travel using minimal headers to avoid WAF tarpits."""
+    """Fetch JSON from Tienda Travel using minimal headers and pooled keep-alive sockets."""
     try:
-        resp = requests.get(
+        resp = get_http_session().get(
             url,
             params=params,
             headers=headers or TIENDA_TRAVEL_HEADERS,

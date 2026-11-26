@@ -6,12 +6,13 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 import json
 import logging
 import re
+import time
 from typing import Any, Optional
 
 import requests
 
 from src.models import ProductSnapshot
-from src.scrapers.http_client import DEFAULT_HEADERS, DEFAULT_TIMEOUT, parse_clp_price
+from src.scrapers.http_client import DEFAULT_HEADERS, DEFAULT_TIMEOUT, get_http_session, parse_clp_price
 from src.scrapers.solotodo_client import infer_brand_from_title
 
 logger = logging.getLogger(__name__)
@@ -116,28 +117,37 @@ def _infer_category_from_title(title: str) -> Optional[str]:
 
 
 def fetch_knasta_page(params: dict[str, Any]) -> Optional[dict[str, Any]]:
-    """Fetch a Knasta search/deals page and parse its embedded __NEXT_DATA__ JSON."""
+    """Fetch a Knasta search/deals page with pooled connection and 1 retry on transient 503."""
     headers = dict(DEFAULT_HEADERS)
     headers["Accept"] = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
-    try:
-        resp = requests.get(
-            KNASTA_RESULTS_URL,
-            params=params,
-            headers=headers,
-            timeout=DEFAULT_TIMEOUT + 6,
-        )
-        if resp.status_code in (403, 429, 503):
-            logger.warning("Knasta returned HTTP %s for params %s", resp.status_code, params)
+    sess = get_http_session()
+    for attempt in range(2):
+        try:
+            resp = sess.get(
+                KNASTA_RESULTS_URL,
+                params=params,
+                headers=headers,
+                timeout=DEFAULT_TIMEOUT + 5,
+            )
+            if resp.status_code in (429, 503) and attempt == 0:
+                time.sleep(0.35)
+                continue
+            if resp.status_code in (403, 429, 503):
+                logger.warning("Knasta returned HTTP %s for params %s", resp.status_code, params)
+                return None
+            resp.raise_for_status()
+            match = _NEXT_DATA_RE.search(resp.text)
+            if not match:
+                return None
+            parsed = json.loads(match.group(1))
+            return ((parsed.get("props") or {}).get("pageProps") or {}).get("initialData") or {}
+        except (requests.RequestException, ValueError) as exc:
+            if attempt == 0:
+                time.sleep(0.25)
+                continue
+            logger.warning("Failed fetching Knasta %s: %s", params, exc)
             return None
-        resp.raise_for_status()
-        match = _NEXT_DATA_RE.search(resp.text)
-        if not match:
-            return None
-        parsed = json.loads(match.group(1))
-        return ((parsed.get("props") or {}).get("pageProps") or {}).get("initialData") or {}
-    except (requests.RequestException, ValueError) as exc:
-        logger.warning("Failed fetching Knasta %s: %s", params, exc)
-        return None
+    return None
 
 
 def fetch_knasta_products() -> list[ProductSnapshot]:
@@ -148,9 +158,9 @@ def fetch_knasta_products() -> list[ProductSnapshot]:
     def _run_query(q_pair: tuple[Optional[str], dict[str, Any]]) -> tuple[Optional[str], Optional[dict[str, Any]]]:
         return q_pair[0], fetch_knasta_page(q_pair[1])
 
-    with ThreadPoolExecutor(max_workers=6) as pool:
+    with ThreadPoolExecutor(max_workers=4) as pool:
         futures = [pool.submit(_run_query, qp) for qp in KNASTA_QUERIES]
-        for fut in as_completed(futures):
+        for fut in futures:
             default_category, data = fut.result()
             if not isinstance(data, dict):
                 continue

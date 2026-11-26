@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from concurrent.futures import ThreadPoolExecutor
 import logging
 from typing import Any
 
@@ -49,78 +50,83 @@ def fetch_solotodo_store_products(
     snapshots: list[ProductSnapshot] = []
     seen_skus: set[str] = set()
 
-    for category_name, category_id in SOLOTODO_CATEGORIES:
+    def _fetch_cat(task: tuple[str, int]) -> tuple[str, Any]:
+        cat_name, cat_id = task
         params: list[tuple[str, Any]] = [("stores", sid) for sid in store_ids]
         params.extend(
             [
-                ("categories", category_id),
+                ("categories", cat_id),
                 ("is_visible", "true"),
                 ("is_available", "true"),
                 ("ordering", "-last_pricing_update"),
                 ("page_size", page_size),
             ]
         )
+        return cat_name, fetch_json(SOLOTODO_ENTITIES_URL, params=params, timeout=15)
 
-        data = fetch_json(SOLOTODO_ENTITIES_URL, params=params, timeout=15)
-        if not isinstance(data, dict):
-            continue
-
-        for item in data.get("results") or []:
-            condition = str(item.get("condition") or "")
-            if condition and "NewCondition" not in condition:
+    with ThreadPoolExecutor(max_workers=4) as pool:
+        futures = [pool.submit(_fetch_cat, t) for t in SOLOTODO_CATEGORIES]
+        for fut in futures:
+            category_name, data = fut.result()
+            if not isinstance(data, dict):
                 continue
 
-            raw_sku = str(item.get("sku") or item.get("id") or "").strip()
-            if not raw_sku:
-                continue
-            sku = f"{sku_prefix}-{raw_sku}"
-            if sku in seen_skus:
-                continue
-            seen_skus.add(sku)
+            for item in data.get("results") or []:
+                condition = str(item.get("condition") or "")
+                if condition and "NewCondition" not in condition:
+                    continue
 
-            registry = item.get("active_registry") or {}
-            if not registry.get("is_available", True):
-                continue
+                raw_sku = str(item.get("sku") or item.get("id") or "").strip()
+                if not raw_sku:
+                    continue
+                sku = f"{sku_prefix}-{raw_sku}"
+                if sku in seen_skus:
+                    continue
+                seen_skus.add(sku)
 
-            normal_price = parse_clp_price(registry.get("normal_price"))
-            offer_price = parse_clp_price(registry.get("offer_price"))
-            # For retail chains (Paris/Ripley/Falabella), SoloTodo's offer_price is store-card-only.
-            # Only use offer_price when explicitly allowed (e.g., MercadoLibre without retail cards).
-            if use_offer_price and offer_price:
-                current_price = min(offer_price, normal_price) if normal_price else offer_price
-            else:
-                current_price = normal_price or offer_price
-            if not current_price:
-                continue
+                registry = item.get("active_registry") or {}
+                if not registry.get("is_available", True):
+                    continue
 
-            card_price = None
-            title = str(item.get("name") or "").strip()
-            if not title:
-                continue
+                normal_price = parse_clp_price(registry.get("normal_price"))
+                offer_price = parse_clp_price(registry.get("offer_price"))
+                # For retail chains (Paris/Ripley/Falabella), SoloTodo's offer_price is store-card-only.
+                # Only use offer_price when explicitly allowed (e.g., MercadoLibre without retail cards).
+                if use_offer_price and offer_price:
+                    current_price = min(offer_price, normal_price) if normal_price else offer_price
+                else:
+                    current_price = normal_price or offer_price
+                if not current_price:
+                    continue
 
-            pictures = item.get("picture_urls") or []
-            image_url = ""
-            for pic in pictures:
-                if isinstance(pic, str) and "youtube.com" not in pic:
-                    image_url = pic
-                    break
+                card_price = None
+                title = str(item.get("name") or "").strip()
+                if not title:
+                    continue
 
-            snapshots.append(
-                ProductSnapshot(
-                    sku=sku,
-                    store=store_label,
-                    title=title,
-                    brand=infer_brand_from_title(title),
-                    category=category_name,
-                    current_price=current_price,
-                    card_price=card_price,
-                    normal_price=normal_price or current_price,
-                    seller_name=seller_name,
-                    is_official_seller=True,
-                    in_stock=True,
-                    url=str(item.get("external_url") or ""),
-                    image_url=image_url,
+                pictures = item.get("picture_urls") or []
+                image_url = ""
+                for pic in pictures:
+                    if isinstance(pic, str) and "youtube.com" not in pic:
+                        image_url = pic
+                        break
+
+                snapshots.append(
+                    ProductSnapshot(
+                        sku=sku,
+                        store=store_label,
+                        title=title,
+                        brand=infer_brand_from_title(title),
+                        category=category_name,
+                        current_price=current_price,
+                        card_price=card_price,
+                        normal_price=normal_price or current_price,
+                        seller_name=seller_name,
+                        is_official_seller=True,
+                        in_stock=True,
+                        url=str(item.get("external_url") or ""),
+                        image_url=image_url,
+                    )
                 )
-            )
 
     return snapshots
