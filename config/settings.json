@@ -79,10 +79,26 @@
     "cafe": 15000,
     "electrodomesticos": 25000,
     "hogar": 20000,
+    "relojes_hombre": 25000,
     "ropa_hombre": 10000,
     "comida": 8000,
     "perfumes_hombre": 18000
   },
+  "telegram_notify_categories": [
+    "cafe",
+    "notebooks",
+    "celulares",
+    "componentes",
+    "camaras",
+    "consolas",
+    "tv",
+    "electrodomesticos",
+    "audio",
+    "perfumes_hombre",
+    "ropa_hombre",
+    "relojes_hombre",
+    "hogar"
+  ],
   "stores_enabled": [
     "tienda_travel",
     "falabella",

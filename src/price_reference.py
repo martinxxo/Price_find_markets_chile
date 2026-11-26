@@ -183,6 +183,18 @@ def detect_product_subtype(title: str) -> str:
     # 6. Mobile & Wearables
     if any(k in norm for k in ("smartwatch", "reloj inteligente", "apple watch", "galaxy watch")):
         return "smartwatch"
+    if any(k in norm for k in ("reloj", "cronografo", "chronograph", "g-shock")):
+        return "watch"
+    if any(k in norm for k in ("perfume", "eau de parfum", "eau de toilette", "edp", "edt", "cologne", "elixir")):
+        return "perfume"
+    if any(k in norm for k in ("taladro", "atornillador", "esmeril", "sierra ", "hidrolavadora", "lijadora", "rotomartillo")):
+        return "power_tool"
+    if any(k in norm for k in ("parrilla", "quincho")):
+        return "grill"
+    if any(k in norm for k in ("colchon", "cama europea", "cama americana", "box spring")):
+        return "mattress"
+    if any(k in padded for k in (" chaqueta ", " parka ", " poleron ", " camisa ", " pantalon ", " jeans ", " polera ", " zapatilla ", " zapatillas ")):
+        return "apparel"
     if any(k in norm for k in ("smartphone", "celular", "iphone", "galaxy s", "galaxy a", "moto edge", "redmi note")):
         return "smartphone"
 

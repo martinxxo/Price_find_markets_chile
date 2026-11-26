@@ -84,6 +84,13 @@ KEYWORD_QUERIES = [
     ("cafe", "molinillo cafe"),
     ("electrodomesticos", "air fryer"),
     ("electrodomesticos", "aspiradora"),
+    ("relojes_hombre", "reloj hombre"),
+    ("perfumes_hombre", "perfume hombre"),
+    ("ropa_hombre", "chaqueta hombre"),
+    ("ropa_hombre", "poleron hombre"),
+    ("hogar", "taladro herramienta"),
+    ("hogar", "parrilla"),
+    ("hogar", "colchon"),
 ]
 
 _REAL_COFFEE_TERMS = (

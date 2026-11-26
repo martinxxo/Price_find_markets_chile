@@ -49,6 +49,7 @@ def process_snapshots(
     notifier: AlertNotifier,
     official_seller_only: bool = True,
     reference_engine: Optional[CrossStoreReferenceEngine] = None,
+    telegram_notify_categories: Optional[set[str]] = None,
 ) -> list[DealAlert]:
     """Filter, validate against market, evaluate, persist, and notify product snapshots."""
     alerts: list[DealAlert] = []
@@ -110,7 +111,13 @@ def process_snapshots(
             if alert is not None:
                 storage.upsert_active_deal(alert)
                 alerts.append(alert)
-                if alert.should_notify:
+                cat_norm = snapshot.category.lower().strip()
+                cat_allowed = (
+                    telegram_notify_categories is None
+                    or cat_norm in telegram_notify_categories
+                    or alert.alert_type == "VIP"
+                )
+                if alert.should_notify and cat_allowed:
                     pending_notifications.append(alert)
             else:
                 storage.remove_active_deal(snapshot.sku)
@@ -232,6 +239,13 @@ def run_live_scan(
             max_live_lookups=int(settings.get("max_live_cross_refs_per_scan", 60)),
         )
 
+    raw_tg_cats = settings.get("telegram_notify_categories")
+    tg_cats = (
+        {str(c).lower().strip() for c in raw_tg_cats if str(c).strip()}
+        if raw_tg_cats
+        else None
+    )
+
     return process_snapshots(
         all_snapshots,
         storage=storage,
@@ -239,6 +253,7 @@ def run_live_scan(
         notifier=notifier,
         official_seller_only=settings.get("official_seller_only", True),
         reference_engine=ref_engine,
+        telegram_notify_categories=tg_cats,
     )
 
 

@@ -66,6 +66,7 @@
     bfSegment: "OFF",
     store: "ALL",
     category: "ALL",
+    dpFilter: "ALL",
     priceRange: "ALL",
     search: "",
     sort: "drop_desc"
@@ -90,6 +91,7 @@
     searchInput: document.getElementById("search-input"),
     storeSelect: document.getElementById("store-select"),
     categorySelect: document.getElementById("category-select"),
+    dpSelect: document.getElementById("dp-select"),
     priceSelect: document.getElementById("price-select"),
     sortSelect: document.getElementById("sort-select"),
     resetBtn: document.getElementById("reset-filters-btn"),
@@ -161,6 +163,18 @@
     return true;
   }
 
+  function matchesDpFilter(deal, dpFilter) {
+    if (!dpFilter || dpFilter === "ALL") return true;
+    const pct = Number(deal.dolares_premio_pct || 0);
+    if (dpFilter === "ANY") return pct > 0;
+    if (dpFilter === "100") return pct === 100;
+    if (dpFilter.endsWith("+")) {
+      const minPct = Number(dpFilter.slice(0, -1)) || 0;
+      return pct >= minPct;
+    }
+    return true;
+  }
+
   function matchesPriceRange(price, range) {
     if (!range || range === "ALL") return true;
     const num = Number(price) || 0;
@@ -189,6 +203,7 @@
       if (!matchesBlackFridaySegment(deal, state.bfSegment)) return false;
       if (state.store !== "ALL" && deal.store !== state.store) return false;
       if (state.category !== "ALL" && deal.category !== state.category) return false;
+      if (!matchesDpFilter(deal, state.dpFilter)) return false;
       if (!matchesPriceRange(deal.effective_price, state.priceRange)) return false;
       if (query) {
         const hay = `${deal.title} ${deal.brand} ${deal.store} ${deal.sku}`.toLowerCase();
@@ -420,6 +435,13 @@
       renderDeals();
     });
 
+    if (els.dpSelect) {
+      els.dpSelect.addEventListener("change", (e) => {
+        state.dpFilter = e.target.value;
+        renderDeals();
+      });
+    }
+
     if (els.priceSelect) {
       els.priceSelect.addEventListener("change", (e) => {
         state.priceRange = e.target.value;
@@ -437,12 +459,14 @@
       state.bfSegment = "OFF";
       state.store = "ALL";
       state.category = "ALL";
+      state.dpFilter = "ALL";
       state.priceRange = "ALL";
       state.search = "";
       state.sort = "drop_desc";
       els.searchInput.value = "";
       els.storeSelect.value = "ALL";
       els.categorySelect.value = "ALL";
+      if (els.dpSelect) els.dpSelect.value = "ALL";
       if (els.priceSelect) els.priceSelect.value = "ALL";
       els.sortSelect.value = "drop_desc";
       document.querySelectorAll(".type-pills .pill").forEach((b) => {

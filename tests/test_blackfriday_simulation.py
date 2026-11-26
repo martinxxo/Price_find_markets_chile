@@ -625,6 +625,42 @@ class TestBlackFridaySimulation(unittest.TestCase):
                 hist_count = storage.conn.execute("SELECT COUNT(*) FROM price_history WHERE sku = 'SKU-BASE'").fetchone()[0]
                 self.assertEqual(hist_count, 30)
 
+    def test_telegram_notify_categories_filter_and_new_categories(self) -> None:
+        """Verify Telegram notifications fire for all requested categories (incl. watches/perfumes/apparel/hogar) and skip unrequested ones."""
+        settings = load_settings("config/settings.json")
+        allowed_cats = {c.lower() for c in settings["telegram_notify_categories"]}
+        detector = DealDetector(settings, [])
+        notifier = RecordingNotifier()
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            with PriceStorage(Path(tmpdir) / "cats.db") as storage:
+                items = [
+                    _snap("TT-WATCH-1", "Tienda Travel", "Reloj Hombre Casio G-Shock GA-2100", "Casio", "relojes_hombre", 69990, 119990, "Tienda Travel", "https://tienda.travel.cl/w1", dolares_premio_pct=100),
+                    _snap("KN-HOGAR-1", "Easy", "Taladro Inalámbrico Makita 18V", "Makita", "hogar", 89990, 159990, "Easy", "https://www.easy.cl/t1"),
+                    _snap("KN-ROPA-1", "Paris", "Chaqueta Hombre Columbia Impermeable", "Columbia", "ropa_hombre", 54990, 99990, "Paris", "https://www.paris.cl/r1"),
+                    _snap("KN-PERF-1", "Ripley", "Perfume Hombre Dior Sauvage EDP 100ml", "Dior", "perfumes_hombre", 84990, 149990, "Ripley", "https://simple.ripley.cl/p1"),
+                    _snap("KN-FOOD-1", "Lider", "Caja Bombones Lindt Lindor 500g", "Lindt", "comida", 9990, 19990, "Lider", "https://www.lider.cl/c1"),
+                ]
+                # Seed historical price for 'comida' so it triggers a real FLASH deal (proving Telegram blocks 'comida')
+                process_snapshots(
+                    [_snap("KN-FOOD-1", "Lider", "Caja Bombones Lindt Lindor 500g", "Lindt", "comida", 19990, 19990, "Lider", "https://www.lider.cl/c1")],
+                    storage=storage,
+                    detector=detector,
+                    notifier=notifier,
+                    telegram_notify_categories=allowed_cats,
+                )
+                alerts = process_snapshots(
+                    items,
+                    storage=storage,
+                    detector=detector,
+                    notifier=notifier,
+                    telegram_notify_categories=allowed_cats,
+                )
+                # All 5 stay active for web, but Telegram ONLY gets the 4 requested categories (not 'comida')
+                self.assertEqual(len(alerts), 5)
+                notified_skus = {a.snapshot.sku for a in notifier.sent_alerts}
+                self.assertEqual(notified_skus, {"TT-WATCH-1", "KN-HOGAR-1", "KN-ROPA-1", "KN-PERF-1"})
+
 
 if __name__ == "__main__":
     unittest.main()

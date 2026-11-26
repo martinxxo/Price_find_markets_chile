@@ -79,6 +79,11 @@ KNASTA_QUERIES: list[tuple[Optional[str], dict[str, Any]]] = [
     ("electrodomesticos", {"q": "air fryer", "knastaday": 1}),
     ("electrodomesticos", {"q": "aspiradora robot", "knastaday": 1}),
     ("electrodomesticos", {"q": "microondas", "knastaday": 1}),
+    ("perfumes_hombre", {"q": "perfume hombre", "knastaday": 1}),
+    ("relojes_hombre", {"q": "reloj casio", "order": "percent"}),
+    ("ropa_hombre", {"q": "chaqueta hombre", "order": "percent"}),
+    ("hogar", {"q": "taladro", "order": "percent"}),
+    ("hogar", {"q": "parrilla", "order": "percent"}),
     ("comida", {"q": "chocolate", "order": "percent"}),
 ]
 
@@ -109,7 +114,13 @@ def _infer_category_from_title(title: str) -> Optional[str]:
         return "celulares"
     if any(k in low for k in ("air fryer", "freidora", "aspiradora", "refrigerador", "microondas", "lavadora", "licuadora", "horno")):
         return "electrodomesticos"
-    if any(k in low for k in ("colchon", "colchón", "cama ", "almohada", "termo", "stanley")):
+    if any(k in low for k in ("perfume", "eau de parfum", "eau de toilette", "cologne", "after shave")):
+        return "perfumes_hombre"
+    if any(k in low for k in ("reloj ", "cronografo", "cronógrafo", "g-shock", "seiko", "tissot", "orient")):
+        return "relojes_hombre"
+    if any(k in low for k in ("chaqueta", "parka", "poleron", "polerón", "camisa", "jeans", "zapatilla")):
+        return "ropa_hombre"
+    if any(k in low for k in ("colchon", "colchón", "cama ", "almohada", "termo", "stanley", "taladro", "herramienta", "hidrolavadora", "esmeril", "parrilla")):
         return "hogar"
     if any(k in low for k in ("chocolate", "bombones", "vino", "cerveza", "whisky", "gourmet")):
         return "comida"
