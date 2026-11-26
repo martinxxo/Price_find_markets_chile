@@ -179,6 +179,10 @@
     const filtered = state.deals.filter((deal) => {
       if (state.type === "BLACK_FRIDAY") {
         if (!isBlackFridayDeal(deal)) return false;
+      } else if (state.type === "DOLARES_PREMIO") {
+        if (deal.alert_type !== "DOLARES_PREMIO" && !(Number(deal.dolares_premio_pct || 0) > 0)) {
+          return false;
+        }
       } else if (state.type !== "ALL" && deal.alert_type !== state.type) {
         return false;
       }
@@ -224,13 +228,19 @@
         const url = escapeHtml(deal.url || "#");
         const imageUrl = escapeHtml(deal.image_url || "");
         const dropPct = Number(deal.real_drop_pct || 0).toFixed(1);
+        const dpPct = Number(deal.dolares_premio_pct || 0);
+        const hasDualDp = dpPct > 0 && deal.alert_type !== "DOLARES_PREMIO";
+        const isUnverified = String(deal.reason || "").includes("Sin cotejo externo");
         const hasNormal = deal.normal_price && deal.normal_price > deal.previous_real_price;
 
         return `
           <article class="deal-card type-${type}">
             <div>
               <div class="card-top">
-                <span class="urgency-badge badge-${type}">${getUrgencyLabel(deal.alert_type)}</span>
+                <div class="badge-stack">
+                  <span class="urgency-badge badge-${type}">${getUrgencyLabel(deal.alert_type)}</span>
+                  ${hasDualDp ? `<span class="urgency-badge badge-DOLARES_PREMIO">✈️ +${dpPct}% DP</span>` : ""}
+                </div>
                 <span class="store-tag">${store}</span>
               </div>
               ${imageUrl.startsWith("http") ? `
@@ -243,6 +253,7 @@
                 <span class="meta-chip">${getPaymentBadge(deal.payment_type)}</span>
                 <span class="meta-chip">Vendido por: ${seller}</span>
                 <span class="meta-chip">#${category}</span>
+                ${isUnverified ? `<span class="meta-chip chip-warn" title="Artículo nuevo o exclusivo sin referencia en otra tienda: verifica el precio normal antes de comprar">⚠️ Sin cotejo externo</span>` : ""}
               </div>
             </div>
 
@@ -293,7 +304,10 @@
     els.statFlash.textContent = Number(counts.FLASH || 0).toLocaleString("es-CL");
     els.statVip.textContent = Number(counts.VIP || 0).toLocaleString("es-CL");
     if (els.statDp) {
-      els.statDp.textContent = Number(counts.DOLARES_PREMIO || 0).toLocaleString("es-CL");
+      const dpTotal = state.deals.filter(
+        (d) => d.alert_type === "DOLARES_PREMIO" || Number(d.dolares_premio_pct || 0) > 0
+      ).length;
+      els.statDp.textContent = dpTotal.toLocaleString("es-CL");
     }
     if (els.bfCountPill) {
       const bfCount = state.deals.filter(isBlackFridayDeal).length;

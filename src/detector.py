@@ -77,6 +77,26 @@ RECOGNIZED_TECH_BRANDS = {
     "moulinex",
     "breville",
     "krups",
+    "lavazza",
+    "illy",
+    "lucaffe",
+    "kimbo",
+    "segafredo",
+    "juan",
+    "valdez",
+    "marley",
+    "britt",
+    "starbucks",
+    "paramicafe",
+    "vergnano",
+    "pellini",
+    "dallmayr",
+    "melitta",
+    "bialetti",
+    "chemex",
+    "hario",
+    "caribe",
+    "haiti",
     "thomas",
     "thorben",
     "osoji",
@@ -246,11 +266,21 @@ class DealDetector:
         flash_drop_pct = float(self.thresholds["flash_drop_pct"])
         first_seen_glitch_pct = float(self.thresholds["first_seen_glitch_discount_pct"])
         min_glitch_profit_clp = int(self.thresholds.get("min_glitch_profit_clp", 45000))
-        min_flash_savings_clp = int(self.thresholds.get("min_flash_savings_clp", 15000))
-        min_dp_savings_clp = int(self.thresholds.get("min_dp_savings_clp", 12000))
+        min_flash_savings_clp = int(self.thresholds.get("min_flash_savings_clp", 12000))
+        min_dp_savings_clp = int(self.thresholds.get("min_dp_savings_clp", 10000))
+        low_price_cutoff = int(self.thresholds.get("low_price_threshold_clp", 35000))
+        if effective <= low_price_cutoff:
+            min_flash_savings_clp = min(
+                min_flash_savings_clp,
+                int(self.thresholds.get("low_price_min_flash_savings_clp", 6000)),
+            )
+            min_dp_savings_clp = min(
+                min_dp_savings_clp,
+                int(self.thresholds.get("low_price_min_dp_savings_clp", 5000)),
+            )
         if category_key in ("cafe", "comida"):
-            min_flash_savings_clp = min(min_flash_savings_clp, 8000)
-            min_dp_savings_clp = min(min_dp_savings_clp, 7000)
+            min_flash_savings_clp = min(min_flash_savings_clp, 4500 if effective <= low_price_cutoff else 8000)
+            min_dp_savings_clp = min(min_dp_savings_clp, 4000 if effective <= low_price_cutoff else 7000)
 
         is_priority = self._is_priority_product(snapshot)
         is_known_brand = self._is_recognized_brand(snapshot.brand) or self._is_recognized_brand(snapshot.title)
@@ -554,6 +584,17 @@ class DealDetector:
 
         if alert_type is None:
             return None
+
+        # Flag alerts based purely on store list price without external cross-store verification
+        unverified_no_cross_check = (
+            m_price == 0
+            and (
+                alert_origin in ("store_discount", "floor")
+                or (alert_origin == "dp" and (previous_record is None or real_drop_pct == store_discount_pct))
+            )
+        )
+        if unverified_no_cross_check and "Sin cotejo externo" not in reason:
+            reason = f"{reason} · ⚠️ Sin cotejo externo (verificar precio real)"
 
         return DealAlert(
             snapshot=snapshot,

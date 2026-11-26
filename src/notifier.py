@@ -35,11 +35,14 @@ def build_telegram_html(alert: DealAlert) -> str:
         "DOLARES_PREMIO": "✈️ <b>OFERTA DÓLARES PREMIO (TIENDA TRAVEL)</b>",
     }
     header = badge_map.get(alert.alert_type, "🔥 <b>OFERTA DETECTADA</b>")
+    if s.dolares_premio_pct > 0 and alert.alert_type in ("GLITCH", "FLASH"):
+        header = f"{header}\n✈️ <b>+ CANJE HASTA {s.dolares_premio_pct}% DÓLARES PREMIO</b>"
     title_safe = html.escape(s.title)
     store_safe = html.escape(s.store)
     seller_safe = html.escape(s.seller_name)
     payment_safe = html.escape(s.payment_type)
     reason_safe = html.escape(alert.reason)
+    has_unverified_flag = "Sin cotejo externo" in (alert.reason or "")
 
     lines = [
         header,
@@ -63,9 +66,13 @@ def build_telegram_html(alert: DealAlert) -> str:
         [
             f"{drop_label}: <b>-{alert.real_drop_pct:.1f}%</b> (ahorras {format_clp(alert.savings_clp)})",
             f"ℹ️ <i>{reason_safe}</i>",
-            f"🆔 SKU: <code>{html.escape(s.sku)}</code>",
         ]
     )
+    if has_unverified_flag:
+        lines.append(
+            "⚠️ <b>AVISO:</b> Artículo nuevo/exclusivo sin cotejo en otras tiendas — verifica si el precio \"Antes\" es real."
+        )
+    lines.append(f"🆔 SKU: <code>{html.escape(s.sku)}</code>")
     if alert.alert_type == "GLITCH":
         lines.append("━━━━━━━━━━━━━━━━━━━━")
     return "\n".join(lines)

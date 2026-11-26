@@ -69,8 +69,12 @@ KNASTA_QUERIES: list[tuple[Optional[str], dict[str, Any]]] = [
     ("componentes", {"q": "teclado", "knastaday": 1}),
     ("componentes", {"q": "mouse", "knastaday": 1}),
     ("camaras", {"q": "camara", "knastaday": 1}),
-    ("cafe", {"q": "cafetera", "knastaday": 1}),
-    ("cafe", {"q": "cafe grano", "order": "percent"}),
+    ("cafe", {"q": "cafetera espresso", "knastaday": 1}),
+    ("cafe", {"q": "cafe en grano", "order": "percent"}),
+    ("cafe", {"q": "cafe molido", "order": "percent"}),
+    ("cafe", {"q": "cafe especialidad", "order": "percent"}),
+    ("cafe", {"q": "lavazza", "order": "percent"}),
+    ("cafe", {"q": "juan valdez", "order": "percent"}),
     ("electrodomesticos", {"q": "air fryer", "knastaday": 1}),
     ("electrodomesticos", {"q": "aspiradora robot", "knastaday": 1}),
     ("electrodomesticos", {"q": "microondas", "knastaday": 1}),
@@ -90,7 +94,13 @@ def _infer_category_from_title(title: str) -> Optional[str]:
         return "componentes"
     if any(k in low for k in ("camara", "cámara", "gopro", "insta360", "mirrorless", "reflex")):
         return "camaras"
-    if any(k in low for k in ("cafetera", "espresso", "molinillo", "capsulas de cafe", "cafe en grano", "café en grano")):
+    if any(k in low for k in (
+        "cafetera", "espresso", "expreso", "molinillo", "espumador", "aeroccino",
+        "capsulas de cafe", "cápsulas de café", "cafe en grano", "café en grano",
+        "cafe molido", "café molido", "cafe de especialidad", "café de especialidad",
+        "cafe especialidad", "grano entero", "lavazza", "illy", "lucaffe",
+        "juan valdez", "marley coffee", "paramicafe", "kimbo", "segafredo", "bialetti",
+    )):
         return "cafe"
     if any(k in low for k in ("playstation", "ps5", "nintendo switch", "xbox")):
         return "consolas"

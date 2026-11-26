@@ -77,11 +77,41 @@ KEYWORD_QUERIES = [
     ("audio", "tocadiscos"),
     ("camaras", "camara"),
     ("camaras", "gopro"),
-    ("cafe", "cafetera"),
-    ("cafe", "cafe"),
+    ("cafe", "cafetera espresso"),
+    ("cafe", "cafe en grano"),
+    ("cafe", "cafe molido"),
+    ("cafe", "cafe especialidad"),
+    ("cafe", "molinillo cafe"),
     ("electrodomesticos", "air fryer"),
     ("electrodomesticos", "aspiradora"),
 ]
+
+_REAL_COFFEE_TERMS = (
+    "cafetera", "espresso", "expreso", "molinillo", "espumador", "aeroccino",
+    "nespresso", "dolce gusto", "vertuo", "cafe en grano", "café en grano",
+    "cafe molido", "café molido", "cafe grano", "café grano", "grano entero",
+    "especialidad", "barista", "prensa francesa", "chemex", "bialetti", "moka",
+    "capsula", "cápsula", "lavazza", "illy", "lucaffe", "juan valdez",
+    "marley coffee", "paramicafe", "kimbo", "segafredo", "starbucks", "krups",
+    "delonghi", "de'longhi", "breville",
+)
+_FURNITURE_COLOR_TERMS = (
+    "mesa", "silla", "sillon", "sillón", "sofa", "sofá", "bergere", "sitial",
+    "mueble", "comedor", "rack", "velador", "alfombra", "colchon", "colchón",
+    "cama ", "respaldo", "escritorio", "closet", "clóset", "zapato", "bota",
+    "cartera", "chaqueta", "poleron", "polerón", "pantalon", "pantalón",
+)
+
+
+def _resolve_tienda_travel_category(default_cat: str, title: str, brand: str = "") -> str:
+    """Prevent furniture/clothing colored 'Café Claro/Oscuro' from leaking into the 'cafe' category."""
+    low = f"{title} {brand}".lower()
+    if default_cat == "cafe":
+        if any(k in low for k in _REAL_COFFEE_TERMS):
+            return "cafe"
+        if any(k in low for k in _FURNITURE_COLOR_TERMS) or "café claro" in low or "cafe claro" in low or "café oscuro" in low or "cafe oscuro" in low:
+            return "hogar"
+    return default_cat
 
 DEFAULT_DP_CLP_RATE = 992.5
 
@@ -203,7 +233,7 @@ def fetch_tienda_travel_products(
 
     with ThreadPoolExecutor(max_workers=8) as pool:
         futures = [pool.submit(_run_task, t) for t in tasks]
-        for fut in as_completed(futures):
+        for fut in futures:
             category_name, data = fut.result()
             if not isinstance(data, dict):
                 continue
@@ -269,13 +299,14 @@ def fetch_tienda_travel_products(
             else img_rel
         )
 
+        resolved_cat = _resolve_tienda_travel_category(category_name, title, brand)
         snapshots.append(
             ProductSnapshot(
                 sku=f"TT-{prod_id}",
                 store="Tienda Travel",
                 title=title,
                 brand=brand,
-                category=category_name,
+                category=resolved_cat,
                 current_price=current_price,
                 card_price=None,
                 normal_price=normal_price,

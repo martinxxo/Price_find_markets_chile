@@ -191,6 +191,11 @@ def detect_product_subtype(title: str) -> str:
         return "coffee_grinder"
     if any(k in norm for k in ("espumador", "aeroccino")):
         return "milk_frother"
+    if any(k in norm for k in (
+        "cafe en grano", "cafe molido", "cafe grano", "grano entero",
+        "cafe especialidad", "cafe de especialidad", "capsulas de cafe", "capsulas nespresso",
+    )) and "cafetera" not in norm:
+        return "coffee_beans"
     if any(k in norm for k in ("cafetera", "nespresso", "dolce gusto", "vertuo")) or "espresso" in norm:
         return "coffee_maker"
     if any(k in norm for k in ("freidora", "air fryer")):
@@ -219,10 +224,11 @@ def detect_product_subtype(title: str) -> str:
 
 
 def _extract_specs(norm_text: str) -> dict[str, set[str]]:
-    """Extract capacity, volume, screen inches, standalone series numbers, and product tier tokens."""
+    """Extract capacity, volume, weight, screen inches, standalone series numbers, and product tier tokens."""
     specs: dict[str, set[str]] = {
         "storage": set(),
         "volume": set(),
+        "weight": set(),
         "inches": set(),
         "tier": set(),
         "numbers": set(),
@@ -242,6 +248,10 @@ def _extract_specs(norm_text: str) -> dict[str, set[str]]:
                 specs["storage"].add(f"{val}{unit}")
             elif unit in ("ml", "oz", "l"):
                 specs["volume"].add(f"{val}{unit}")
+            elif unit in ("g", "gr", "kg"):
+                # Normalize 1kg -> 1000g so 1kg == 1000g != 250g
+                grams = int(val) * 1000 if unit == "kg" else int(val)
+                specs["weight"].add(f"{grams}g")
             elif unit in ("p", "pulg"):
                 specs["inches"].add(val)
         if cleaned in _TIER_TOKENS:
@@ -293,7 +303,7 @@ def extract_title_signature(
 
 
 def _specs_conflict(specs_a: dict[str, set[str]], specs_b: dict[str, set[str]]) -> bool:
-    for key in ("storage", "volume", "inches", "numbers"):
+    for key in ("storage", "volume", "weight", "inches", "numbers"):
         if specs_a[key] and specs_b[key] and not (specs_a[key] & specs_b[key]):
             return True
     if specs_a["tier"] != specs_b["tier"] and (specs_a["tier"] or specs_b["tier"]):

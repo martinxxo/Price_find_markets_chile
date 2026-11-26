@@ -799,7 +799,9 @@ class TestScraperParsingAndResilience(unittest.TestCase):
                         is_verified_history=True,
                     ),
                 )
-                self.assertIsNone(cheap_alert)
+                # Low-margin cheap item ($12k savings) must NEVER be a GLITCH, but qualifies as FLASH
+                self.assertIsNotNone(cheap_alert)
+                self.assertEqual(cheap_alert.alert_type, "FLASH")
 
                 # 4. Prevent game vs console, TCL C7L vs X11, and 1-store $1.99M outlier false matches
                 mario_game = make_snapshot(

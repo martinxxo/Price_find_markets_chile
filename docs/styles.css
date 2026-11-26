@@ -593,6 +593,23 @@ main {
   flex-wrap: wrap;
 }
 
+.badge-stack {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.chip-warn {
+  background: rgba(245, 158, 11, 0.12) !important;
+  border-color: rgba(245, 158, 11, 0.45) !important;
+  color: #fbbf24 !important;
+}
+
+html[data-theme="light"] .chip-warn {
+  color: #b45309 !important;
+}
+
 .urgency-badge {
   font-family: var(--font-mono);
   font-size: 0.68rem;

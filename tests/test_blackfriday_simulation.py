@@ -409,9 +409,10 @@ class TestBlackFridaySimulation(unittest.TestCase):
                 self.assertEqual(alerts_by_sku["PAR-BF-TV-GLITCH"].alert_type, "GLITCH")
                 self.assertNotIn("FAL-BF-TV-NORMAL-DROP", alerts_by_sku)
 
-                # 4. Trampas bloqueadas (0 falsos positivos!)
+                # 4. Trampas bloqueadas (0 falsos positivos!) y producto barato no es GLITCH (solo FLASH)
                 self.assertNotIn("FAL-BF-INFLATED-MON", alerts_by_sku)
-                self.assertNotIn("TT-BF-DEADSTOCK", alerts_by_sku)
+                self.assertIn("TT-BF-DEADSTOCK", alerts_by_sku)
+                self.assertEqual(alerts_by_sku["TT-BF-DEADSTOCK"].alert_type, "FLASH")
                 self.assertNotIn("FAL-BF-CMR-TRAP", alerts_by_sku)
                 self.assertNotIn("WIN-BF-MON-215", alerts_by_sku)
                 self.assertNotIn("PAR-BF-OSTER-COMPACTA", alerts_by_sku)
@@ -444,8 +445,8 @@ class TestBlackFridaySimulation(unittest.TestCase):
                 feed = export_web_feed(storage, output_path=feed_path, mode="black-friday-sim")
                 saved = json.loads(feed_path.read_text(encoding="utf-8"))
                 self.assertEqual(saved["counts_by_type"]["GLITCH"], 4)  # MacBook + XM5 Blk/Slv + TV S90D
-                self.assertEqual(saved["counts_by_type"]["FLASH"], 1)   # ASUS Monitor
-                self.assertGreaterEqual(len(feed["deals"]), 5)
+                self.assertEqual(saved["counts_by_type"]["FLASH"], 2)   # ASUS Monitor + low-price Philips speaker
+                self.assertGreaterEqual(len(feed["deals"]), 6)
 
     def test_cross_store_matching_strict_product_kind_and_model_guards(self) -> None:
         """Verify mismatched product kinds/models NEVER cross-match, while identical products DO."""
@@ -530,6 +531,52 @@ class TestBlackFridaySimulation(unittest.TestCase):
                 _titles_match(sig_a, brand_a, title_b, brand_b),
                 f"MISSED VALID MATCH: '{title_a}' failed to match '{title_b}'",
             )
+
+    def test_dual_dp_tagging_unverified_flag_and_specialty_coffee_rules(self) -> None:
+        """Verify dual FLASH+DP badges, unverified first-seen Telegram warning, low-price coffee deals, and color disambiguation."""
+        from src.scrapers.tienda_travel import _resolve_tienda_travel_category
+        from src.price_reference import _titles_match, extract_title_signature
+
+        settings = load_settings("config/settings.json")
+        detector = DealDetector(settings, [])
+
+        # 1. Furniture colored 'Café Claro' must be routed to 'hogar', NOT 'cafe'
+        self.assertEqual(
+            _resolve_tienda_travel_category("cafe", "Mesas De Centro Alaia Home Anidadas Atlanta Café Claro", "Alaia Home"),
+            "hogar",
+        )
+        self.assertEqual(
+            _resolve_tienda_travel_category("cafe", "Café en Grano Lavazza Super Crema 1kg", "Lavazza"),
+            "cafe",
+        )
+
+        # 2. Cheaper specialty ground/bean coffee ($16.990 -> $9.990, $7.000 savings) must qualify as FLASH + unverified flag + dual DP
+        coffee_bag = _snap(
+            "TT-COFFEE-SPECIALTY",
+            "Tienda Travel",
+            "Café en Grano de Especialidad Lavazza Super Crema 1kg",
+            "Lavazza",
+            "cafe",
+            9990,
+            16990,
+            "Tienda Travel (Banco de Chile)",
+            "https://tienda.travel.cl/cafe-lavazza",
+            dolares_premio_pct=60,
+        )
+        alert = detector.evaluate(coffee_bag, previous_record=None, market_reference=None)
+        self.assertIsNotNone(alert)
+        self.assertEqual(alert.alert_type, "FLASH")
+        self.assertIn("Sin cotejo externo", alert.reason)
+
+        tg_html = build_telegram_html(alert)
+        self.assertIn("CANJE HASTA 60% DÓLARES PREMIO", tg_html)
+        self.assertIn("AVISO:", tg_html)
+        self.assertIn("sin cotejo en otras tiendas", tg_html)
+
+        # 3. 250g coffee bag must NEVER cross-match a 1kg coffee bag or an espresso machine
+        sig_250g = extract_title_signature("Café Molido Lavazza Qualita Oro 250g", "Lavazza")
+        self.assertFalse(_titles_match(sig_250g, "Lavazza", "Café Molido Lavazza Qualita Oro 1kg", "Lavazza"))
+        self.assertFalse(_titles_match(sig_250g, "Lavazza", "Cafetera Espresso Lavazza A Modo Mio", "Lavazza"))
 
 
 if __name__ == "__main__":
