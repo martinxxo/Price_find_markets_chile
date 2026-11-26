@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T15:30:47.255457+00:00",
+  "generated_at": "2026-11-26T15:35:22.740790+00:00",
   "mode": "scan",
   "total_monitored_products": 14332,
   "total_active_deals": 361,
@@ -181,7 +181,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/80874021/juego-ghost-of-yotei-complete-edition-sony",
       "image_url": "https://media.falabella.com/falabellaCL/80874021_1/public",
       "detected_at": "2026-11-26T14:39:11.878948+00:00",
-      "updated_at": "2026-11-26T15:30:38.897872+00:00",
+      "updated_at": "2026-11-26T15:35:19.533108+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -208,7 +208,7 @@
       "url": "https://www.paris.cl/mouse-gamer-inalambrico-g309-lightspeed-negro-571885999.html",
       "image_url": "https://cl-dam-resizer.ecomm.cencosud.com/unsafe/adaptive-fit-in/792x1068/cl/paris/571885999/variant/6a7ce9354cce8dbe07592ea5/images/9cf7bc14-733f-4ff1-bc9e-77a8975f3ebd/571885999-0000-001.jpg",
       "detected_at": "2026-11-26T14:45:28.663894+00:00",
-      "updated_at": "2026-11-26T15:30:39.819687+00:00",
+      "updated_at": "2026-11-26T15:35:19.944051+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -235,7 +235,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/80835904/zenbook-14-oled-ux3405ca-su1479w-core-u7-16gb-1tb-ssd-14p-asus",
       "image_url": "https://media.falabella.com/falabellaCL/80835904_01/public",
       "detected_at": "2026-11-26T14:50:31.051076+00:00",
-      "updated_at": "2026-11-26T15:30:38.654229+00:00",
+      "updated_at": "2026-11-26T15:35:19.290746+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -343,34 +343,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/883475144/cafetera-espresso-con-espumador-de-leche-wcm-capuccino-wurden",
       "image_url": "https://media.falabella.com/falabellaCL/883475145_005/public",
       "detected_at": "2026-11-26T14:39:11.917879+00:00",
-      "updated_at": "2026-11-26T15:30:38.912068+00:00",
-      "dolares_premio_pct": 0,
-      "dolares_premio_amount": 0.0,
-      "copay_clp": 0
-    },
-    {
-      "sku": "SOD-129953285",
-      "store": "Sodimac",
-      "title": "MADEMSA Freidora de Aire 12 Litros MAF90",
-      "brand": "Mademsa",
-      "category": "electrodomesticos",
-      "alert_type": "FLASH",
-      "effective_price": 74990,
-      "current_price": 74990,
-      "card_price": null,
-      "normal_price": 74990,
-      "payment_type": "Todo Medio de Pago",
-      "previous_real_price": 139990,
-      "min_historical_price": 74990,
-      "real_drop_pct": 46.4,
-      "store_discount_pct": 0.0,
-      "savings_clp": 65000,
-      "reason": "Descuento Flash real: -46.4% frente a su historial (ahorro $65.000)",
-      "seller_name": "Sodimac",
-      "url": "https://www.sodimac.cl/sodimac-cl/articulo/129953284/product/129953285",
-      "image_url": "https://media.falabella.com/sodimacCL/7527020_01/public?scl=1.0",
-      "detected_at": "2026-11-26T15:20:44.752953+00:00",
-      "updated_at": "2026-11-26T15:30:46.632299+00:00",
+      "updated_at": "2026-11-26T15:35:19.546024+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -505,7 +478,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/80834537/cafetera-automatica-ut-kaffemeister-e-ursus-trotter",
       "image_url": "https://media.falabella.com/falabellaCL/80834537_1/public",
       "detected_at": "2026-11-26T14:39:11.902889+00:00",
-      "updated_at": "2026-11-26T15:30:38.906604+00:00",
+      "updated_at": "2026-11-26T15:35:19.541178+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -532,7 +505,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/80800276/hp-notebook-amd-ryzen-7-7730u-16gb-ram-512gb-ssd-pantalla-15-6",
       "image_url": "https://media.falabella.com/falabellaCL/80800276_01/public",
       "detected_at": "2026-11-26T14:45:26.286541+00:00",
-      "updated_at": "2026-11-26T15:15:35.406279+00:00",
+      "updated_at": "2026-11-26T15:35:19.271673+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -748,7 +721,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/80821870/cama-europea-premium-full-cic",
       "image_url": "https://media.falabella.com/falabellaCL/80821870_1/public",
       "detected_at": "2026-11-26T14:39:11.628494+00:00",
-      "updated_at": "2026-11-26T15:30:38.777437+00:00",
+      "updated_at": "2026-11-26T15:35:19.460439+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -775,7 +748,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/80808899/asus-tuf-gaming-fx607-intel-core-i5-16gb-ram-512gb-ssd-nvidia-geforce-rtx-5050",
       "image_url": "https://media.falabella.com/falabellaCL/80808899_01/public",
       "detected_at": "2026-11-26T14:39:11.417927+00:00",
-      "updated_at": "2026-11-26T15:30:38.718808+00:00",
+      "updated_at": "2026-11-26T15:35:19.312947+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -802,7 +775,7 @@
       "url": "https://www.easy.cl/horno-electrico-empotrable-om6tb-52-lt-1512892/p",
       "image_url": "https://easycl.vteximg.com.br/arquivos/ids/5186814/1512892-0000-001.jpg?v=639210393167070000",
       "detected_at": "2026-11-26T15:20:48.346495+00:00",
-      "updated_at": "2026-11-26T15:30:47.132770+00:00",
+      "updated_at": "2026-11-26T15:35:22.582534+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -856,7 +829,7 @@
       "url": "https://www.easy.cl/refrigerador-gb34bpm-negro-esencial-matte-335-lt-1474626/p",
       "image_url": "https://easycl.vteximg.com.br/arquivos/ids/5108668/1474626-0000-001.jpg?v=638863652353570000",
       "detected_at": "2026-11-26T15:20:52.809691+00:00",
-      "updated_at": "2026-11-26T15:30:46.983232+00:00",
+      "updated_at": "2026-11-26T15:35:22.445274+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -937,7 +910,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/15002156/cama-europea-excama-europeallencama-europea-full-x-1-90mt-base-normal-cic",
       "image_url": "https://media.falabella.com/falabellaCL/15002156_1/public",
       "detected_at": "2026-11-26T14:39:11.631507+00:00",
-      "updated_at": "2026-11-26T15:30:38.779071+00:00",
+      "updated_at": "2026-11-26T15:35:19.462440+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1045,7 +1018,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/17090710/cama-europea-new-style-4-full-x-2-00mt-base-normal-rosen",
       "image_url": "https://media.falabella.com/falabellaCL/17090710_1/public",
       "detected_at": "2026-11-26T14:39:11.612564+00:00",
-      "updated_at": "2026-11-26T15:30:38.772948+00:00",
+      "updated_at": "2026-11-26T15:35:19.455609+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1099,7 +1072,7 @@
       "url": "https://www.easy.cl/lavadora-semi-automatica-mwmsat6w-carga-superior-6-kg-blanco-1529470/p",
       "image_url": "https://easycl.vteximg.com.br/arquivos/ids/7763891/1529470-0000-001.jpg?v=639223266148000000",
       "detected_at": "2026-11-26T15:20:51.693766+00:00",
-      "updated_at": "2026-11-26T15:30:47.194108+00:00",
+      "updated_at": "2026-11-26T15:35:22.654526+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1153,7 +1126,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/17422356/CAF-DOLCE-GUSTO-PICCOLO-XS-NEGRA",
       "image_url": "https://media.falabella.com/falabellaCL/17422356_1/public",
       "detected_at": "2026-11-26T14:39:11.893804+00:00",
-      "updated_at": "2026-11-26T15:30:38.904772+00:00",
+      "updated_at": "2026-11-26T15:35:19.539392+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1234,7 +1207,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/80744824/cafetera-espresso-coffee-crush-experience-krups",
       "image_url": "https://media.falabella.com/falabellaCL/80744824_1/public",
       "detected_at": "2026-11-26T14:39:11.965285+00:00",
-      "updated_at": "2026-11-26T15:30:38.921868+00:00",
+      "updated_at": "2026-11-26T15:35:19.555819+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1261,7 +1234,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/883654504/cafetera-de-capsulas-espresso-wcm-espresso3-wurden",
       "image_url": "https://media.falabella.com/falabellaCL/883654505_005/public",
       "detected_at": "2026-11-26T14:39:11.935336+00:00",
-      "updated_at": "2026-11-26T15:30:38.919329+00:00",
+      "updated_at": "2026-11-26T15:35:19.553242+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1342,7 +1315,7 @@
       "url": "https://www.easy.cl/aspiradora-tc-vc-1540-s-grisrojo-900w-1500581/p",
       "image_url": "https://easycl.vteximg.com.br/arquivos/ids/5190461/1500581-0000-001.jpg?v=639160218097330000",
       "detected_at": "2026-11-26T15:20:50.652451+00:00",
-      "updated_at": "2026-11-26T15:30:47.106694+00:00",
+      "updated_at": "2026-11-26T15:35:22.414022+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1396,7 +1369,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/17306975/cama-europea-anatomic-full-x-2-00mt-base-normal-cic",
       "image_url": "https://media.falabella.com/falabellaCL/17306975_1/public",
       "detected_at": "2026-11-26T14:39:11.618462+00:00",
-      "updated_at": "2026-11-26T15:30:38.775714+00:00",
+      "updated_at": "2026-11-26T15:35:19.458345+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1423,7 +1396,7 @@
       "url": "https://www.easy.cl/lavadora-wt19mvtb-carga-superior-19-kg-negro-1438608/p",
       "image_url": "https://easycl.vteximg.com.br/arquivos/ids/5098430/1438608-0000-001.jpg?v=638863641026730000",
       "detected_at": "2026-11-26T15:20:51.681610+00:00",
-      "updated_at": "2026-11-26T15:30:47.182982+00:00",
+      "updated_at": "2026-11-26T15:35:22.638090+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1585,7 +1558,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/17248351/Cafetera-Expresso-TH-165DEL-Thomas",
       "image_url": "https://media.falabella.com/falabellaCL/17248351_1/public",
       "detected_at": "2026-11-26T14:39:11.935336+00:00",
-      "updated_at": "2026-11-26T15:30:38.917534+00:00",
+      "updated_at": "2026-11-26T15:35:19.551450+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1720,7 +1693,7 @@
       "url": "https://www.sodimac.cl/sodimac-cl/articulo/129988696/product/129988697",
       "image_url": "https://media.falabella.com/sodimacCL/7534728_01/public?scl=1.0",
       "detected_at": "2026-11-26T15:20:45.992837+00:00",
-      "updated_at": "2026-11-26T15:30:46.689897+00:00",
+      "updated_at": "2026-11-26T15:35:22.338984+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1774,7 +1747,7 @@
       "url": "https://www.easy.cl/aspiradora-cenizas-20l-1442083/p",
       "image_url": "https://easycl.vteximg.com.br/arquivos/ids/5134679/1442083-0000-001.jpg?v=638882142507100000",
       "detected_at": "2026-11-26T15:20:50.157467+00:00",
-      "updated_at": "2026-11-26T15:30:47.078802+00:00",
+      "updated_at": "2026-11-26T15:35:22.407459+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1882,7 +1855,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/16820060/Cafetera-con-Capsula-Gran-Lattissima-Negra-Nespresso",
       "image_url": "https://media.falabella.com/falabellaCL/16820061_01/public",
       "detected_at": "2026-11-26T14:39:12.003311+00:00",
-      "updated_at": "2026-11-26T15:30:38.955821+00:00",
+      "updated_at": "2026-11-26T15:35:19.569276+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -1963,7 +1936,7 @@
       "url": "https://www.falabella.com/falabella-cl/product/80712124/cafetera-filtro-aromakaffee-thomas",
       "image_url": "https://media.falabella.com/falabellaCL/80712124_1/public",
       "detected_at": "2026-11-26T14:39:11.998730+00:00",
-      "updated_at": "2026-11-26T15:30:38.953668+00:00",
+      "updated_at": "2026-11-26T15:35:19.567471+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -2584,7 +2557,7 @@
       "url": "https://www.mercadolibre.cl/up/MLCU4035807870?pdp_filters=official_store%3Aall",
       "image_url": "https://http2.mlstatic.com/D_Q_NP_2X_811008-MLC120730831059_112026-E--motorola-razr-70-ultra-cafe-16gb-1tb.webp",
       "detected_at": "2026-11-26T14:39:14.459818+00:00",
-      "updated_at": "2026-11-26T15:30:43.617764+00:00",
+      "updated_at": "2026-11-26T15:35:20.839026+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -2638,7 +2611,7 @@
       "url": "https://www.winpy.cl/venta/kit-teclado-mouse-inalambrico-logitech-mk540-advanced-usb-negro/",
       "image_url": "",
       "detected_at": "2026-11-26T14:39:18.183089+00:00",
-      "updated_at": "2026-11-26T15:30:46.338227+00:00",
+      "updated_at": "2026-11-26T15:35:22.068420+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -2773,7 +2746,7 @@
       "url": "https://www.winpy.cl/venta/kit-inalambrico-teclado-y-mouse-logitech-mk470-receptor-usb-grafito/",
       "image_url": "",
       "detected_at": "2026-11-26T14:39:18.133912+00:00",
-      "updated_at": "2026-11-26T15:30:46.297030+00:00",
+      "updated_at": "2026-11-26T15:35:22.053940+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -2800,7 +2773,7 @@
       "url": "https://www.sodimac.cl/sodimac-cl/articulo/129953265/product/129953266",
       "image_url": "https://media.falabella.com/sodimacCL/7527012_01/public?scl=1.0",
       "detected_at": "2026-11-26T15:20:44.750800+00:00",
-      "updated_at": "2026-11-26T15:30:46.630379+00:00",
+      "updated_at": "2026-11-26T15:35:22.539136+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -2881,7 +2854,7 @@
       "url": "https://www.easy.cl/secadora-electrica-ventilacion-lunar-10-kg-md100a100w2-1460495/p",
       "image_url": "https://easycl.vteximg.com.br/arquivos/ids/5094818/1460495-0000-001.jpg?v=638863647705800000",
       "detected_at": "2026-11-26T15:20:51.679416+00:00",
-      "updated_at": "2026-11-26T15:30:47.181139+00:00",
+      "updated_at": "2026-11-26T15:35:22.632697+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -2935,7 +2908,7 @@
       "url": "https://www.easy.cl/horno-electrico-empotrado-hbb-4460-ss-gris-72-lt-1211539/p",
       "image_url": "https://easycl.vteximg.com.br/arquivos/ids/4953962/1211539-0000-001.jpg?v=639021906512700000",
       "detected_at": "2026-11-26T15:20:48.944504+00:00",
-      "updated_at": "2026-11-26T15:30:47.151919+00:00",
+      "updated_at": "2026-11-26T15:35:22.598192+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -2962,7 +2935,7 @@
       "url": "https://www.easy.cl/aspiradora-vertical-06-litros-18p-midea-1332125/p",
       "image_url": "https://easycl.vteximg.com.br/arquivos/ids/5081881/1332125-0000-001.jpg?v=638863594120400000",
       "detected_at": "2026-11-26T15:20:50.150176+00:00",
-      "updated_at": "2026-11-26T15:30:47.072113+00:00",
+      "updated_at": "2026-11-26T15:35:22.402352+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -3097,7 +3070,7 @@
       "url": "https://www.easy.cl/lavadora-emtl20io-carga-superior20-kg-gris-onix-1526232/p",
       "image_url": "https://easycl.vteximg.com.br/arquivos/ids/5285783/1526232-0000-001.jpg?v=639214914657770000",
       "detected_at": "2026-11-26T15:20:52.195627+00:00",
-      "updated_at": "2026-11-26T15:30:47.202702+00:00",
+      "updated_at": "2026-11-26T15:35:22.665866+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -3211,6 +3184,33 @@
       "copay_clp": 0
     },
     {
+      "sku": "SOD-129953285",
+      "store": "Sodimac",
+      "title": "MADEMSA Freidora de Aire 12 Litros MAF90",
+      "brand": "Mademsa",
+      "category": "electrodomesticos",
+      "alert_type": "FLASH",
+      "effective_price": 74990,
+      "current_price": 74990,
+      "card_price": null,
+      "normal_price": 74990,
+      "payment_type": "Todo Medio de Pago",
+      "previous_real_price": 107490,
+      "min_historical_price": 74990,
+      "real_drop_pct": 30.2,
+      "store_discount_pct": 0.0,
+      "savings_clp": 32500,
+      "reason": "Descuento Flash real: -30.2% frente a su historial (ahorro $32.500)",
+      "seller_name": "Sodimac",
+      "url": "https://www.sodimac.cl/sodimac-cl/articulo/129953284/product/129953285",
+      "image_url": "https://media.falabella.com/sodimacCL/7527020_01/public?scl=1.0",
+      "detected_at": "2026-11-26T15:20:44.752953+00:00",
+      "updated_at": "2026-11-26T15:35:22.540778+00:00",
+      "dolares_premio_pct": 0,
+      "dolares_premio_amount": 0.0,
+      "copay_clp": 0
+    },
+    {
       "sku": "ABC-658990",
       "store": "ABC",
       "title": "Celular Samsung Galaxy S26 FE 5G 256 GB 6,7'' Blueberry",
@@ -3232,7 +3232,7 @@
       "url": "https://www.abc.cl/celular-samsung-galaxy-s26-fe-5g-256-gb-67-blueberry/29607729.html",
       "image_url": "https://www.abc.cl/dw/image/v2/BCPP_PRD/on/demandware.static/-/Sites-master-catalog/default/dw11cc4ab5/images/large/29607729.jpg?sw=1200&sh=1200&sm=fit",
       "detected_at": "2026-11-26T15:20:42.572323+00:00",
-      "updated_at": "2026-11-26T15:30:45.748704+00:00",
+      "updated_at": "2026-11-26T15:35:21.790978+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -3313,7 +3313,7 @@
       "url": "https://www.easy.cl/horno-electrico-empotrado-hbb-5360-ss-gris-67-lt-1215499/p",
       "image_url": "https://easycl.vteximg.com.br/arquivos/ids/5076895/1215499-0000-001.jpg?v=639021906466770000",
       "detected_at": "2026-11-26T15:20:47.837346+00:00",
-      "updated_at": "2026-11-26T15:30:47.125423+00:00",
+      "updated_at": "2026-11-26T15:35:22.571525+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -3340,7 +3340,7 @@
       "url": "https://www.easy.cl/aspiradora-robot-erb62-gris-140-w-1509411/p",
       "image_url": "https://easycl.vteximg.com.br/arquivos/ids/5166692/1509411-0000-001.jpg?v=639059277577270000",
       "detected_at": "2026-11-26T15:20:49.626951+00:00",
-      "updated_at": "2026-11-26T15:30:47.037714+00:00",
+      "updated_at": "2026-11-26T15:35:22.377471+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -3448,7 +3448,7 @@
       "url": "https://www.paris.cl/monitor-27-fhd-l27-4e-100hz-383798999.html",
       "image_url": "https://cl-dam-resizer.ecomm.cencosud.com/unsafe/adaptive-fit-in/792x1068/cl/paris/383798999/variant/699cb5c921ebd957c88d3f98/images/67974d1f-90ff-46d7-8bf8-9b42640ce5b0/383798999-0000-001.jpg",
       "detected_at": "2026-11-26T15:30:39.561173+00:00",
-      "updated_at": "2026-11-26T15:30:39.561920+00:00",
+      "updated_at": "2026-11-26T15:35:19.908254+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -3502,7 +3502,7 @@
       "url": "https://www.easy.cl/secadora-ropa-8-kg-sr-10-sindelen-1352991/p",
       "image_url": "https://easycl.vteximg.com.br/arquivos/ids/1453931/1352991-0000-001.jpg?v=638863600563830000",
       "detected_at": "2026-11-26T15:20:51.175188+00:00",
-      "updated_at": "2026-11-26T15:30:47.173558+00:00",
+      "updated_at": "2026-11-26T15:35:22.620865+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -3745,7 +3745,7 @@
       "url": "https://simple.ripley.cl/notebook-asus-rog-strix-g16-amd-ryzen-9-16gb-ram-1tb-ssd-nvidia-rtx-5070-16-2000412465525p",
       "image_url": "https://rimage.ripley.cl/home.ripley/Attachment/WOP/1/2000412465525/full_image-2000412465525",
       "detected_at": "2026-11-26T15:30:40.042458+00:00",
-      "updated_at": "2026-11-26T15:30:40.043175+00:00",
+      "updated_at": "2026-11-26T15:35:20.057420+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -3880,7 +3880,7 @@
       "url": "https://simple.ripley.cl/parlante-bluetooth-harman-kardon-luna-2-40w-2000410661493p",
       "image_url": "https://rimage.ripley.cl/home.ripley/Attachment/WOP/1/2000410661493/full_image-2000410661493",
       "detected_at": "2026-11-26T14:39:13.776044+00:00",
-      "updated_at": "2026-11-26T15:30:42.018678+00:00",
+      "updated_at": "2026-11-26T15:35:20.591654+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -3907,7 +3907,7 @@
       "url": "https://www.easy.cl/cafetera-18-litros-cf-4600ng-negro-sindelen-1282113/p",
       "image_url": "https://easycl.vteximg.com.br/arquivos/ids/5079053/1282113-0000-001.jpg?v=638863577012000000",
       "detected_at": "2026-11-26T15:20:47.213014+00:00",
-      "updated_at": "2026-11-26T15:30:46.724597+00:00",
+      "updated_at": "2026-11-26T15:35:22.354724+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -4015,7 +4015,7 @@
       "url": "https://simple.ripley.cl/audifonos-samsung-in-ear-galaxy-buds4-2000411479776p",
       "image_url": "https://rimage.ripley.cl/home.ripley/Attachment/WOP/1/2000411479776/full_image-2000411479776",
       "detected_at": "2026-11-26T15:30:41.057076+00:00",
-      "updated_at": "2026-11-26T15:30:41.089648+00:00",
+      "updated_at": "2026-11-26T15:35:20.479230+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -4042,7 +4042,7 @@
       "url": "https://www.mercadolibre.cl/up/MLCU25001167?pdp_filters=official_store%3Aall",
       "image_url": "https://http2.mlstatic.com/D_Q_NP_2X_696678-MLC106922395566_022026-E--cafetera-frappe-oster-con-licuadora-bvstdc03b.webp",
       "detected_at": "2026-11-26T14:39:15.991368+00:00",
-      "updated_at": "2026-11-26T15:30:44.694149+00:00",
+      "updated_at": "2026-11-26T15:35:21.395481+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -4258,7 +4258,7 @@
       "url": "https://simple.ripley.cl/parlante-bluetooth-harman-kardon-onyx-studio-9-2000405246674p",
       "image_url": "https://rimage.ripley.cl/home.ripley/Attachment/WOP/1/2000405246674/full_image-2000405246674",
       "detected_at": "2026-11-26T15:30:42.621791+00:00",
-      "updated_at": "2026-11-26T15:30:42.622645+00:00",
+      "updated_at": "2026-11-26T15:35:20.627198+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -4285,7 +4285,7 @@
       "url": "https://www.pcfactory.cl/producto/31847-hyperx-teclado-gamer-alambrico-hyperx-alloy-core-rgb-membrana--negro",
       "image_url": "https://assets.pcfactory.cl/public/foto/31847/1.jpg?t=0",
       "detected_at": "2026-11-26T15:20:43.249046+00:00",
-      "updated_at": "2026-11-26T15:30:46.556701+00:00",
+      "updated_at": "2026-11-26T15:35:22.206590+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -4339,7 +4339,7 @@
       "url": "https://www.easy.cl/cafetera-electrica-ecm90-gris-3-litros-1527073/p",
       "image_url": "https://easycl.vteximg.com.br/arquivos/ids/7999352/1527073-0020-001.jpg?v=639246769228100000",
       "detected_at": "2026-11-26T15:20:45.419887+00:00",
-      "updated_at": "2026-11-26T15:30:46.637090+00:00",
+      "updated_at": "2026-11-26T15:35:22.275334+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
