@@ -100,7 +100,7 @@
       "url": "https://www.paris.cl/mouse-logitech-inalambrico-m280-negro-147391999.html",
       "image_url": "https://cl-dam-resizer.ecomm.cencosud.com/unsafe/adaptive-fit-in/792x1068/cl/paris/147391999/variant/699787876f492f5000967e94/images/a0ab9887-97af-4db3-b168-8c417c974d3b/147391999-0000-001.jpg",
       "detected_at": "2026-11-26T15:40:29.727947+00:00",
-      "updated_at": "2026-11-26T15:45:30.202680+00:00",
+      "updated_at": "2026-11-26T15:50:33.050325+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -397,7 +397,7 @@
       "url": "https://www.paris.cl/mouse-gamer-inalambrico-g309-lightspeed-negro-571885999.html",
       "image_url": "https://cl-dam-resizer.ecomm.cencosud.com/unsafe/adaptive-fit-in/792x1068/cl/paris/571885999/variant/6a7ce9354cce8dbe07592ea5/images/9cf7bc14-733f-4ff1-bc9e-77a8975f3ebd/571885999-0000-001.jpg",
       "detected_at": "2026-11-26T15:40:30.223440+00:00",
-      "updated_at": "2026-11-26T15:45:30.217366+00:00",
+      "updated_at": "2026-11-26T15:50:33.069805+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -3157,6 +3157,33 @@
       "copay_clp": 26396
     },
     {
+      "sku": "SOD-129953285",
+      "store": "Sodimac",
+      "title": "MADEMSA Freidora de Aire 12 Litros MAF90",
+      "brand": "Mademsa",
+      "category": "electrodomesticos",
+      "alert_type": "FLASH",
+      "effective_price": 74990,
+      "current_price": 74990,
+      "card_price": null,
+      "normal_price": 74990,
+      "payment_type": "Todo Medio de Pago",
+      "previous_real_price": 107490,
+      "min_historical_price": 74990,
+      "real_drop_pct": 30.2,
+      "store_discount_pct": 0.0,
+      "savings_clp": 32500,
+      "reason": "Descuento Flash real: -30.2% frente a su historial (ahorro $32.500)",
+      "seller_name": "Sodimac",
+      "url": "https://www.sodimac.cl/sodimac-cl/articulo/129953284/product/129953285",
+      "image_url": "https://media.falabella.com/sodimacCL/7527020_01/public?scl=1.0",
+      "detected_at": "2026-11-26T15:38:37.952767+00:00",
+      "updated_at": "2026-11-26T15:50:35.787157+00:00",
+      "dolares_premio_pct": 0,
+      "dolares_premio_amount": 0.0,
+      "copay_clp": 0
+    },
+    {
       "sku": "ABC-658990",
       "store": "ABC",
       "title": "Celular Samsung Galaxy S26 FE 5G 256 GB 6,7'' Blueberry",
@@ -3313,7 +3340,7 @@
       "url": "https://www.paris.cl/monitor-27-fhd-l27-4e-100hz-383798999.html",
       "image_url": "https://cl-dam-resizer.ecomm.cencosud.com/unsafe/adaptive-fit-in/792x1068/cl/paris/383798999/variant/699cb5c921ebd957c88d3f98/images/67974d1f-90ff-46d7-8bf8-9b42640ce5b0/383798999-0000-001.jpg",
       "detected_at": "2026-11-26T15:40:29.642913+00:00",
-      "updated_at": "2026-11-26T15:45:30.175539+00:00",
+      "updated_at": "2026-11-26T15:50:33.010706+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -3421,7 +3448,7 @@
       "url": "https://simple.ripley.cl/mouse-gaming-logitech-g203-lightsync-negro-2000381188340p",
       "image_url": "https://home.ripley.cl/store/Attachment/WOP/D345/2000381188340/2000381188340_2.jpg",
       "detected_at": "2026-11-26T15:40:32.769595+00:00",
-      "updated_at": "2026-11-26T15:45:30.800325+00:00",
+      "updated_at": "2026-11-26T15:50:33.721949+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
@@ -3880,7 +3907,7 @@
       "url": "https://simple.ripley.cl/parlante-bluetooth-harman-kardon-onyx-studio-9-2000405246674p",
       "image_url": "https://rimage.ripley.cl/home.ripley/Attachment/WOP/1/2000405246674/full_image-2000405246674",
       "detected_at": "2026-11-26T15:40:32.244825+00:00",
-      "updated_at": "2026-11-26T15:45:30.714850+00:00",
+      "updated_at": "2026-11-26T15:50:33.656143+00:00",
       "dolares_premio_pct": 0,
       "dolares_premio_amount": 0.0,
       "copay_clp": 0
