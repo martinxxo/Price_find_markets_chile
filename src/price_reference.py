@@ -24,7 +24,7 @@ _STOPWORDS = {
     "un", "una", "negro", "negra", "blanco", "blanca", "azul", "gris", "plata", "silver",
     "black", "white", "blue", "gray", "grey", "rojo", "verde", "dorado", "rosado", "celeste",
     "nuevo", "nueva", "original", "oficial", "chile", "edicion", "edition", "modelo",
-    "unidad", "unidades", "pack", "set", "combo", "gratis", "despacho", "envio", "latam",
+    "unidad", "unidades", "gratis", "despacho", "envio", "latam",
     "smartphone", "celular", "telefono", "notebook", "laptop", "audifonos", "audifono",
     "auriculares", "headset", "parlante", "monitor", "cafetera", "perfume", "hombre",
     "mujer", "unisex", "smart", "tv", "gaming", "gamer", "wireless",
@@ -33,7 +33,7 @@ _STOPWORDS = {
     "magic", "remote", "funciones", "ia", "cancelacion", "ruido", "ram", "ssd",
     "digital", "autofocus", "zoom", "exterior", "interior", "color",
     "luces", "recargable", "doble", "lente", "fiestas", "fiesta", "karaoke", "serie",
-    "equipo", "musica", "sonido",
+    "equipo", "musica", "sonido", "by", "para",
 }
 
 _UNIT_TOKEN_RE = re.compile(
@@ -53,7 +53,9 @@ _COMMON_SCREEN_SIZES = {
 
 # Technical spec tokens that look alphanumeric but are NOT unique product model codes
 _GENERIC_SPEC_CODES = {
-    "2k", "4k", "8k", "5g", "4g", "3d", "6e", "v2", "v3", "w10", "w11", "win11", "win10",
+    "2k", "4k", "8k", "5g", "4g", "3d", "6e", "v2", "v3", "v4", "mk2", "mk3",
+    "m1", "m2", "m3", "m4", "m5", "x360", "x24", "g10", "g14", "g15", "g16",
+    "w10", "w11", "win11", "win10",
     "1080p", "720p", "1440p", "2160p", "60fps", "120fps", "ddr4", "ddr5", "gddr6", "gddr7",
     "wifi5", "wifi6", "wifi6e", "wifi7", "ip65", "ip66", "ip67", "ip68", "ipx4", "ipx5", "ipx7",
     "rj45", "cat6", "usb2", "usb3", "usbc", "typec", "gen2", "gen3", "gen4",
@@ -114,30 +116,105 @@ def _normalize(text: str) -> str:
 
 
 def detect_product_subtype(title: str) -> str:
-    """Distinguish sub-types (e.g. game vs console, tablet vs laptop, dryer vs washer-dryer)."""
+    """Classify every product into a strict mutually-exclusive functional kind so different items NEVER cross-match."""
     norm = _normalize(title)
-    if any(k in norm for k in ("gafas", "lentes")):
-        return "glasses"
+    padded = f" {norm} "
+
+    # 1. Spare parts & accessories (must NEVER match main devices)
+    if any(k in padded for k in (" bateria para ", " baterias para ", " bateria de repuesto ", " bateria batmax ")):
+        return "battery_part"
+    if any(k in padded for k in (" pantalla tactil ", " pantalla para ", " pantalla lcd ", " display para ", " repuesto pantalla ")):
+        return "screen_part"
     if any(k in norm for k in ("mouse pad", "mousepad", "alfombrilla")):
         return "mousepad"
+    if any(k in padded for k in (" lentes de realidad virtual ", " realidad virtual ", " vr2 ", " meta quest ")):
+        return "vr_headset"
+    if any(k in norm for k in ("gafas", "lentes")):
+        return "glasses"
+    if any(k in padded for k in (" kit ", " combo ")):
+        return "kit_combo"
+
+    # 2. Cameras
     if _SECURITY_CAM_PATTERNS.search(norm):
         return "security_cam"
-    if "lavadora-secadora" in norm or ("lavadora" in norm and "secadora" in norm):
-        return "lavadora_secadora"
-    if "secadora" in norm:
-        return "secadora"
-    if "lavadora" in norm:
-        return "lavadora"
-    if "ipad" in norm or "tablet" in norm or "galaxy tab" in norm or "redmi pad" in norm:
+    if any(k in norm for k in ("gopro", "osmo action", "insta360", "camara de accion")):
+        return "action_cam"
+    if any(k in norm for k in ("instax", "instantanea", "polaroid")):
+        return "instant_cam"
+    if "camara" in norm or "dslr" in norm or "mirrorless" in norm:
+        return "camera"
+
+    # 3. Audio (strictly separate headphones vs soundbars vs speakers vs turntables)
+    if any(k in norm for k in ("soundbar", "barra de sonido")):
+        return "soundbar"
+    if any(k in norm for k in ("tocadiscos", "tornamesa")):
+        return "turntable"
+    if any(k in norm for k in ("audifono", "auricular", "earbud", "headset", "airpods", "buds", "in ear", "on ear", "over ear")):
+        return "headphones"
+    if any(k in norm for k in ("microfono", "microphone")):
+        return "microphone"
+    if any(k in norm for k in ("parlante", "speaker", "altavoz", "xboom", "ult tower", "ult field", "partybox", "boombox", "onyx studio", "echo dot")):
+        return "speaker"
+
+    # 4. Computing & Peripherals
+    if "monitor" in norm:
+        return "monitor"
+    if "teclado" in norm or "keyboard" in norm:
+        return "keyboard"
+    if "mouse" in norm or "raton" in norm:
+        return "mouse"
+    if any(k in norm for k in ("disco externo", "disco duro", "pendrive", "unidad de disco")):
+        return "storage_drive"
+    if any(k in norm for k in ("ipad", "tablet", "galaxy tab", "redmi pad", "ideatab")):
         return "tablet"
-    if "macbook" in norm or "notebook" in norm or "laptop" in norm or "thinkpad" in norm:
+    if any(k in norm for k in ("macbook", "notebook", "laptop", "thinkpad", "vivobook", "ideapad", "zenbook", "tuf gaming", "rog strix")):
         return "laptop"
+
+    # 5. Gaming
+    if any(k in padded for k in (" control ", " dualsense ", " joy-con ", " joycon ", " volante ", " racing wheel ", " estacion de carga ", " reproductor remoto ")):
+        return "controller"
     has_console = bool(_CONSOLE_PATTERNS.search(norm))
     has_game = bool(_GAME_PATTERNS.search(norm))
     if has_game and "consola" not in norm and "+" not in title:
         return "game"
     if has_console:
         return "console"
+
+    # 6. Mobile & Wearables
+    if any(k in norm for k in ("smartwatch", "reloj inteligente", "apple watch", "galaxy watch")):
+        return "smartwatch"
+    if any(k in norm for k in ("smartphone", "celular", "iphone", "galaxy s", "galaxy a", "moto edge", "redmi note")):
+        return "smartphone"
+
+    # 7. Coffee & Home Appliances
+    if "molinillo" in norm and "cafetera" not in norm:
+        return "coffee_grinder"
+    if any(k in norm for k in ("espumador", "aeroccino")):
+        return "milk_frother"
+    if any(k in norm for k in ("cafetera", "nespresso", "dolce gusto", "vertuo")) or "espresso" in norm:
+        return "coffee_maker"
+    if any(k in norm for k in ("freidora", "air fryer")):
+        return "air_fryer"
+    if "microondas" in norm:
+        return "microwave"
+    if "horno" in norm:
+        return "oven"
+    if "encimera" in norm:
+        return "cooktop"
+    if "aspiradora robot" in norm:
+        return "robot_vacuum"
+    if "aspiradora" in norm:
+        return "vacuum"
+    if "lavadora-secadora" in norm or ("lavadora" in norm and "secadora" in norm):
+        return "lavadora_secadora"
+    if "secadora" in norm:
+        return "secadora"
+    if "lavadora" in norm:
+        return "lavadora"
+    if any(k in norm for k in ("refrigerador", "frigobar", "freezer")):
+        return "fridge"
+    if any(k in padded for k in (" smart tv ", " televisor ", " oled tv ", " qled tv ")):
+        return "tv"
     return ""
 
 
@@ -253,28 +330,36 @@ def _titles_match_sigs(
     if _specs_conflict(specs_a, specs_b):
         return False
 
-    # Model code consistency: e.g. C7L != X11, 24N3Q != 27N3Q, S24 != S25
+    # Model code consistency: e.g. C7L != X11, 24N3Q != 27N3Q, 255F != 272F, 13AB001LA != 14DY0009LA
     shared_codes = codes_a & codes_b
     if codes_a and codes_b and not shared_codes:
         return False
 
-    if shared_codes and len(tokens_a & tokens_b) >= 2:
-        return True
-
-    # If one has an explicit specific model code (len >= 4) missing in the other, be cautious
-    long_codes_a = {c for c in codes_a if len(c) >= 4}
-    long_codes_b = {c for c in codes_b if len(c) >= 4}
-    if (long_codes_a and not shared_codes and len(tokens_a & tokens_b) < 4) or (
-        long_codes_b and not shared_codes and len(tokens_a & tokens_b) < 4
-    ):
+    # Conflicting specific model codes on BOTH sides -> definitely different models!
+    diff_a = {c for c in (codes_a - codes_b) if len(c) >= 3}
+    diff_b = {c for c in (codes_b - codes_a) if len(c) >= 3}
+    if diff_a and diff_b:
         return False
 
+    inter = tokens_a & tokens_b
     union = tokens_a | tokens_b
     if not union:
         return False
-    inter = tokens_a & tokens_b
     jaccard = len(inter) / len(union)
-    return len(inter) >= 4 and jaccard >= 0.6
+
+    # Strong match: shared specific model code (len >= 4) with no conflicting codes
+    strong_shared_codes = {c for c in shared_codes if len(c) >= 4}
+    if strong_shared_codes and (len(inter) >= 3 or (len(inter) >= 2 and jaccard >= 0.4)):
+        return True
+
+    # If one side has a specific model code (len >= 4) missing in the other, require very high lexical agreement
+    long_codes_a = {c for c in codes_a if len(c) >= 4}
+    long_codes_b = {c for c in codes_b if len(c) >= 4}
+    if (long_codes_a and not shared_codes) or (long_codes_b and not shared_codes):
+        return len(inter) >= 4 and jaccard >= 0.72
+
+    # Without a shared specific model code, require high token overlap (blocks e.g. Xboom Bounce vs Xboom Blast)
+    return len(inter) >= 4 and jaccard >= 0.72
 
 
 def _titles_match(

@@ -447,6 +447,87 @@ class TestBlackFridaySimulation(unittest.TestCase):
                 self.assertEqual(saved["counts_by_type"]["FLASH"], 1)   # ASUS Monitor
                 self.assertGreaterEqual(len(feed["deals"]), 5)
 
+    def test_cross_store_matching_strict_product_kind_and_model_guards(self) -> None:
+        """Verify mismatched product kinds/models NEVER cross-match, while identical products DO."""
+        from src.filters import contains_blocked_keyword
+        from src.price_reference import _titles_match, extract_title_signature
+
+        # 1. Spare parts blocked at intake filter
+        self.assertTrue(contains_blocked_keyword("Batería Para Notebook Hp Spectre X360 13-ab001la Sh03xl"))
+        self.assertTrue(contains_blocked_keyword("Pantalla Táctil Para Notebook Para Hp X360 14-dy0009la Nueva"))
+
+        # 2. Must NEVER cross-match (real production bugs we caught and eliminated)
+        forbidden_pairs = [
+            (
+                ("Batería Para Notebook Hp Spectre X360 13-ab001la Sh03xl", "HP"),
+                ("Pantalla Táctil Para Notebook Para Hp X360 14-dy0009la Nueva", "HP"),
+            ),
+            (
+                ("Batería Para Notebook Hp Spectre X360 13-ab001la Sh03xl", "HP"),
+                ("Notebook HP Spectre X360 13.5 pulgadas 16GB 512GB", "HP"),
+            ),
+            (
+                ("AUDÍFONOS JBL TOUR ONE M2 BLUETOOTH (Negro)", "JBL"),
+                ("Jbl Barra De Sonido Bluetooth 1000 M2", "JBL"),
+            ),
+            (
+                ("PARLANTE BLUETOOTH LG XBOOM BOUNCE BY WILL.I.AM (Negro)", "LG"),
+                ("LG Xboom Blast By Will.i.am Bluetooth", "LG"),
+            ),
+            (
+                ("Audífonos JBL Tune 530 On Ear Negro", "JBL"),
+                ("AUDÍFONOS JBL ON EAR TUNE 780NC BLUE", "JBL"),
+            ),
+            (
+                ('Monitor Gamer MSI MAG 255F X24 24.5" Rapid IPS FHD 240Hz', "MSI"),
+                ('Monitor MSI MAG 272F X24 27IN FHD 240Hz', "MSI"),
+            ),
+            (
+                ("Sindelen Horno empotrado 57 litros HE-7200 inox", "Sindelen"),
+                ("SINDELEN Kit horno empotrable HE7200", "Sindelen"),
+            ),
+            (
+                ("Apple iPad Pro de 11” (Chip M5, 16GB RAM, 1TB)", "Apple"),
+                ("MacBook Pro 14 XDR (Chip M5 Pro 24GB 1TB)", "Apple"),
+            ),
+        ]
+        for (title_a, brand_a), (title_b, brand_b) in forbidden_pairs:
+            sig_a = extract_title_signature(title_a, brand_a)
+            self.assertFalse(
+                _titles_match(sig_a, brand_a, title_b, brand_b),
+                f"FALSE MATCH detected: '{title_a}' matched '{title_b}'",
+            )
+
+        # 3. Legitimate identical products MUST still cross-match across stores
+        valid_pairs = [
+            (
+                ("Audífonos Bluetooth Sony WH-1000XM5 Noise Cancelling Negro", "Sony"),
+                ("Audífonos Sony WH-1000XM5 Bluetooth ANC", "Sony"),
+            ),
+            (
+                ("Tocadiscos Audio-Technica AT-LP60X", "Audio-Technica"),
+                ("Tocadiscos Audio-Technica AT-LP60X Negro", "Audio-Technica"),
+            ),
+            (
+                ("Logitech Mouse Gamer Inalámbrico G309 Lightspeed Negro", "Logitech"),
+                ("Mouse Gamer Logitech G309 LightSpeed Negro", "Logitech"),
+            ),
+            (
+                ("Parlante Soundbar LG S20A", "LG"),
+                ("Soundbar LG S20A Bluetooth", "LG"),
+            ),
+            (
+                ("Thomas Cafetera goteo TH-138I gris 1.5 lt", "Thomas"),
+                ("CAFETERA THOMAS TH-138I", "Thomas"),
+            ),
+        ]
+        for (title_a, brand_a), (title_b, brand_b) in valid_pairs:
+            sig_a = extract_title_signature(title_a, brand_a)
+            self.assertTrue(
+                _titles_match(sig_a, brand_a, title_b, brand_b),
+                f"MISSED VALID MATCH: '{title_a}' failed to match '{title_b}'",
+            )
+
 
 if __name__ == "__main__":
     unittest.main()
